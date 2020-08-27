@@ -1,0 +1,8 @@
+﻿  main.cpp
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\main.cpp(21,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\main.cpp(23,31): warning C4305: 'argument': truncation from 'double' to 'GLclampf'
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\main.cpp(87,14): warning C4101: 'beta': unreferenced local variable
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\main.cpp(87,12): warning C4101: 'y': unreferenced local variable
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\main.cpp(87,9): warning C4101: 'x': unreferenced local variable
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\main.cpp(146,1): warning C4326: return type of 'main' should be 'int' instead of 'void'
+  vs2017test.vcxproj -> D:\Documents\Projects\VisualStudio2019\GraphicsFinal\Debug\vs2017test.exe
