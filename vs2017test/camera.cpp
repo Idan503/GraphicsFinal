@@ -1,17 +1,17 @@
-#include "view_manager.h"
+#include "camera.h"
 #include "glut.h"
 #include "globals.h"
 #include <math.h>
 
 
-double eyex = 3, eyey = 10, eyez = 15;
+double eyex = 0, eyey = 30 , eyez = 30;
 
-double yaw = PI, pitch = 0, roll;
+double yaw = PI, pitch = -70, roll;
 double speed = 0, angularSpeed = 0;
 double dir[3] = { sin(yaw),sin(pitch),cos(yaw) };
 
 
-void viewDisplay() {
+void CameraDisplay() {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity(); // loads the Identity matrix to the Projection Matrix
 	// define the camera model
@@ -27,7 +27,7 @@ void viewDisplay() {
 }
 
 
-void viewIdle() {
+void CameraIdle() {
 	yaw += angularSpeed;
 	// setup the sight direction
 	dir[0] = sin(yaw);
@@ -40,7 +40,7 @@ void viewIdle() {
 }
 
 
-void specialKey(int key, int x, int y)
+void SpecialKey(int key, int x, int y)
 {
 	switch (key)
 	{
