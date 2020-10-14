@@ -10,6 +10,7 @@ void BuildSeismologic();
 void BuildRandomWalk();
 void BuildFlatMount();
 void ValidateBuild();
+void SmoothTerrain();
 
 
 #endif

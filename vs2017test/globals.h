@@ -5,7 +5,9 @@ using namespace std;
 #include <vector>
 
 extern const double PI;
+extern double current_time;
 extern const int ground_size;
+extern const int river_size;
 extern vector<vector<double> > ground;
 
 #endif

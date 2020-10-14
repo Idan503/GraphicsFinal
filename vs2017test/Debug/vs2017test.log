@@ -1,4 +1,10 @@
-﻿  terrain_builder.cpp
-D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\terrain_builder.cpp(7,17): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\terrain_builder.cpp(137,6): warning C4101: 'times': unreferenced local variable
+﻿  material.cpp
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\material.cpp(9,44): warning C4305: 'initializing': truncation from 'double' to 'float'
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\material.cpp(10,44): warning C4305: 'initializing': truncation from 'double' to 'float'
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\material.cpp(14,44): warning C4305: 'initializing': truncation from 'double' to 'float'
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\material.cpp(15,44): warning C4305: 'initializing': truncation from 'double' to 'float'
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\material.cpp(16,45): warning C4305: 'initializing': truncation from 'double' to 'float'
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\material.cpp(31,48): warning C4305: 'initializing': truncation from 'double' to 'float'
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\material.cpp(32,48): warning C4305: 'initializing': truncation from 'double' to 'float'
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\material.cpp(33,49): warning C4305: 'initializing': truncation from 'double' to 'float'
   vs2017test.vcxproj -> D:\Documents\Projects\VisualStudio2019\GraphicsFinal\Debug\vs2017test.exe

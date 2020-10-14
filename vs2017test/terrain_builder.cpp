@@ -1,17 +1,18 @@
 #include "glut.h"
 #include "globals.h"
 #include <math.h>
+#include "material.h"
 #include "terrain_builder.h"
 
 
-int flat_height = 2.5;
+int flat_height = 2.25;
 
 void SetColor(double h) {
 	if (fabs(h) <1.2) // sand
 		glColor3d(0.8, 0.7, 0.5);
 	else
 		if (fabs(h) <7) // green fields
-			glColor3d(0.3 + h / 40, 0.6 - fabs(h) / 20, 0);
+			glColor3d(0.2 + h / 30, 0.6 - fabs(h) / 15, 0);
 		else // rocks and snow
 			glColor3d(sqrt(h) / 5, sqrt(h) / 5, sqrt(h) / 4.0);
 }
@@ -20,6 +21,8 @@ void DrawGround()
 {
 	int i, j;
 	glColor3d(0, 0, 0.3);
+
+	SetRedPlasticMaterial();
 	
 	for (i = 0; i < ground_size-1; i++) 
 		for (j = 0; j < ground_size-1; j++)
@@ -61,19 +64,23 @@ void BuildTerrain()
 	int i;
 	BuildFlatMount();
 
+	
 	for (i = 0; i < 250; i++)
 	{
 		BuildRandomWalk();
 	}
-
+	
 	for (i = 0; i < 250; i++)
 	{
 		BuildSeismologic();
 	}
-
+	
 	BuildRiverPath();
-
+	
 	ValidateBuild();
+
+	SmoothTerrain();
+	
 }
 
 // This algorithm makes mountain peeks with delta random changes
@@ -164,12 +171,11 @@ void BuildSeismologic()
 void BuildRiverPath()
 {
 	int i, j;
-	int river_size = 10;
 	for(i=0;i<ground_size;i++)
 		for (j = 0; j < ground_size; j++)
 		{
 			if (i < (ground_size/2) + river_size && i>(ground_size / 2) - river_size)
-				ground[i][j] -= 8.0 * ((river_size - fabs(i - 50.0)) / river_size);
+				ground[i][j] -= 8.0 * ((river_size - fabs(i - ground_size/2.0)) / river_size);
 		}
 }
 
@@ -191,11 +197,32 @@ void ValidateBuild()
 				tooHigh++;
 		}
 
-	printf("Too High %d", tooHigh);
-
-	if (tooLow >= 3500)
+	if (tooLow >= 3500 * (ground_size/100)) {
 		BuildTerrain(); // Too many points under the sea..
-	else if (tooHigh > 600 || tooHigh < 15)
+	}
+	else if (tooHigh > 600 * (ground_size / 100) || tooHigh < 15 * (ground_size / 100))
 		BuildTerrain(); // Too many / too few higher points
+
+	// This way we prevent a terrian which is too low or too high
+}
+
+void SmoothTerrain()
+{
+	// Using a mask with low pass filter
+	vector<vector<double> > tmp(ground_size, vector<double>(ground_size, 0));
+	int i, j;
+
+	// compute smoothing signal
+	for (i = 1; i < ground_size - 1; i++)
+		for (j = 1; j < ground_size - 1; j++)
+			tmp[i][j] = (0.25 * ground[i - 1][j - 1] + ground[i - 1][j] + 0.25 * ground[i - 1][j + 1] +
+				ground[i][j - 1] + 4 * ground[i][j] + ground[i][j + 1] +
+				0.25 * ground[i + 1][j - 1] + ground[i + 1][j] + 0.25 * ground[i + 1][j + 1]) / 9.0;
+
+	// copy the new signal
+	for (i = 1; i < ground_size - 1; i++)
+		for (j = 1; j < ground_size - 1; j++)
+			ground[i][j] = tmp[i][j];
+
 }
 

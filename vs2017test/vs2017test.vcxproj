@@ -119,15 +119,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="globals.cpp" />
+    <ClCompile Include="material.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="terrain_builder.cpp" />
+    <ClCompile Include="entity_builder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="globals.h" />
     <ClInclude Include="glut.h" />
     <ClInclude Include="camera.h" />
+    <ClInclude Include="material.h" />
     <ClInclude Include="terrain_builder.h" />
+    <ClInclude Include="entity_builder.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
