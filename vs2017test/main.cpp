@@ -32,11 +32,10 @@ void display()
 
 	InitLight();
 	
+	BuildTrain();
 	
 	DrawGround();
 
-
-	BuildTrain();
 
 
 	glutSwapBuffers(); // show all

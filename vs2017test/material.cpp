@@ -33,6 +33,29 @@ float red_plastic_diffuse[4] = { 0.9,0.0,0.0,0 };
 float red_plastic_specular[4] = { 0.9,0.7,0.7,0 };
 float red_plastic_shine = 32.0f;
 
+// Low Ground
+float low_ground_ambient[4] = { 0.29125f, 0.3735f, 0.0225f, 1.0f };
+float low_ground_diffuse[4] = { 0.3038f, 0.17048f, 0.0828f, 1.0f };
+float low_ground_specular[4] = { 0.256777f, 0.137622f, 0.086014f, 1.0f };
+float low_ground_shine = 1.8f;
+
+// Ground
+float ground_ambient[4] = { 0.09125f, 0.235f, 0.1125f, 1.0f };
+float ground_diffuse[4] = { 0.1038f, 0.47048f, 0.188f, 1.0f };
+float ground_specular[4] = { 0.256777f, 0.437622f, 0.086014f, 1.0f };
+float ground_shine = 3.8f;
+
+// Sand
+float sand_ambient[4] = { 0.54725f, 0.4595f, 0.0245f, 1.0f };
+float sand_diffuse[4] = { 0.69164f, 0.45048f, 0.05648f, 1.0f };
+float sand_specular[4] = { 0.828281f, 0.855802f, 0.866065f, 1.0f };
+float sand_shine = 40.2f;
+
+// High Ground
+float high_ground_ambient[4] = { 0.7125f, 0.6735f, 0.9225f, 1.0f };
+float high_ground_diffuse[4] = { 0.7038f, 0.77048f, 0.7828f, 1.0f };
+float high_ground_specular[4] = { 0.956777f, 0.937622f, 0.66014f, 1.0f };
+float high_ground_shine = 68.8f;
 
 //endregion
 
@@ -71,3 +94,36 @@ void SetRedPlasticMaterial()
 	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, red_plastic_specular);
 	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, red_plastic_shine);
 }
+
+void SetLowGroundMaterial()
+{
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, low_ground_ambient);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, low_ground_diffuse);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, low_ground_specular);
+	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, low_ground_shine);
+}
+
+void SetGroundMaterial()
+{
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ground_ambient);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, ground_diffuse);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, ground_specular);
+	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, ground_shine);
+}
+
+void SetHighGroundMaterial()
+{
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, high_ground_ambient);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, high_ground_diffuse);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, high_ground_specular);
+	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, high_ground_shine);
+}
+
+void SetSandMaterial()
+{
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, sand_ambient);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, sand_diffuse);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, sand_specular);
+	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, sand_shine);
+}
+

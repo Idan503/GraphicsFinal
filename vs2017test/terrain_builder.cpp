@@ -7,14 +7,42 @@
 
 int flat_height = 2.25;
 
-void SetColor(double h) {
-	if (fabs(h) <1.2) // sand
-		glColor3d(0.8, 0.7, 0.5);
+void SetNormal(int i, int j)
+{
+	double n[3];
+
+	n[0] = ground[i][j] - ground[i][j + 1];
+	n[1] = 1;
+	n[2] = ground[i][j] - ground[i + 1][j];
+	glNormal3d(n[0], n[1], n[2]);
+
+}
+
+// I should add here another color of between ground and high ground
+void SetHeightMaterial(int h)
+{
+	if (h > 3)
+	{
+		SetHighGroundMaterial();
+		return;
+	}
+	else if (h < 0)
+	{
+		SetLowGroundMaterial();
+		return;
+	}
+	else if (h > 0.1)
+	{
+		SetGroundMaterial();
+		return;
+	}
 	else
-		if (fabs(h) <7) // green fields
-			glColor3d(0.2 + h / 30, 0.6 - fabs(h) / 15, 0);
-		else // rocks and snow
-			glColor3d(sqrt(h) / 5, sqrt(h) / 5, sqrt(h) / 4.0);
+	{
+		SetSandMaterial();
+		return;
+	}
+
+
 }
 
 void DrawGround()
@@ -22,19 +50,21 @@ void DrawGround()
 	int i, j;
 	glColor3d(0, 0, 0.3);
 
-	SetRedPlasticMaterial();
-	
-	for (i = 0; i < ground_size-1; i++) 
-		for (j = 0; j < ground_size-1; j++)
+	for (i = 0; i < ground_size-2; i++) 
+		for (j = 0; j < ground_size-2; j++)
 		{
 			glBegin(GL_POLYGON);
-				SetColor(ground[i][j]);
+				SetNormal(i, j);
+				SetHeightMaterial(ground[i][j]);
 				glVertex3d(j - (ground_size / 2.0), ground[i][j], i - (ground_size) / 2.0);
-				SetColor(ground[i][j+1]);
+				SetNormal(i, j+1);
+				SetHeightMaterial(ground[i][j+1]);
 				glVertex3d(j+1.0 - (ground_size / 2.0), ground[i][j+1], i - (ground_size) / 2.0);
-				SetColor(ground[i+1][j+1]);
+				SetNormal(i+1, j+1);
+				SetHeightMaterial(ground[i+1][j+1]);
 				glVertex3d(j + 1.0 - (ground_size / 2.0), ground[i+1][j + 1], i+1.0 - (ground_size) / 2.0);
-				SetColor(ground[i+1][j]);
+				SetNormal(i+1, j);
+				SetHeightMaterial(ground[i+1][j]);
 				glVertex3d(j - (ground_size / 2.0), ground[i + 1][j], i + 1.0 - (ground_size) / 2.0);
 
 			glEnd();
@@ -45,6 +75,7 @@ void DrawGround()
 
 void DrawWater()
 {
+	glDisable(GL_LIGHTING);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glColor4d(0, 0.2, 0.6, 0.8);
@@ -55,6 +86,7 @@ void DrawWater()
 	glVertex3d(ground_size / 2, 0, -ground_size / 2);
 	glEnd();
 	glDisable(GL_BLEND);
+	glEnable(GL_LIGHTING);
 }
 
 
@@ -78,9 +110,8 @@ void BuildTerrain()
 	BuildRiverPath();
 	
 	ValidateBuild();
-
-	SmoothTerrain();
 	
+	SmoothTerrain();
 }
 
 // This algorithm makes mountain peeks with delta random changes
@@ -154,7 +185,7 @@ void BuildSeismologic()
 
 	if (j1 != j2)
 	{
-		a = ((double)i2 - i1) / (j2 - j1);
+		a = ((double)i2 - i1) / ((double)j2 - j1);
 		b = i1 - a * j1;
 
 		for (i = 0; i < ground_size; i++)
@@ -193,7 +224,7 @@ void ValidateBuild()
 			if (ground[i][j] < 0)
 				tooLow++;
 
-			if (ground[i][j] > 5)
+			if (ground[i][j] > 5.0 * (ground_size / 100))
 				tooHigh++;
 		}
 
