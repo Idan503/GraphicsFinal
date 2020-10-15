@@ -6,7 +6,7 @@
 #include "ground_builder.h"
 
 
-int flat_height = 2.25;
+double flat_height = 2;
 
 void SetNormal(int i, int j)
 {
@@ -49,31 +49,40 @@ void SetHeightMaterial(int h)
 void DrawGround()
 {
 	int i, j;
-	glColor3d(0, 0, 0.3);
 
 	for (i = 0; i < ground_size-2; i++) 
 		for (j = 0; j < ground_size-2; j++)
 		{
+			//SetTexture(1);
+			//glEnable(GL_TEXTURE_2D);
+
 			glBegin(GL_POLYGON);
 				SetNormal(i, j);
+				//glTexCoord2d(0, 0);
 				SetHeightMaterial(ground[i][j]);
 				glVertex3d(j - (ground_size / 2.0), ground[i][j], i - (ground_size) / 2.0);
 				SetNormal(i, j+1);
+				//glTexCoord2d(0, 1);
 				SetHeightMaterial(ground[i][j+1]);
 				glVertex3d(j+1.0 - (ground_size / 2.0), ground[i][j+1], i - (ground_size) / 2.0);
 				SetNormal(i+1, j+1);
+				//glTexCoord2d(1, 1);
 				SetHeightMaterial(ground[i+1][j+1]);
 				glVertex3d(j + 1.0 - (ground_size / 2.0), ground[i+1][j + 1], i+1.0 - (ground_size) / 2.0);
 				SetNormal(i+1, j);
+				//glTexCoord2d(1, 0);
 				SetHeightMaterial(ground[i+1][j]);
 				glVertex3d(j - (ground_size / 2.0), ground[i + 1][j], i + 1.0 - (ground_size) / 2.0);
 
 			glEnd();
+
+			//glDisable(GL_TEXTURE_2D);
+
 		}
 
-	DrawRail();
-	DrawWater();
+	DrawWater(); // We draw water before rail because rail is half transparent
 	
+	DrawRail();
 }
 
 void DrawWater()
@@ -100,23 +109,25 @@ void BuildGroundTerrain()
 	BuildFlatMount();
 
 	
-	for (i = 0; i < 100; i++)
+	for (i = 0; i < 120; i++)
 	{
 		BuildRandomWalk();
 	}
 	
-	for (i = 0; i < 220; i++)
+	for (i = 0; i < 250; i++)
 	{
 		BuildSeismologic();
 	}
 	
 	BuildRiverPath();
 	
-	ValidateBuild();
-	
-	SmoothTerrain();
+	if (ValidateGroundBuild()) {
+		SmoothTerrain();
+		SmoothTerrain();
+		SmoothTerrain();
 
-	PrepareRailRoad();
+		PrepareRailRoad();
+	}
 }
 
 // This algorithm makes mountain peeks with delta random changes
@@ -218,12 +229,12 @@ void BuildRiverPath()
 
 // This method will check if there are not too many points under the water
 // If there are too many low points, build will restart
-void ValidateBuild()
+bool ValidateGroundBuild()
 {
 	int tooLow = 0;
 	int tooHigh = 0;
 	int i, j;
-	for(i=0;i<ground_size;i++)
+	for (i = 0; i < ground_size - 1; i++) {
 		for (j = 0; j < ground_size; j++)
 		{
 			if (ground[i][j] < 0)
@@ -232,13 +243,20 @@ void ValidateBuild()
 			if (ground[i][j] > 5.0 * (ground_size / 100))
 				tooHigh++;
 		}
-
-	if (tooLow >= 2500 * (ground_size/100)) {
-		BuildGroundTerrain(); // Too many points under the sea..
 	}
-	else if (tooHigh > 600 * (ground_size / 100) || tooHigh < 15 * (ground_size / 100))
-		BuildGroundTerrain(); // Too many / too few higher points
 
+	
+	if (tooLow >= 2200 * (ground_size/100)) {
+		BuildGroundTerrain(); // Too many points under the sea..
+		return false;
+	}
+	else if (tooHigh > 600 * (ground_size / 100) || tooHigh < 15 * (ground_size / 100)) {
+		BuildGroundTerrain(); // Too many / too few higher points
+		return false;
+	}
+		
+
+	return true;
 	// This way we prevent a terrian which is too low or too high
 }
 
@@ -276,29 +294,53 @@ void PrepareRailRoad() {
 void DrawRail()
 {
 	SetTexture(0);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE); // Might be changed to moduoate
+	
 	glEnable(GL_TEXTURE_2D);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_BLEND);
 
 	int i;
+	const double min_height = 0.1;
+	const double bridge_height = 1;
+	double start_height=0, end_height=0;
 
+	for (i = 0; i < ground_size - 2; i++) {
 
-	for (i = 0; i < ground_size - 1; i++) {
+		if (end_height >= bridge_height + min_height || end_height!=0)
+			start_height = end_height;
+		else{
+			if (ground[i][ground_size / 2] > 0){
+				start_height = ground[i][ground_size / 2] + min_height;
+			}
+			else
+				start_height = bridge_height + min_height;
+		}
+
+		if (ground[i+1][ground_size / 2] > 0 && ground[i+2][ground_size / 2] > 0) {
+			end_height = ground[i+1][ground_size / 2] + min_height;
+		}
+		else
+			end_height = bridge_height + min_height;
+
+		if (start_height == (bridge_height + min_height) && end_height < start_height)
+		{
+			end_height = (ground[i + 2][ground_size / 2] + (bridge_height + min_height)) / 2; // Taking the avarage when bridge ends
+		}
+
 
 
 		glBegin(GL_POLYGON);
 		glTexCoord2d(0, 0);
-		glVertex3d(-1, ground[i][ground_size / 2] + 0.1, i - ground_size / 2);
+		glVertex3d(-1, start_height, i - ground_size / 2.0);
 
 		glTexCoord2d(0, 1);
-		glVertex3d(-1, ground[i+1][ground_size / 2] + 0.1, i+1 - ground_size / 2);
+		glVertex3d(-1, end_height, i + 1.0 - ground_size / 2.0);
 
 		glTexCoord2d(1, 1);
-		glVertex3d(1, ground[i + 1][ground_size / 2] +0.1, i + 1 - ground_size / 2);
+		glVertex3d(1, end_height, i + 1.0 - ground_size / 2.0);
 
 		glTexCoord2d(1, 0);
-		glVertex3d(1, ground[i][ground_size / 2] + 0.1, i - ground_size / 2);
+		glVertex3d(1, start_height, i - ground_size / 2.0);
 
 		glEnd();
 

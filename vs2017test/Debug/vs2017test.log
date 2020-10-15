@@ -1,24 +1,23 @@
 ﻿  ground_builder.cpp
-D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\ground_builder.cpp(9,17): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\ground_builder.cpp(59,34): warning C4244: 'argument': conversion from '_Ty' to 'int', possible loss of data
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\ground_builder.cpp(62,34): warning C4244: 'argument': conversion from '_Ty' to 'int', possible loss of data
           with
           [
               _Ty=double
           ]
-D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\ground_builder.cpp(62,36): warning C4244: 'argument': conversion from '_Ty' to 'int', possible loss of data
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\ground_builder.cpp(66,36): warning C4244: 'argument': conversion from '_Ty' to 'int', possible loss of data
           with
           [
               _Ty=double
           ]
-D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\ground_builder.cpp(65,38): warning C4244: 'argument': conversion from '_Ty' to 'int', possible loss of data
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\ground_builder.cpp(70,38): warning C4244: 'argument': conversion from '_Ty' to 'int', possible loss of data
           with
           [
               _Ty=double
           ]
-D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\ground_builder.cpp(68,36): warning C4244: 'argument': conversion from '_Ty' to 'int', possible loss of data
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\ground_builder.cpp(74,36): warning C4244: 'argument': conversion from '_Ty' to 'int', possible loss of data
           with
           [
               _Ty=double
           ]
-D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\ground_builder.cpp(180,6): warning C4101: 'times': unreferenced local variable
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\ground_builder.cpp(191,6): warning C4101: 'times': unreferenced local variable
   vs2017test.vcxproj -> D:\Documents\Projects\VisualStudio2019\GraphicsFinal\Debug\vs2017test.exe
