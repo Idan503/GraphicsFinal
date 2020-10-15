@@ -3,8 +3,9 @@
 #include "glut.h"
 #include "material.h"
 #include "globals.h"
+#include "texture.h"
 #include "camera.h"
-#include "terrain_builder.h"
+#include "ground_builder.h"
 #include "entity_builder.h"
 
 const int W = 600;
@@ -19,7 +20,14 @@ void init()
 	glClearColor(0.0, 0.6, 0.8, 0);// color of window background
 	glEnable(GL_DEPTH_TEST); // allow to show the nearest object
 
-	BuildTerrain();
+	BuildGroundTerrain();
+
+	InitTextures();
+
+	glEnable(GL_NORMALIZE);
+
+	
+
 
 }
 
@@ -32,11 +40,9 @@ void display()
 
 	InitLight();
 	
-	BuildTrain();
-	
 	DrawGround();
 
-
+	//BuildTrain();
 
 	glutSwapBuffers(); // show all
 }

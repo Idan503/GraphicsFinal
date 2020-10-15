@@ -2,13 +2,13 @@
 #include "globals.h"
 #include "entity_builder.h"
 #include "material.h"
+#include "texture.h"
 
 void BuildTrain() {
 
 	SetRedPlasticMaterial();
 
 	glPushMatrix();
-	glColor3d(0.2, 0.7, 0.1);
 	glTranslated(6, 12, 0);
 	glRotated(current_time * 100,1, 1,0);
 
@@ -17,7 +17,6 @@ void BuildTrain() {
 	glPopMatrix();
 
 	glPushMatrix();
-	glColor3d(0.2, 0.4, 0.1);
 	glTranslated(-6, 12, 0);
 	glRotated(current_time * 100, 1, 1, 0);
 

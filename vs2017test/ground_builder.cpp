@@ -2,7 +2,8 @@
 #include "globals.h"
 #include <math.h>
 #include "material.h"
-#include "terrain_builder.h"
+#include "texture.h"
+#include "ground_builder.h"
 
 
 int flat_height = 2.25;
@@ -69,6 +70,8 @@ void DrawGround()
 
 			glEnd();
 		}
+
+	DrawRail();
 	DrawWater();
 	
 }
@@ -91,18 +94,18 @@ void DrawWater()
 
 
 // Mix of algorithms that learn in class + river in the middle
-void BuildTerrain()
+void BuildGroundTerrain()
 {
 	int i;
 	BuildFlatMount();
 
 	
-	for (i = 0; i < 250; i++)
+	for (i = 0; i < 100; i++)
 	{
 		BuildRandomWalk();
 	}
 	
-	for (i = 0; i < 250; i++)
+	for (i = 0; i < 220; i++)
 	{
 		BuildSeismologic();
 	}
@@ -112,6 +115,8 @@ void BuildTerrain()
 	ValidateBuild();
 	
 	SmoothTerrain();
+
+	PrepareRailRoad();
 }
 
 // This algorithm makes mountain peeks with delta random changes
@@ -132,7 +137,7 @@ void BuildRandomWalk()
 {
 	int counter = 1200;
 	int i, j;
-	double delta = 0.08;
+	double delta = 0.12;
 
 	if (rand() % 2 == 0)
 		delta = -delta;
@@ -170,7 +175,7 @@ void BuildSeismologic()
 {
 	int i1, j1, i2, j2, i, j;
 	double a, b;
-	double delta = 0.1;
+	double delta = 0.2;
 
 	int times;
 	if (rand() % 2 == 0)
@@ -228,11 +233,11 @@ void ValidateBuild()
 				tooHigh++;
 		}
 
-	if (tooLow >= 3500 * (ground_size/100)) {
-		BuildTerrain(); // Too many points under the sea..
+	if (tooLow >= 2500 * (ground_size/100)) {
+		BuildGroundTerrain(); // Too many points under the sea..
 	}
 	else if (tooHigh > 600 * (ground_size / 100) || tooHigh < 15 * (ground_size / 100))
-		BuildTerrain(); // Too many / too few higher points
+		BuildGroundTerrain(); // Too many / too few higher points
 
 	// This way we prevent a terrian which is too low or too high
 }
@@ -257,3 +262,49 @@ void SmoothTerrain()
 
 }
 
+
+void PrepareRailRoad() {
+	int i;
+
+	for (i = 0; i < ground_size; i++) {
+		if(ground[i][ground_size/2] > 0)
+			ground[i][ground_size / 2 + 1] = ground[i][ground_size / 2 - 1] = ground[i][ground_size /2];
+	}
+}
+
+
+void DrawRail()
+{
+	SetTexture(0);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE); // Might be changed to moduoate
+	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_BLEND);
+
+	int i;
+
+
+	for (i = 0; i < ground_size - 1; i++) {
+
+
+		glBegin(GL_POLYGON);
+		glTexCoord2d(0, 0);
+		glVertex3d(-1, ground[i][ground_size / 2] + 0.1, i - ground_size / 2);
+
+		glTexCoord2d(0, 1);
+		glVertex3d(-1, ground[i+1][ground_size / 2] + 0.1, i+1 - ground_size / 2);
+
+		glTexCoord2d(1, 1);
+		glVertex3d(1, ground[i + 1][ground_size / 2] +0.1, i + 1 - ground_size / 2);
+
+		glTexCoord2d(1, 0);
+		glVertex3d(1, ground[i][ground_size / 2] + 0.1, i - ground_size / 2);
+
+		glEnd();
+
+	}
+
+
+	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_BLEND);
+}

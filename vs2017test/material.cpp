@@ -42,8 +42,8 @@ float low_ground_shine = 1.8f;
 // Ground
 float ground_ambient[4] = { 0.09125f, 0.235f, 0.1125f, 1.0f };
 float ground_diffuse[4] = { 0.1038f, 0.47048f, 0.188f, 1.0f };
-float ground_specular[4] = { 0.256777f, 0.437622f, 0.086014f, 1.0f };
-float ground_shine = 3.8f;
+float ground_specular[4] = { 0.056777f, 0.037622f, 0.006014f, 1.0f };
+float ground_shine = 1.8f;
 
 // Sand
 float sand_ambient[4] = { 0.54725f, 0.4595f, 0.0245f, 1.0f };
