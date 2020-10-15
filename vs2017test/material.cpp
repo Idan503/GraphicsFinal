@@ -40,22 +40,29 @@ float low_ground_specular[4] = { 0.256777f, 0.137622f, 0.086014f, 1.0f };
 float low_ground_shine = 1.8f;
 
 // Ground
-float ground_ambient[4] = { 0.09125f, 0.235f, 0.1125f, 1.0f };
-float ground_diffuse[4] = { 0.1038f, 0.47048f, 0.188f, 1.0f };
+float ground_ambient[4] = { 0.09125f, 0.0935f, 0.0325f, 1.0f };
+float ground_diffuse[4] = { 0.07038f, 0.28048f, 0.188f, 1.0f };
 float ground_specular[4] = { 0.056777f, 0.037622f, 0.006014f, 1.0f };
-float ground_shine = 1.8f;
+float ground_shine = 0.8f;
 
 // Sand
-float sand_ambient[4] = { 0.54725f, 0.4595f, 0.0245f, 1.0f };
-float sand_diffuse[4] = { 0.69164f, 0.45048f, 0.05648f, 1.0f };
-float sand_specular[4] = { 0.828281f, 0.855802f, 0.866065f, 1.0f };
-float sand_shine = 40.2f;
+float sand_ambient[4] = { 0.44725f, 0.3895f, 0.2245f, 1.0f };
+float sand_diffuse[4] = { 0.59164f, 0.37048f, 0.11648f, 1.0f };
+float sand_specular[4] = { 0.828281f, 0.855802f, 0.766065f, 1.0f };
+float sand_shine = 80.2f;
 
 // High Ground
-float high_ground_ambient[4] = { 0.7125f, 0.6735f, 0.9225f, 1.0f };
-float high_ground_diffuse[4] = { 0.7038f, 0.77048f, 0.7828f, 1.0f };
-float high_ground_specular[4] = { 0.956777f, 0.937622f, 0.66014f, 1.0f };
-float high_ground_shine = 68.8f;
+float high_ground_ambient[4] = { 0.16125f, 0.1535f, 0.1525f, 1.0f };
+float high_ground_diffuse[4] = { 0.1338f, 0.46048f, 0.228f, 1.0f };
+float high_ground_specular[4] = { 0.156777f, 0.137622f, 0.056014f, 1.0f };
+float high_ground_shine = 12.8f;
+
+
+// Snow
+float snow_ambient[4] = { 0.7125f, 0.6735f, 0.9225f, 1.0f };
+float snow_diffuse[4] = { 0.6038f, 0.67048f, 0.6828f, 1.0f };
+float snow_specular[4] = { 0.956777f, 0.937622f, 0.66014f, 1.0f };
+float snow_shine = 68.8f;
 
 //endregion
 
@@ -117,6 +124,14 @@ void SetHighGroundMaterial()
 	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, high_ground_diffuse);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, high_ground_specular);
 	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, high_ground_shine);
+}
+
+void SetSnowMaterial()
+{
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, snow_ambient);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, snow_diffuse);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, snow_specular);
+	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, snow_shine);
 }
 
 void SetSandMaterial()

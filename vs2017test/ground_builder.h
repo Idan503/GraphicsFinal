@@ -13,7 +13,6 @@ void SmoothTerrain();
 void PrepareRailRoad();
 void DrawRail();
 
-
 #endif
 
 

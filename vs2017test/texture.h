@@ -1,10 +1,11 @@
 #ifndef TEXTURE
 #define TEXTURE
 
-void InitTextures();
+void InitAllTextures();
 void InitRailTexture();
 void InitGrassTexture();
-void SetTexture(int textureId);
+void InitFenceTexture();
+void ReadBitmap(char* fname);
 
 #endif
 

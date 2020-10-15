@@ -8,6 +8,7 @@ void SetRedPlasticMaterial();
 void SetGroundMaterial();
 void SetHighGroundMaterial();
 void SetLowGroundMaterial();
+void SetSnowMaterial();
 void SetSandMaterial();
 
 #endif

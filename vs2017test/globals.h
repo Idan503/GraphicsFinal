@@ -8,7 +8,6 @@ extern const double PI;
 extern double current_time;
 extern const int ground_size;
 extern const int river_size;
-extern int current_texture_id;
 extern vector<vector<double> > ground;
 
 #endif

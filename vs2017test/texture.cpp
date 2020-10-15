@@ -1,30 +1,54 @@
 #include "texture.h"
 #include "glut.h"
 #include "globals.h"
+#include <stdio.h>
 
 const int rail_size = 256;
 const int grass_size = 256;
 
+const int fence_width = 512;
+const int fence_height = 256;
+
 // Texture definitions
 unsigned char rail[rail_size][rail_size][4]; //rgb with alpha
 unsigned char grass[grass_size][grass_size][3]; //rgb
+unsigned char fence[fence_width][fence_height][3];
+
+unsigned char* bmp;
 
 
-void InitTextures()
+// 0 = rail, 1 = ground...
+void InitAllTextures()
 {
 	InitRailTexture();
 	InitGrassTexture();
+	InitFenceTexture();
 
 	//Texture properties
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	SetTexture(0);
 
 }
 
+void ReadBitmap(const char* fname)
+{
+	FILE* fp;
+	fp = fopen(fname,"rb");
+	// bitmap file start bf
+	BITMAPFILEHEADER bf;
+	// after that: bi
+	BITMAPINFOHEADER bi;
+	// after that: bgr,bgr,bgr
 
+	fread(&bf, sizeof(BITMAPFILEHEADER), 1, fp);
+	fread(&bi, sizeof(BITMAPINFOHEADER), 1, fp);
+
+	int size = bi.biHeight * bi.biWidth * 3;
+	bmp = (unsigned char*)malloc(size);
+	fread(bmp, 1, size, fp);
+	
+	fclose(fp);
+}
+
+// ID = 0
 void InitRailTexture()
 {
 	int i, j, noise, side_noise; // noise change color a bit to make it more realistic
@@ -59,41 +83,63 @@ void InitRailTexture()
 	}
 
 
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, grass_size, grass_size, 0, GL_RGBA, GL_UNSIGNED_BYTE, rail);
 }
 
-
+// ID = 1
 void InitGrassTexture() {
 	int i, j, noise;
-
 	for(i=0;i<grass_size;i++)
 		for (j = 0; j < grass_size; j++)
 		{
-			noise = 10 - rand() % 20;
-			grass[i][j][0] = 35 + noise;
-			grass[i][j][1] = 190 + noise;
-			grass[i][j][2] = 20 + noise;
+			noise = 5 - rand() % 10;
+			grass[i][j][0] = 15 + noise;
+			grass[i][j][1] = 60 + noise;
+			grass[i][j][2] = 20+ noise;
+
+			if (rand() % 4 == 0)
+				grass[i][j][1] -= 10;
+
+			if ((i+j) % (grass_size / 4) > 10 && (i+j) % (grass_size / 4) < 35)
+			{
+				grass[i][j][0] = 35;
+				grass[i][j][1] = 70;
+				grass[i][j][2] = 20;
+			}
 		}
+
+	glBindTexture(GL_TEXTURE_2D, 1);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, grass_size, grass_size, 0, GL_RGB, GL_UNSIGNED_BYTE, grass);
 }
 
-// 0 = Rail , 1 = grass
-void SetTexture(int textureId)
-{
-	if (textureId == current_texture_id)
-		return; // For better performance - function doesn't need to work
-
-	switch (textureId)
-	{
-	case 0: // RAIL
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, rail_size, rail_size, 0, GL_RGBA, GL_UNSIGNED_BYTE, rail);
-		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE); // Might be changed to moduoate
-		break;
-	case 1: // GRASS
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, grass_size, grass_size, 0, GL_RGB, GL_UNSIGNED_BYTE, grass);
-		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE); // Might be changed to moduoate
-		break;
-	}
-
-	glBindTexture(GL_TEXTURE_2D, textureId);
-	current_texture_id = textureId;
+// ID = 2
+void InitFenceTexture() {
+	ReadBitmap("fence.bmp");
 	
+	int i, j, k;
+	for(i=0,k=0;i< fence_width;i++)
+		for (j = 0; j < fence_height; j++, k+=3)
+		{
+			fence[i][j][0] = bmp[k + 2];
+			fence[i][j][1] = bmp[k + 1];
+			fence[i][j][2] = bmp[k]; //in the file(bmp): bgrbgrbgr...
+		}
+
+	glBindTexture(GL_TEXTURE_2D, 2);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D,0, GL_RGB, fence_width, fence_height, 0, GL_RGB, GL_UNSIGNED_BYTE, fence);
+
+	free(bmp);
 }

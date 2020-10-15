@@ -22,17 +22,22 @@ void SetNormal(int i, int j)
 // I should add here another color of between ground and high ground
 void SetHeightMaterial(int h)
 {
-	if (h > 3)
+	if (h > 3.5)
+	{
+		SetSnowMaterial();
+		return;
+	}
+	else if (h > 2.65)
 	{
 		SetHighGroundMaterial();
 		return;
 	}
-	else if (h < 0)
+	else if (h < -0.1)
 	{
 		SetLowGroundMaterial();
 		return;
 	}
-	else if (h > 0.1)
+	else if (h > 0.08)
 	{
 		SetGroundMaterial();
 		return;
@@ -46,39 +51,45 @@ void SetHeightMaterial(int h)
 
 }
 
+
 void DrawGround()
 {
 	int i, j;
 
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, 1);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_ADD);
+
+	// Using lines texutre that is added to materialed ground
+
 	for (i = 0; i < ground_size-2; i++) 
 		for (j = 0; j < ground_size-2; j++)
 		{
-			//SetTexture(1);
-			//glEnable(GL_TEXTURE_2D);
-
 			glBegin(GL_POLYGON);
 				SetNormal(i, j);
-				//glTexCoord2d(0, 0);
+				glTexCoord2d(0, 0);
 				SetHeightMaterial(ground[i][j]);
 				glVertex3d(j - (ground_size / 2.0), ground[i][j], i - (ground_size) / 2.0);
 				SetNormal(i, j+1);
-				//glTexCoord2d(0, 1);
+				glTexCoord2d(0, 1);
 				SetHeightMaterial(ground[i][j+1]);
 				glVertex3d(j+1.0 - (ground_size / 2.0), ground[i][j+1], i - (ground_size) / 2.0);
 				SetNormal(i+1, j+1);
-				//glTexCoord2d(1, 1);
+				glTexCoord2d(1, 1);
 				SetHeightMaterial(ground[i+1][j+1]);
 				glVertex3d(j + 1.0 - (ground_size / 2.0), ground[i+1][j + 1], i+1.0 - (ground_size) / 2.0);
 				SetNormal(i+1, j);
-				//glTexCoord2d(1, 0);
+				glTexCoord2d(1, 0);
 				SetHeightMaterial(ground[i+1][j]);
 				glVertex3d(j - (ground_size / 2.0), ground[i + 1][j], i + 1.0 - (ground_size) / 2.0);
 
 			glEnd();
 
-			//glDisable(GL_TEXTURE_2D);
 
 		}
+
+	glDisable(GL_TEXTURE_2D);
+
 
 	DrawWater(); // We draw water before rail because rail is half transparent
 	
@@ -293,11 +304,13 @@ void PrepareRailRoad() {
 
 void DrawRail()
 {
-	SetTexture(0);
 	
-	glEnable(GL_TEXTURE_2D);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_BLEND);
+	glEnable(GL_TEXTURE_2D);
+
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 
 	int i;
 	const double min_height = 0.1;

@@ -22,11 +22,9 @@ void init()
 
 	BuildGroundTerrain();
 
-	InitTextures();
+	InitAllTextures();
 
 	glEnable(GL_NORMALIZE);
-
-	
 
 
 }
@@ -43,6 +41,7 @@ void display()
 	DrawGround();
 
 	//BuildTrain();
+	DrawFence();
 
 	glutSwapBuffers(); // show all
 }

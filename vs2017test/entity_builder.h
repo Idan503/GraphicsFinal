@@ -3,8 +3,8 @@
 
 
 
-void BuildTrain();
-
+void DrawTrain();
+void DrawFence();
 
 #endif
 
