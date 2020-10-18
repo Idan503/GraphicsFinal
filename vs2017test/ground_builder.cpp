@@ -314,46 +314,39 @@ void DrawRail()
 
 	int i;
 	const double min_height = 0.1;
-	const double bridge_height = 1;
-	double start_height=0, end_height=0;
+	const double max_ground_height =
+		fmax(fmax(ground[ground_size / 2 - river_size + 1][ground_size / 2], ground[ground_size / 2 - river_size][ground_size / 2]),
+			fmax(ground[ground_size / 2 + river_size - 1][ground_size / 2], ground[ground_size / 2 + river_size][ground_size / 2]));
 
 	for (i = 0; i < ground_size - 2; i++) {
+		double start_height = 0, end_height = 0;
 
-		if (end_height >= bridge_height + min_height || end_height!=0)
-			start_height = end_height;
-		else{
-			if (ground[i][ground_size / 2] > 0){
-				start_height = ground[i][ground_size / 2] + min_height;
-			}
-			else
-				start_height = bridge_height + min_height;
-		}
-
-		if (ground[i+1][ground_size / 2] > 0 && ground[i+2][ground_size / 2] > 0) {
-			end_height = ground[i+1][ground_size / 2] + min_height;
-		}
+		if (i >= (ground_size / 2 - river_size) && i < (ground_size / 2 + river_size))
+			end_height = max_ground_height + bridge_height;
 		else
-			end_height = bridge_height + min_height;
+			end_height = ground[i + 1][ground_size / 2];
 
-		if (start_height == (bridge_height + min_height) && end_height < start_height)
-		{
-			end_height = (ground[i + 2][ground_size / 2] + (bridge_height + min_height)) / 2; // Taking the avarage when bridge ends
-		}
+		if (i > (ground_size / 2 - river_size) && i <= (ground_size / 2 + river_size))
+			start_height = max_ground_height + bridge_height;
+		else
+			start_height = ground[i][ground_size / 2];
 
 
+		start_height += min_height;
+		end_height += min_height;
 
 		glBegin(GL_POLYGON);
 		glTexCoord2d(0, 0);
-		glVertex3d(-1, start_height, i - ground_size / 2.0);
+		glVertex3d(-rail_width, start_height, i - ground_size / 2.0);
 
 		glTexCoord2d(0, 1);
-		glVertex3d(-1, end_height, i + 1.0 - ground_size / 2.0);
+		glVertex3d(-rail_width, end_height, i + 1.0 - ground_size / 2.0);
 
 		glTexCoord2d(1, 1);
-		glVertex3d(1, end_height, i + 1.0 - ground_size / 2.0);
+		glVertex3d(rail_width, end_height, i + 1.0 - ground_size / 2.0);
 
 		glTexCoord2d(1, 0);
-		glVertex3d(1, start_height, i - ground_size / 2.0);
+		glVertex3d(rail_width, start_height, i - ground_size / 2.0);
 
 		glEnd();
 

@@ -1,18 +1,19 @@
 #include "texture.h"
 #include "glut.h"
 #include "globals.h"
+#include <math.h>
 #include <stdio.h>
 
 const int rail_size = 256;
 const int grass_size = 256;
 
-const int fence_width = 512;
-const int fence_height = 256;
+const int bridge_road_width = 1024;
+const int bridge_road_height= 512;
 
 // Texture definitions
 unsigned char rail[rail_size][rail_size][4]; //rgb with alpha
 unsigned char grass[grass_size][grass_size][3]; //rgb
-unsigned char fence[fence_width][fence_height][3];
+unsigned char fence[bridge_road_width][bridge_road_height][3];
 
 unsigned char* bmp;
 
@@ -21,8 +22,8 @@ unsigned char* bmp;
 void InitAllTextures()
 {
 	InitRailTexture();
-	InitGrassTexture();
-	InitFenceTexture();
+	InitTerrainTexture();
+	InitBridgeRoadTexture();
 
 	//Texture properties
 
@@ -92,22 +93,22 @@ void InitRailTexture()
 }
 
 // ID = 1
-void InitGrassTexture() {
+void InitTerrainTexture() {
 	int i, j, noise;
 	for(i=0;i<grass_size;i++)
 		for (j = 0; j < grass_size; j++)
 		{
 			noise = 5 - rand() % 10;
 			grass[i][j][0] = 15 + noise;
-			grass[i][j][1] = 60 + noise;
-			grass[i][j][2] = 20+ noise;
+			grass[i][j][1] = 65 + noise;
+			grass[i][j][2] = 25+ noise;
 
 			if (rand() % 4 == 0)
 				grass[i][j][1] -= 10;
 
 			if ((i+j) % (grass_size / 4) > 10 && (i+j) % (grass_size / 4) < 35)
 			{
-				grass[i][j][0] = 35;
+				grass[i][j][0] = 30;
 				grass[i][j][1] = 70;
 				grass[i][j][2] = 20;
 			}
@@ -122,12 +123,12 @@ void InitGrassTexture() {
 }
 
 // ID = 2
-void InitFenceTexture() {
-	ReadBitmap("fence.bmp");
+void InitBridgeRoadTexture() {
+	ReadBitmap("bridge_road.bmp");
 	
 	int i, j, k;
-	for(i=0,k=0;i< fence_width;i++)
-		for (j = 0; j < fence_height; j++, k+=3)
+	for(i=0,k=0;i< bridge_road_width;i++)
+		for (j = 0; j < bridge_road_height; j++, k+=3)
 		{
 			fence[i][j][0] = bmp[k + 2];
 			fence[i][j][1] = bmp[k + 1];
@@ -139,7 +140,7 @@ void InitFenceTexture() {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D,0, GL_RGB, fence_width, fence_height, 0, GL_RGB, GL_UNSIGNED_BYTE, fence);
+	glTexImage2D(GL_TEXTURE_2D,0, GL_RGB, bridge_road_width, bridge_road_height, 0, GL_RGB, GL_UNSIGNED_BYTE, fence);
 
 	free(bmp);
 }

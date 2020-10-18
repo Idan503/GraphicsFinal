@@ -8,6 +8,8 @@ extern const double PI;
 extern double current_time;
 extern const int ground_size;
 extern const int river_size;
+extern const double rail_width;
+extern const double bridge_height;
 extern vector<vector<double> > ground;
 
 #endif

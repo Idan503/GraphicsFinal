@@ -1,23 +1,2 @@
-﻿  ground_builder.cpp
-D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\ground_builder.cpp(71,34): warning C4244: 'argument': conversion from '_Ty' to 'int', possible loss of data
-          with
-          [
-              _Ty=double
-          ]
-D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\ground_builder.cpp(75,36): warning C4244: 'argument': conversion from '_Ty' to 'int', possible loss of data
-          with
-          [
-              _Ty=double
-          ]
-D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\ground_builder.cpp(79,38): warning C4244: 'argument': conversion from '_Ty' to 'int', possible loss of data
-          with
-          [
-              _Ty=double
-          ]
-D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\ground_builder.cpp(83,36): warning C4244: 'argument': conversion from '_Ty' to 'int', possible loss of data
-          with
-          [
-              _Ty=double
-          ]
-D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\ground_builder.cpp(202,6): warning C4101: 'times': unreferenced local variable
+﻿  entity_builder.cpp
   vs2017test.vcxproj -> D:\Documents\Projects\VisualStudio2019\GraphicsFinal\Debug\vs2017test.exe

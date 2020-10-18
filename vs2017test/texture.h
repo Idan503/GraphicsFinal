@@ -3,8 +3,8 @@
 
 void InitAllTextures();
 void InitRailTexture();
-void InitGrassTexture();
-void InitFenceTexture();
+void InitTerrainTexture();
+void InitBridgeRoadTexture();
 void ReadBitmap(char* fname);
 
 #endif

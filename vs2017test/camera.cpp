@@ -4,9 +4,9 @@
 #include <math.h>
 
 
-double eyex = 0, eyey = 15 , eyez = 25;
+double eyex = -14, eyey = 5 , eyez = 0;
 
-double yaw = PI, pitch = 0, roll;
+double yaw = PI * 0.5, pitch = 0, roll;
 double speed = 0, angularSpeed = 0;
 double dir[3] = { sin(yaw),sin(pitch),cos(yaw) };
 

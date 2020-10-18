@@ -38,6 +38,7 @@ void display()
 
 	InitLight();
 	
+	DrawBridge();
 	DrawGround();
 
 	//BuildTrain();

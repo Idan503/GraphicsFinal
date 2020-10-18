@@ -3,13 +3,14 @@
 
 void InitLight();
 
-void SetTinMaterial();
+void SetSilverMaterial();
 void SetRedPlasticMaterial();
 void SetGroundMaterial();
 void SetHighGroundMaterial();
 void SetLowGroundMaterial();
 void SetSnowMaterial();
 void SetSandMaterial();
+void SetRubyMaterial();
 
 #endif
 

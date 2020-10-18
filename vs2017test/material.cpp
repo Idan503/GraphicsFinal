@@ -9,7 +9,7 @@
 float light_0_ambient[4] = { 0.2,0.2,0.2,0 };
 float light_0_diffuse[4] = { 0.8,0.5,0.2,0 };
 float light_0_specular[4] = { 0.5,0.5,0.5,0 };
-float light_0_position[4] = { 0,10,0,1 }; // Last parameter is type (0=directional, 1=point)
+float light_0_position[4] = { 0,30,0,1 }; // Last parameter is type (0=directional, 1=point)
 
 float light_1_ambient[4] = { 0.2,0.2,0.2,0 };
 float light_1_diffuse[4] = { 0.8,0.8,0.8,0 };
@@ -21,17 +21,23 @@ float light_1_position[4] = { 1,1,1,0 }; // directional
 //region Material Definition
 
 
-//Tin
-float tin_ambient[4] = { 0.105882f, 0.058824f, 0.113725f, 1.0f };
-float tin_diffuse[4] = { 0.427451f, 0.470588f, 0.541176f, 1.0f };
-float tin_specular[4] = { 0.333333f, 0.333333f, 0.521569f, 1.0f };
-float tin_shine = 9.84615f;
+//Silver
+float silver_ambient[4] = { 0.25225f, 0.25225f, 0.25225f, 1.0f };
+float silver_diffuse[4] = { 0.60754f, 0.60754f, 0.60754f, 1.0f };
+float silver_specular[4] = { 0.708273f, 0.708273f, 0.708273f, 1.0f };
+float silver_shine = 180.84615f;
 
 //Red Plastic
 float red_plastic_ambient[4] = { 0.4,0.2,0.2,0 };
 float red_plastic_diffuse[4] = { 0.9,0.0,0.0,0 };
 float red_plastic_specular[4] = { 0.9,0.7,0.7,0 };
 float red_plastic_shine = 32.0f;
+
+//Ruby
+float ruby_ambient[4] = { 0.1745f, 0.01175f, 0.01175f, 0.55f };
+float ruby_diffuse[4] = { 0.41424f, 0.03136f, 0.01136f, 0.55f };
+float ruby_specular[4] = { 0.627811f, 0.426959f, 0.426959f, 0.55f };
+float ruby_shine = 89.8f;
 
 // Low Ground
 float low_ground_ambient[4] = { 0.29125f, 0.3735f, 0.0225f, 1.0f };
@@ -46,9 +52,9 @@ float ground_specular[4] = { 0.056777f, 0.037622f, 0.006014f, 1.0f };
 float ground_shine = 0.8f;
 
 // Sand
-float sand_ambient[4] = { 0.44725f, 0.3895f, 0.2245f, 1.0f };
-float sand_diffuse[4] = { 0.59164f, 0.37048f, 0.11648f, 1.0f };
-float sand_specular[4] = { 0.828281f, 0.855802f, 0.766065f, 1.0f };
+float sand_ambient[4] = { 0.44725f, 0.4195f, 0.2245f, 1.0f };
+float sand_diffuse[4] = { 0.55164f, 0.33048f, 0.17648f, 1.0f };
+float sand_specular[4] = { 0.628281f, 0.685802f, 0.466065f, 1.0f };
 float sand_shine = 80.2f;
 
 // High Ground
@@ -86,12 +92,12 @@ void InitLight()
 
 }
 
-void SetTinMaterial()
+void SetSilverMaterial()
 {
-	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, tin_ambient);
-	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, tin_diffuse);
-	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, tin_specular);
-	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, tin_shine);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, silver_ambient);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, silver_diffuse);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, silver_specular);
+	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, silver_shine);
 }
 
 void SetRedPlasticMaterial()
@@ -141,4 +147,15 @@ void SetSandMaterial()
 	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, sand_specular);
 	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, sand_shine);
 }
+
+
+void SetRubyMaterial()
+{
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ruby_ambient);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, ruby_diffuse);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, ruby_specular);
+	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, ruby_shine);
+}
+
+
 
