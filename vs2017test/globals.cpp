@@ -9,4 +9,6 @@ double current_time = 0;
 const int river_size = 10;
 const double rail_width = 0.75;
 const double bridge_height = 0.25;
+const double train_speed = 0.03;
 extern vector<vector<double> > ground(ground_size,vector<double>(ground_size,0));
+extern vector<double> rail(ground_size);

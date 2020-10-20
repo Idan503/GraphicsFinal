@@ -8,6 +8,7 @@
     <ClCompile Include="material.cpp" />
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="ground_builder.cpp" />
+    <ClCompile Include="TrainWagon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glut.h">
@@ -29,6 +30,9 @@
       <Filter>headers</Filter>
     </ClInclude>
     <ClInclude Include="ground_builder.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="TrainWagon.h">
       <Filter>headers</Filter>
     </ClInclude>
   </ItemGroup>

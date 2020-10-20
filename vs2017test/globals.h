@@ -5,12 +5,19 @@ using namespace std;
 #include <vector>
 
 extern const double PI;
+
 extern double current_time;
-extern const int ground_size;
+
 extern const int river_size;
-extern const double rail_width;
 extern const double bridge_height;
-extern vector<vector<double> > ground;
+
+extern vector<vector<double>> ground;
+extern const int ground_size;
+
+extern const double train_speed;
+
+extern vector<double> rail;
+extern const double rail_width;
 
 #endif
 

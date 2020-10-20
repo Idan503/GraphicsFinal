@@ -23,6 +23,7 @@
     <ProjectGuid>{77A8D31A-5446-46A6-8336-F96FF437BC18}</ProjectGuid>
     <RootNamespace>vs2017test</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>FinalGraphics211546288</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -126,6 +127,7 @@
     <ClCompile Include="ground_builder.cpp" />
     <ClCompile Include="entity_builder.cpp" />
     <ClCompile Include="texture.cpp" />
+    <ClCompile Include="TrainWagon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="globals.h" />
@@ -135,6 +137,7 @@
     <ClInclude Include="ground_builder.h" />
     <ClInclude Include="entity_builder.h" />
     <ClInclude Include="texture.h" />
+    <ClInclude Include="TrainWagon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

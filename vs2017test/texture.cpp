@@ -11,7 +11,7 @@ const int bridge_road_width = 1024;
 const int bridge_road_height= 512;
 
 // Texture definitions
-unsigned char rail[rail_size][rail_size][4]; //rgb with alpha
+unsigned char rail_tex[rail_size][rail_size][4]; //rgb with alpha
 unsigned char grass[grass_size][grass_size][3]; //rgb
 unsigned char fence[bridge_road_width][bridge_road_height][3];
 
@@ -62,23 +62,23 @@ void InitRailTexture()
 				(j < rail_size * 0.25 && j >rail_size * 0.15))
 			{
 				// Continues lines on sides
-				rail[i][j][0] = 50 + side_noise + (noise * 0.5);
-				rail[i][j][1] = 45 + side_noise + (noise * 0.5);
-				rail[i][j][2] = 46 + side_noise + (noise * 0.5);
-				rail[i][j][3] = 255;
+				rail_tex[i][j][0] = 50 + side_noise + (noise * 0.5);
+				rail_tex[i][j][1] = 45 + side_noise + (noise * 0.5);
+				rail_tex[i][j][2] = 46 + side_noise + (noise * 0.5);
+				rail_tex[i][j][3] = 255;
 			}
 			else if (i % (rail_size / 4) > 10 && i % (rail_size / 4) < 42) {
 				// Striped  lines of rails
-				rail[i][j][0] = 38 + noise;
-				rail[i][j][1] = 38 + noise;
-				rail[i][j][2] = 39 + noise;
-				rail[i][j][3] = 255;
+				rail_tex[i][j][0] = 38 + noise;
+				rail_tex[i][j][1] = 38 + noise;
+				rail_tex[i][j][2] = 39 + noise;
+				rail_tex[i][j][3] = 255;
 			}
 			else {
-				rail[i][j][0] = 255;
-				rail[i][j][1] = 255;
-				rail[i][j][2] = 255;
-				rail[i][j][3] = 0;
+				rail_tex[i][j][0] = 255;
+				rail_tex[i][j][1] = 255;
+				rail_tex[i][j][2] = 255;
+				rail_tex[i][j][3] = 0;
 			}
 		}
 	}
@@ -89,7 +89,7 @@ void InitRailTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, grass_size, grass_size, 0, GL_RGBA, GL_UNSIGNED_BYTE, rail);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, grass_size, grass_size, 0, GL_RGBA, GL_UNSIGNED_BYTE, rail_tex);
 }
 
 // ID = 1

@@ -12,7 +12,7 @@ bool ValidateGroundBuild();
 void SmoothTerrain();
 void PrepareRailRoad();
 void DrawRail();
-
+void InitTrain();
 #endif
 
 

@@ -14,7 +14,6 @@ const int H = 600;
 
 void init()
 {
-
 	srand(time(0)); // seed or init random numbers generator
 	
 	glClearColor(0.0, 0.6, 0.8, 0);// color of window background
@@ -23,6 +22,7 @@ void init()
 	BuildGroundTerrain();
 
 	InitAllTextures();
+	InitTrain();
 
 	glEnable(GL_NORMALIZE);
 
@@ -41,8 +41,10 @@ void display()
 	DrawBridge();
 	DrawGround();
 
-	//BuildTrain();
+	DrawTrain();
 	DrawFence();
+
+	DrawTrain();
 
 	glutSwapBuffers(); // show all
 }
@@ -52,6 +54,7 @@ void idle()
 
 	current_time += 0.01;
 	CameraIdle();
+	MoveTrain();
 
 	glutPostRedisplay(); // posts message (with request to show the frame ) to main window
 }

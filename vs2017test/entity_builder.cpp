@@ -3,31 +3,48 @@
 #include "entity_builder.h"
 #include "material.h"
 #include "texture.h"
+#include "TrainWagon.h"
+#include <stdio.h>
 
+int train_z = -ground_size / 2;
+int train_x = ground_size/2;
 double max_ground_height;
 double bridge_width;
 double bridge_final_height;
 
-void DrawTrain() {
+const int WAGON_COUNT = 0;
 
-	SetRedPlasticMaterial();
+TrainWagon* train[WAGON_COUNT+1];
 
-	glPushMatrix();
-	glTranslated(6, 12, 0);
-	glRotated(current_time * 100,1, 1,0);
 
-	glutSolidCube(4);
+void InitTrain() {
+	int i;
+	// define a car
+	// we still have to compute diry
+	for (i = 0; i < WAGON_COUNT+ 1; i++)
+	{
+		train[i] = new TrainWagon(1, 0, 0, vector<double> {0, 0, -(double)ground_size / 2}, vector<double>{0,0,1}, 0);
+		// if its the first one - head
+		// else - init regular wagon
+		train[i]->Move();
+		train[i]->SetSpeed(train_speed);
+	}
 
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslated(-6, 12, 0);
-	glRotated(current_time * 100, 1, 1, 0);
-
-	glutSolidSphere(4,20,20);
-
-	glPopMatrix();
 }
+
+
+void DrawTrain() {
+	for (int i = 0; i < WAGON_COUNT + 1; i++)
+		train[i]->Draw();
+
+
+}
+
+void MoveTrain() {
+	for (int i = 0; i < WAGON_COUNT + 1; i++)
+		train[i]->Move();
+}
+
 
 void DrawFence()
 {
