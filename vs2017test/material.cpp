@@ -74,7 +74,6 @@ float snow_shine = 68.8f;
 
 void InitLight()
 {
-	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 	glEnable(GL_LIGHT1);
 

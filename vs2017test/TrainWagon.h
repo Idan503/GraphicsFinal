@@ -13,11 +13,13 @@ private:
 	bool head; // is this the head of the train
 
 public:
-	TrainWagon(double r, double g, double b, vector<double> position, vector<double> dir, double speed);
+	TrainWagon(double r, double g, double b, vector<double> position, vector<double> dir, double speed, bool head);
 	void Draw();
 	void Move();
 	void SetSpeed(double s);
 	bool IsHead();
+	void DrawHeadWagon();
+	void DrawWagon();
 	vector<double> GetPosition();
 	vector<double> GetDirection();
 };

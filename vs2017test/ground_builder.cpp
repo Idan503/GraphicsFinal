@@ -56,6 +56,7 @@ void DrawGround()
 {
 	int i, j;
 
+	glEnable(GL_LIGHTING);
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, 1);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_ADD);
@@ -89,6 +90,7 @@ void DrawGround()
 		}
 
 	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_LIGHTING);
 
 
 	DrawWater(); // We draw water before rail because rail is half transparent

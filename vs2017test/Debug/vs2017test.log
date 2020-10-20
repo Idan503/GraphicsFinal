@@ -1,3 +1,34 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(467,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (vs2017test.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  TrainWagon.cpp
+  ground_builder.cpp
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\ground_builder.cpp(72,34): warning C4244: 'argument': conversion from '_Ty' to 'int', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\ground_builder.cpp(76,36): warning C4244: 'argument': conversion from '_Ty' to 'int', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\ground_builder.cpp(80,38): warning C4244: 'argument': conversion from '_Ty' to 'int', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\ground_builder.cpp(84,36): warning C4244: 'argument': conversion from '_Ty' to 'int', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\ground_builder.cpp(204,6): warning C4101: 'times': unreferenced local variable
+  material.cpp
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\material.cpp(9,44): warning C4305: 'initializing': truncation from 'double' to 'float'
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\material.cpp(10,44): warning C4305: 'initializing': truncation from 'double' to 'float'
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\material.cpp(14,44): warning C4305: 'initializing': truncation from 'double' to 'float'
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\material.cpp(15,44): warning C4305: 'initializing': truncation from 'double' to 'float'
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\material.cpp(16,45): warning C4305: 'initializing': truncation from 'double' to 'float'
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\material.cpp(31,48): warning C4305: 'initializing': truncation from 'double' to 'float'
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\material.cpp(32,48): warning C4305: 'initializing': truncation from 'double' to 'float'
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\material.cpp(33,49): warning C4305: 'initializing': truncation from 'double' to 'float'
+  Generating Code...
   vs2017test.vcxproj -> D:\Documents\Projects\VisualStudio2019\GraphicsFinal\Debug\FinalGraphics211546288.exe

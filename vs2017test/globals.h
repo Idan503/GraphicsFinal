@@ -19,6 +19,8 @@ extern const double train_speed;
 extern vector<double> rail;
 extern const double rail_width;
 
+extern void DrawColorCylinder(vector<double> color, int sides);
+
 #endif
 
 

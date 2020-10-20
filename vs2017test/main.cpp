@@ -42,7 +42,7 @@ void display()
 	DrawGround();
 
 	DrawTrain();
-	DrawFence();
+	//DrawFence();
 
 	DrawTrain();
 
@@ -67,7 +67,7 @@ void main(int argc, char* argv[])
 	// defines BUFFERS: Color buffer (frame buffer) and Depth buffer
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH); 
 	glutInitWindowSize(W, H);
-	glutInitWindowPosition(500, 200);
+	glutInitWindowPosition(2420, 100);
 	glutCreateWindow("Final Graphics Project ID 211546288");
 
 	glutDisplayFunc(display); // refresh window function

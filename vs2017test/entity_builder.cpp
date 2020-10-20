@@ -12,37 +12,50 @@ double max_ground_height;
 double bridge_width;
 double bridge_final_height;
 
-const int WAGON_COUNT = 0;
+const int WAGON_COUNT = 0; //excluding head
 
 TrainWagon* train[WAGON_COUNT+1];
 
 
-void InitTrain() {
+void InitTrain()  {
 	int i;
 	// define a car
 	// we still have to compute diry
 	for (i = 0; i < WAGON_COUNT+ 1; i++)
 	{
-		train[i] = new TrainWagon(1, 0, 0, vector<double> {0, 0, -(double)ground_size / 2}, vector<double>{0,0,1}, 0);
-		// if its the first one - head
-		// else - init regular wagon
-		train[i]->Move();
-		train[i]->SetSpeed(train_speed);
+		// First wagon is head, others are regular "wagons"
+		//train[i] = new TrainWagon(1, 0, 0, vector<double> {0, 0, -(double)ground_size / 2 + ((WAGON_COUNT+1-i) * 4)}, vector<double>{0,0,1}, 0,(i==0));
+		//train[i]->Move();
+		//train[i]->SetSpeed(train_speed);
+
+		train[i] = new TrainWagon(1, 0, 0, vector<double> {0, 0, 0}, vector<double>{0,0,1}, 0, false);
 	}
 
 }
 
 
 void DrawTrain() {
+
+	//for (int i = 0; i < WAGON_COUNT + 1; i++)
+	//	train[i]->Draw();
+
+	glPushMatrix();
+
+	glTranslated(0, 25, 0);
+	glRotated(current_time * 140, 0, 1, 0);
+	
 	for (int i = 0; i < WAGON_COUNT + 1; i++)
 		train[i]->Draw();
 
+	glPopMatrix();
 
+	
 }
 
 void MoveTrain() {
-	for (int i = 0; i < WAGON_COUNT + 1; i++)
-		train[i]->Move();
+	//for (int i = 0; i < WAGON_COUNT + 1; i++)
+	//	train[i]->Move();
+
 }
 
 
@@ -143,7 +156,6 @@ void DrawBridgePoles(double thinkness)
 
 void DrawBridgeSinglePole()
 {
-	//glDisable(GL_LIGHTING);
 	//glEnable(GL_TEXTURE_2D);
 	//glBindTexture(GL_TEXTURE_2D, 1);
 
@@ -154,14 +166,11 @@ void DrawBridgeSinglePole()
 	glPopMatrix();
 
 	//glDisable(GL_TEXTURE_2D);
-	//glEnable(GL_LIGHTING);
 
 }
 
 void DrawBridgeArch(double thickness)
 {
-	//glDisable(GL_LIGHTING);
-
 	DrawHalfBridgeArch(thickness);
 
 	glPushMatrix();
@@ -170,8 +179,6 @@ void DrawBridgeArch(double thickness)
 	DrawHalfBridgeArch(thickness);
 
 	glPopMatrix();
-
-	//glEnable(GL_LIGHTING);
 
 }
 
