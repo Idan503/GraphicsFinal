@@ -60,7 +60,7 @@ void DrawGround()
 	// for improving the details
 	glEnable(GL_LIGHTING);
 	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, 1);
+	glBindTexture(GL_TEXTURE_2D, 0);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_ADD); // using GL_ADD to "add" the lines texture 'above' the material
 
 	// Using lines texutre that is added to materialed ground
@@ -310,7 +310,7 @@ void DrawRail()
 	glEnable(GL_BLEND);
 	glEnable(GL_TEXTURE_2D);
 
-	glBindTexture(GL_TEXTURE_2D, 0);
+	glBindTexture(GL_TEXTURE_2D, 10);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 
@@ -365,4 +365,5 @@ void DrawRail()
 
 	glDisable(GL_TEXTURE_2D);
 	glDisable(GL_BLEND);
+	
 }

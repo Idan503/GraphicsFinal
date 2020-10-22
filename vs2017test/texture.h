@@ -3,18 +3,24 @@ using namespace std;
 #include<vector>
 #include "glut.h"
 
+
 class Texture
 {
 private:
-	vector<vector<vector<unsigned char>>> data; // [width][height][3=rgb/4=rgba]
+	int width;
+	int height;
 	int tid; // texture id
+	int colorbytes; //3 for rgb, 4 for rgba
+	bool alpha; // true for grba
 
 public:
 	Texture(int tid, int w, int h, bool alpha);
-	void Bind();
 	int GetTid();
-	vector<vector<vector<unsigned char>>> GetData();
-	void SetData(vector<vector<vector<unsigned char>>> data);
+	int GetWidth();
+	int GetHeight();
+	bool IsAlpha();
+	int GetColorbytes();
+	
 
 
 };

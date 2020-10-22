@@ -1,9 +1,9 @@
 #include <math.h>
 #include <time.h>
 #include "glut.h"
-#include "material.h"
+#include "material_manager.h"
 #include "globals.h"
-#include "texture.h"
+#include "texture_manager.h"
 #include "camera.h"
 #include "ground_builder.h"
 #include "entity_builder.h"
