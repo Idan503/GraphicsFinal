@@ -1,8 +1,8 @@
 #include "glut.h"
 #include "globals.h"
 #include <math.h>
-#include "material.h"
-#include "texture.h"
+#include "material_manager.h"
+#include "texture_manager.h"
 #include "ground_builder.h"
 
 
@@ -56,10 +56,12 @@ void DrawGround()
 {
 	int i, j;
 
+	// The ground model I created here contains both material with lightning and overlayed texture
+	// for improving the details
 	glEnable(GL_LIGHTING);
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, 1);
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_ADD);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_ADD); // using GL_ADD to "add" the lines texture 'above' the material
 
 	// Using lines texutre that is added to materialed ground
 
@@ -100,7 +102,6 @@ void DrawGround()
 
 void DrawWater()
 {
-	glDisable(GL_LIGHTING);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glColor4d(0, 0.2, 0.6, 0.8);
@@ -111,7 +112,6 @@ void DrawWater()
 	glVertex3d(ground_size / 2, 0, -ground_size / 2);
 	glEnd();
 	glDisable(GL_BLEND);
-	glEnable(GL_LIGHTING);
 }
 
 

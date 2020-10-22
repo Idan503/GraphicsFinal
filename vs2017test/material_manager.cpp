@@ -1,5 +1,5 @@
 #include "glut.h"
-#include "material.h"
+#include "material_manager.h"
 #include <math.h>
 #include "globals.h"
 

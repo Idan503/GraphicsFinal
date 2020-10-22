@@ -1,12 +1,21 @@
-#ifndef TEXTURE
-#define TEXTURE
+#pragma once
+using namespace std;
+#include<vector>
+#include "glut.h"
 
-void InitAllTextures();
-void InitRailTexture();
-void InitTerrainTexture();
-void InitBridgeRoadTexture();
-void ReadBitmap(char* fname);
+class Texture
+{
+private:
+	vector<vector<vector<unsigned char>>> data; // [width][height][3=rgb/4=rgba]
+	int tid; // texture id
 
-#endif
+public:
+	Texture(int tid, int w, int h, bool alpha);
+	void Bind();
+	int GetTid();
+	vector<vector<vector<unsigned char>>> GetData();
+	void SetData(vector<vector<vector<unsigned char>>> data);
 
+
+};
 

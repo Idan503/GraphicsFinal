@@ -1,8 +1,8 @@
 #include "glut.h"
 #include "globals.h"
 #include "entity_builder.h"
-#include "material.h"
-#include "texture.h"
+#include "material_manager.h"
+#include "texture_manager.h"
 #include "TrainWagon.h"
 #include <stdio.h>
 
@@ -12,7 +12,7 @@ double max_ground_height;
 double bridge_width;
 double bridge_final_height;
 
-const int WAGON_COUNT = 0; //excluding head
+const int WAGON_COUNT = 1; //excluding head
 
 TrainWagon* train[WAGON_COUNT+1];
 
@@ -21,15 +21,19 @@ void InitTrain()  {
 	int i;
 	// define a car
 	// we still have to compute diry
+	/*
 	for (i = 0; i < WAGON_COUNT+ 1; i++)
 	{
-		// First wagon is head, others are regular "wagons"
-		//train[i] = new TrainWagon(1, 0, 0, vector<double> {0, 0, -(double)ground_size / 2 + ((WAGON_COUNT+1-i) * 4)}, vector<double>{0,0,1}, 0,(i==0));
-		//train[i]->Move();
-		//train[i]->SetSpeed(train_speed);
+		// First wagon is head, others are regular wagons
+		train[i] = new TrainWagon(1, 0, 0, vector<double> {0, 0, -(double)ground_size / 2 + ((WAGON_COUNT+1-i) * 4)}, vector<double>{0,0,1}, 0,(i==0));
+		train[i]->Move();
+		train[i]->SetSpeed(train_speed);
 
-		train[i] = new TrainWagon(1, 0, 0, vector<double> {0, 0, 0}, vector<double>{0,0,1}, 0, false);
 	}
+	*/
+
+	//TESTING
+	train[0] = new TrainWagon(1, 0, 0, vector<double> {0, 0, 0}, vector<double>{0, 0, 1}, 0, true);
 
 }
 
@@ -39,16 +43,17 @@ void DrawTrain() {
 	//for (int i = 0; i < WAGON_COUNT + 1; i++)
 	//	train[i]->Draw();
 
+	
+	//TESTING
 	glPushMatrix();
 
 	glTranslated(0, 25, 0);
 	glRotated(current_time * 140, 0, 1, 0);
 	
-	for (int i = 0; i < WAGON_COUNT + 1; i++)
-		train[i]->Draw();
+	train[0]->Draw();
 
 	glPopMatrix();
-
+	
 	
 }
 

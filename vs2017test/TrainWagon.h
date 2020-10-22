@@ -19,7 +19,12 @@ public:
 	void SetSpeed(double s);
 	bool IsHead();
 	void DrawHeadWagon();
-	void DrawWagon();
+	void DrawWheel();
+	void DrawHeadBase();
+	void DrawHeadBody();
+	void DrawRegularBase();
+	void DrawRegularBody();
+	void DrawRegularWagon();
 	vector<double> GetPosition();
 	vector<double> GetDirection();
 };
