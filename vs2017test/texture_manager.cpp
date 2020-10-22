@@ -8,7 +8,7 @@
 //Texture Declaration
 
 //Terrain 0-9
-Texture* terrain_tex = new Texture(0, 256, 256, false);
+Texture* terrain_tex = new Texture(0, 256, 256);
 unsigned char terrain_data[256][256][3]; // 3 stands for rgb
 
 //Rail 10-19
@@ -16,13 +16,24 @@ Texture* rail_tex = new Texture(10, 256, 256, true);
 unsigned char rail_data[256][256][4]; // 4 stands for rgba
 
 //Bridge 20-29
-Texture* bridge_road_tex = new Texture(20, 1024, 512, false);
+Texture* bridge_road_tex = new Texture(20, 1024, 512);
 unsigned char bridge_road_data[1024][512][3];
 
 //Train 30-49
-Texture* train_pipe_tex = new Texture(30, 1024, 512, false);
-unsigned char train_pipe_data[1024][512][3];
+Texture* train_tube_tex = new Texture(30, 1024, 512);
+unsigned char train_tube_data[1024][512][3];
 
+Texture* train_tube_lines_tex = new Texture(31, 128, 512);
+unsigned char train_tube_lines_data[128][512][3];
+
+Texture* train_nose_tex = new Texture(32, 256, 256);
+unsigned char train_nose_data[256][256][3];
+
+Texture* metal_accent_tex= new Texture(33, 512, 256);
+unsigned char metal_accent_data[512][256][3];
+
+Texture* metal_bright_tex = new Texture(34, 512, 512);
+unsigned char metal_bright_data[512][512][3];
 
 
 unsigned char* bmp;
@@ -32,9 +43,13 @@ void InitAllTextures()
 	InitRailTexture();
 	InitTerrainTexture();
 	InitBridgeRoadTexture();
+	InitTrainTubeTexture();
+	InitTrainTubeLinesTexture();
+	InitTrainNoseTexture();
+	InitMetalAccentTexture();
+	InitMetalBrightTexture();
 
 	//Texture properties
-
 }
 
 // support rgb bitmaps only 
@@ -50,6 +65,7 @@ void ReadBitmap(const char* fname)
 
 	fread(&bf, sizeof(BITMAPFILEHEADER), 1, fp);
 	fread(&bi, sizeof(BITMAPINFOHEADER), 1, fp);
+
 
 	int size = bi.biHeight * bi.biWidth * 3;
 	bmp = (unsigned char*)malloc(size);
@@ -127,15 +143,12 @@ void InitTerrainTexture() {
 	BindTexture(terrain_tex, terrain_data);
 }
 
-void InitBridgeRoadTexture() {
-	
+void InitBridgeRoadTexture()
+{
 	ReadBitmap("bridge_road.bmp");
-	
-	/*
-	vector<vector<vector<unsigned char>>> bridge_road_data = bridge_road_tex->GetData();
 
-	int width = bridge_road_data.size();
-	int height = bridge_road_data[0].size();
+	int width = bridge_road_tex->GetWidth();
+	int height = bridge_road_tex->GetHeight();
 
 	int i, j, k;
 	for(i=0,k=0;i< width;i++)
@@ -146,18 +159,99 @@ void InitBridgeRoadTexture() {
 			bridge_road_data[i][j][2] = bmp[k]; //in the file(bmp): bgrbgrbgr...
 		}
 
-	bridge_road_tex->SetData(bridge_road_data);
-	bridge_road_tex->Bind(tex_arr_data);
-
+	BindTexture(bridge_road_tex, bridge_road_data);
+	
 	free(bmp);
-	*/
+	
 }
 
-void InitTrainPipeTexture()
+void InitTrainTubeTexture()
 {
+	ReadBitmap("train_tube.bmp");
+
+	int i, j, k;
+	for (i = 0, k = 0; i < train_tube_tex->GetWidth(); i++)
+		for (j = 0; j < train_tube_tex->GetHeight(); j++, k += 3)
+		{
+			train_tube_data[i][j][0] = bmp[k + 2];
+			train_tube_data[i][j][1] = bmp[k + 1];
+			train_tube_data[i][j][2] = bmp[k]; //in the file(bmp): bgrbgrbgr...
+		}
+
+	BindTexture(train_tube_tex, train_tube_data);
+
+	free(bmp);
+}
 
 
+void InitTrainTubeLinesTexture()
+{
+	ReadBitmap("train_tube_lines.bmp");
 
+	int i, j, k;
+	for (i = 0, k = 0; i < train_tube_lines_tex->GetWidth(); i++)
+		for (j = 0; j < train_tube_lines_tex->GetHeight(); j++, k += 3)
+		{
+			train_tube_lines_data[i][j][0] = bmp[k + 2];
+			train_tube_lines_data[i][j][1] = bmp[k + 1];
+			train_tube_lines_data[i][j][2] = bmp[k]; //in the file(bmp): bgrbgrbgr...
+		}
+
+	BindTexture(train_tube_lines_tex, train_tube_lines_data);
+
+	free(bmp);
+}
+
+void InitTrainNoseTexture()
+{
+	ReadBitmap("train_nose.bmp");
+
+	int i, j, k;
+	for (i = 0, k = 0; i < train_nose_tex->GetWidth(); i++)
+		for (j = 0; j < train_nose_tex->GetHeight(); j++, k += 3)
+		{
+			train_nose_data[i][j][0] = bmp[k + 2];
+			train_nose_data[i][j][1] = bmp[k + 1];
+			train_nose_data[i][j][2] = bmp[k]; //in the file(bmp): bgrbgrbgr...
+		}
+
+	BindTexture(train_nose_tex, train_nose_data);
+
+	free(bmp);
+}
+
+void InitMetalAccentTexture()
+{
+	ReadBitmap("metal_accent.bmp");
+
+	int i, j, k;
+	for (i = 0, k = 0; i < metal_accent_tex->GetWidth(); i++)
+		for (j = 0; j < metal_accent_tex->GetHeight(); j++, k += 3)
+		{
+			metal_accent_data[i][j][0] = bmp[k + 2];
+			metal_accent_data[i][j][1] = bmp[k + 1];
+			metal_accent_data[i][j][2] = bmp[k]; //in the file(bmp): bgrbgrbgr...
+		}
+
+	BindTexture(metal_accent_tex, metal_accent_data);
+
+	free(bmp);
+}
+
+void InitMetalBrightTexture()
+{
+	ReadBitmap("metal_bright.bmp");
+
+	int i, j, k;
+	for (i = 0, k = 0; i < metal_bright_tex->GetWidth(); i++)
+		for (j = 0; j < metal_bright_tex->GetHeight(); j++, k += 3)
+		{
+			metal_bright_data[i][j][0] = bmp[k + 2];
+			metal_bright_data[i][j][1] = bmp[k + 1];
+			metal_bright_data[i][j][2] = bmp[k]; //in the file(bmp): bgrbgrbgr...
+		}
+
+	BindTexture(metal_bright_tex, metal_bright_data);
 
 	free(bmp);
 }

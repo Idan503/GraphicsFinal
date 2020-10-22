@@ -14,7 +14,7 @@ private:
 	bool alpha; // true for grba
 
 public:
-	Texture(int tid, int w, int h, bool alpha);
+	Texture(int tid, int w, int h, bool alpha=false);
 	int GetTid();
 	int GetWidth();
 	int GetHeight();

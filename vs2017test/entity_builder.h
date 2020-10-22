@@ -2,13 +2,12 @@
 #define TRAIN
 
 void DrawTrain();
-void DrawFence();
 void DrawBridge();
+void DrawBridgeRoad();
+void DrawBridgeCurve();
 void DrawBridgeSinglePole();
 void MoveTrain();
-void DrawBridgeArch(double);
 void DrawBridgePoles(double);
-void DrawHalfBridgeArch(double);
 
 #endif
 

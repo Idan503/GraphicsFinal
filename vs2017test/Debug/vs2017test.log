@@ -1,24 +1,6 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(467,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (vs2017test.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  ground_builder.cpp
-D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\ground_builder.cpp(74,34): warning C4244: 'argument': conversion from '_Ty' to 'int', possible loss of data
-          with
-          [
-              _Ty=double
-          ]
-D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\ground_builder.cpp(78,36): warning C4244: 'argument': conversion from '_Ty' to 'int', possible loss of data
-          with
-          [
-              _Ty=double
-          ]
-D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\ground_builder.cpp(82,38): warning C4244: 'argument': conversion from '_Ty' to 'int', possible loss of data
-          with
-          [
-              _Ty=double
-          ]
-D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\ground_builder.cpp(86,36): warning C4244: 'argument': conversion from '_Ty' to 'int', possible loss of data
-          with
-          [
-              _Ty=double
-          ]
-D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\ground_builder.cpp(204,6): warning C4101: 'times': unreferenced local variable
+  entity_builder.cpp
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\entity_builder.cpp(22,6): warning C4101: 'i': unreferenced local variable
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\entity_builder.cpp(159,6): warning C4101: 'counter': unreferenced local variable
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\entity_builder.cpp(158,9): warning C4101: 'beta': unreferenced local variable
   vs2017test.vcxproj -> D:\Documents\Projects\VisualStudio2019\GraphicsFinal\Debug\FinalGraphics211546288.exe

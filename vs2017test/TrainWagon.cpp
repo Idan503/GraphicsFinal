@@ -64,26 +64,25 @@ void TrainWagon::Draw()
 
 void TrainWagon::DrawWheel() {
 
-
 	// inside inner shpere
 	glPushMatrix();
 	glTranslated(-0.5, 0, 0);
 	glScaled(0.55, 0.35, 0.35);
-	glRotated(current_time * 330, 1, 0, 0);
+	glRotated(current_time * 330, -1, 0, 0);
 	glRotated(90, 0, 0, 1);
 	DrawColorSphere(color_black,16,16);
 	glPopMatrix();
 
 	// inside ring
 	glPushMatrix();
-	glRotated(current_time * 330, 1, 0, 0);
+	glRotated(current_time * 330, -1, 0, 0);
 	glRotated(90, 0, 0, 1);
 	DrawColorCylinder(color_red, 16);
 	glPopMatrix();
 
 	// inside tire 1
 	glPushMatrix();
-	glRotated(current_time * 330, 1, 0, 0);
+	glRotated(current_time * 330, -1, 0, 0);
 	glRotated(90, 0,0, 1);
 	DrawColorTire(12, 0.9,0.35,color_grey, 2);
 	glPopMatrix();
@@ -91,14 +90,14 @@ void TrainWagon::DrawWheel() {
 	// inside tire 2
 	glPushMatrix();
 	glTranslated(-1, 0, 0);
-	glRotated(current_time * 330, 1, 0, 0);
+	glRotated(current_time * 330, -1, 0, 0);
 	glRotated(90, 0, 0, 1);
 	DrawColorTire(12, 0.9, 0.35, color_grey,2);
 	glPopMatrix();
 
 	// outer ring
 	glPushMatrix();
-	glRotated(current_time * 330, 1, 0, 0);
+	glRotated(current_time * 330, -1, 0, 0);
 	glRotated(90, 0, 0, 1);
 	DrawColorCylinder(color_red, 16);
 	glPopMatrix();
@@ -107,7 +106,7 @@ void TrainWagon::DrawWheel() {
 	glPushMatrix();
 	glTranslated(-0.1, 0, 0);
 	glScaled(0.1, 1, 1);
-	glRotated(current_time * 330, 1, 0, 0);
+	glRotated(current_time * 330, -1, 0, 0);
 	glRotated(90, 0, 0, 1);
 	DrawColorSphere(color_white, 16, 16);
 	glPopMatrix();
@@ -117,7 +116,7 @@ void TrainWagon::DrawWheel() {
 	glPushMatrix();
 	glTranslated(-0.9, 0, 0);
 	glScaled(0.1, 1, 1);
-	glRotated(current_time * 330, 1, 0, 0);
+	glRotated(current_time * 330, -1, 0, 0);
 	glRotated(90, 0, 0, 1);
 	DrawColorSphere(color_white, 16, 16);
 	glPopMatrix();
@@ -335,7 +334,7 @@ void TrainWagon::DrawHeadBody() {
 	glTranslated(0, 1, -0.75);
 	glScaled(0.75, 0.75, 3.25);
 	glRotated(90, 1, 0, 0);
-	DrawColorCylinder(color_grey, 16);
+	DrawTexCylinder(16,30,1);
 	glPopMatrix();
 
 	//tube lines
@@ -343,39 +342,44 @@ void TrainWagon::DrawHeadBody() {
 	glTranslated(0, 1, -0.2);
 	glScaled(0.76, 0.76, 0.1);
 	glRotated(90, 1, 0, 0);
-	DrawColorCylinder(color_black, 16);
+	DrawTexCylinder(16, 31, 2);
 	glPopMatrix();
 
-	//inner tubes
 	glPushMatrix();
 	glTranslated(0, 1, 0.75);
 	glScaled(0.76, 0.76, 0.1);
 	glRotated(90, 1, 0, 0);
-	DrawColorCylinder(color_black, 16);
+	DrawTexCylinder(16, 31, 2);
 	glPopMatrix();
 
-	//inner tubes
 	glPushMatrix();
 	glTranslated(0, 1, 2);
 	glScaled(0.76, 0.76, 0.1);
 	glRotated(90, 1, 0, 0);
-	DrawColorCylinder(color_black, 16);
+	DrawTexCylinder(16, 31, 2);
 	glPopMatrix();
 
 	//nose
 	glPushMatrix();
 	glTranslated(0, 1, 2.5);
-	glScaled(0.75, 0.75, 0.3);
+	glScaled(0.75, 0.75, 0.2);
 	glRotated(90, 1, 0, 0);
-	DrawColorSphere(color_black, 16, 16);
+	DrawTexSphere(32,32,32,1,1);
 	glPopMatrix();
 
-	//red flat
+	glPushMatrix();
+	glTranslated(0, 1, 2.55);
+	glScaled(0.4, 0.4, 0.2);
+	glRotated(90, 1, 0, 0);
+	DrawTexSphere(32, 32, 31, 2,2);
+	glPopMatrix();
+
+	//accent flat
 	glPushMatrix();
 	glTranslated(0, 0.5, 0.5);
 	glScaled(1, 0.2, 1.25);
 	glRotated(90, 1, 0, 0);
-	DrawColorCube(color_black);
+	DrawTexCube(34);
 	glPopMatrix();
 
 	//grey front flat
@@ -383,7 +387,7 @@ void TrainWagon::DrawHeadBody() {
 	glTranslated(0, 0.5, 2.1);
 	glScaled(1, 0.2, 0.35);
 	glRotated(90, 1, 0, 0);
-	DrawColorCube(color_grey);
+	DrawTexCube(33);
 	glPopMatrix();
 
 	//tank
@@ -398,32 +402,35 @@ void TrainWagon::DrawHeadBody() {
 	glPushMatrix();
 	glTranslated(0, 1.65, 1.65);
 	glScaled(0.2, 1.25, 0.2);
-	DrawColorCylinder(color_red,16);
+	glColor3d(1, 1, 1);
+	SetRubyMaterial();
+	DrawTexCylinder(16,34,1,false);
 	glPopMatrix();
+	
 
 	glPushMatrix();
 	glTranslated(0, 1.7, 1.65);
 	glScaled(0.3, 0.25, 0.23);
-	DrawColorCylinder(color_red, 16);
+	DrawTexCylinder(16, 34, 1);
 	glPopMatrix();
 
 
 	glPushMatrix();
 	glTranslated(0, 2.85, 1.65);
 	glScaled(0.25, 0.25, 0.25);
-	DrawColorCylinder(color_red, 16, 1.65,1);
+	DrawTexCylinder(16, 34, 1,1.65,1);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslated(0, 3.1, 1.65);
 	glScaled(0.25, 0.25, 0.25);
-	DrawColorCylinder(color_red, 16, 1.25, 1.65);
+	DrawTexCylinder(16, 34, 1, 1.25, 1.65);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslated(0, 3.15, 1.65);
 	glScaled(0.25, 0.1, 0.25);
-	DrawColorSphere(color_black, 16, 16);
+	DrawColorSphere(vector<double>{0.5, 0.5, 0.5}, 16, 16);
 	glPopMatrix();
 
 	

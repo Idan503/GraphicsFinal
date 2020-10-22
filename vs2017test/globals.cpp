@@ -5,6 +5,7 @@
 // Global variables/functions that will be used in various files in the project
 
 const double PI = 3.1415;
+const double E = 2.71828;
 const int ground_size = 100;
 double current_time = 0;
 const int river_size = 10;
@@ -218,8 +219,17 @@ void DrawColorCylinder(vector<double> color, int sides, double tr, double br)
 }
 
 
+
+// overloading - radius as 1
+void DrawTexCylinder(int sides, int texture_id, int num_rep, bool replace)
+{
+	DrawTexCylinder(sides, texture_id, num_rep, 1, 1, replace);
+
+}
+
+
 // texture_id is texture id number
-extern void DrawTexCylinder(int sides, int texture_id, int num_rep, double tr, double br, bool replace)
+void DrawTexCylinder(int sides, int texture_id, int num_rep, double tr, double br, bool replace)
 {
 	double alpha, teta = 2 * PI / sides;
 	double part = num_rep / (double)sides;
@@ -263,18 +273,52 @@ void DrawColorSphere(vector<double> color, int sides, int slices)
 	}
 }
 
-void DrawTexSphere(int sides, int slices, int texture_id, int num_rep, bool replace)
+
+
+void DrawTexSphere(int sides, int slices, int texutre_id, int num_rep, int vert_rep, bool replace)
 {
 	double beta, gamma = PI / slices;
 	int counter;
+	double part = vert_rep / (double)slices;
 
 	for (beta = -PI / 2, counter = 0; beta <= PI / 2; beta += gamma, counter++)
 	{
 		glPushMatrix();
 		glTranslated(0, sin(beta), 0);
 		glScaled(1, sin(beta + gamma) - sin(beta), 1);
-		DrawTexCylinder(sides, texture_id, num_rep, cos(beta + gamma), cos(beta),replace);
+		DrawTexCylinder2(sides, texutre_id, num_rep, cos(beta + gamma), cos(beta), (counter + 1.0) * part, counter * part, replace);
 		glPopMatrix();
 	}
 }
 
+
+void DrawTexCylinder2(int n, int tnum, int num_repeat, double tr, double br, double tpart, double bpart, bool replace)
+{
+	double alpha, teta = 2 * PI / n;
+	double part = num_repeat / (double)n;
+	int counter;
+
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, tnum); // wall with window texture
+	if(replace)
+		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+	else
+		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+
+
+	for (alpha = 0, counter = 0; alpha <= 2 * PI; alpha += teta, counter++)
+	{
+		// defines one side
+
+		glBegin(GL_POLYGON);
+		//		glColor3d(0.3 + 0.7 * fabs(sin(alpha)), 0.3 + 0.7 * fabs(sin(alpha)), 0.3 + 0.7 * fabs(sin(alpha)));
+		glTexCoord2d(counter * part, tpart);    glVertex3d(tr * sin(alpha), 1, tr * cos(alpha)); // vertex 1
+		glTexCoord2d((counter + 1.0) * part, tpart);    		glVertex3d(tr * sin(alpha + teta), 1, tr * cos(alpha + teta)); // vertex 2
+		glTexCoord2d((counter + 1.0) * part, bpart);    		glVertex3d(br * sin(alpha + teta), 0, br * cos(alpha + teta)); // vertex 3
+		glTexCoord2d(counter * part, bpart);    		glVertex3d(br * sin(alpha), 0, br * cos(alpha)); // vertex 4
+		glEnd();
+	}
+
+	glDisable(GL_TEXTURE_2D);
+
+}

@@ -4,6 +4,7 @@
 #include "material_manager.h"
 #include "texture_manager.h"
 #include "TrainWagon.h"
+#include <math.h>
 #include <stdio.h>
 
 int train_z = -ground_size / 2;
@@ -66,10 +67,26 @@ void MoveTrain() {
 
 void DrawBridge()
 {
-	/*
+		
 	bridge_width = rail_width + 0.6;
 	
-	 max_ground_height =
+	DrawBridgeRoad();
+
+	DrawBridgePoles(0.25);
+
+	// upper arch
+	glPushMatrix();
+	glScaled(1, 1, 1);
+	DrawBridgeCurve();
+	glPopMatrix();
+
+
+	
+}
+
+void DrawBridgeRoad()
+{
+	max_ground_height =
 		fmax(fmax(ground[ground_size / 2 - river_size + 1][ground_size / 2], ground[ground_size / 2 - river_size][ground_size / 2]),
 			fmax(ground[ground_size / 2 + river_size - 1][ground_size / 2], ground[ground_size / 2 + river_size][ground_size / 2]));
 	bridge_final_height = max_ground_height + bridge_height;
@@ -80,10 +97,10 @@ void DrawBridge()
 
 	glBegin(GL_POLYGON);
 	// Road Texture under the rail
-	glTexCoord2d(0,1); glVertex3d(bridge_width, bridge_final_height, -river_size+1.0);
-	glTexCoord2d(bridge_width, 1); glVertex3d(bridge_width, bridge_final_height,river_size-1.0);
-	glTexCoord2d(bridge_width, 0); glVertex3d(-bridge_width, bridge_final_height,river_size-1.0);
-	glTexCoord2d(0, 0); glVertex3d(-bridge_width, bridge_final_height,-river_size+1.0);
+	glTexCoord2d(0, 1); glVertex3d(bridge_width, bridge_final_height, -river_size + 1.0);
+	glTexCoord2d(bridge_width, 1); glVertex3d(bridge_width, bridge_final_height, river_size - 1.0);
+	glTexCoord2d(bridge_width, 0); glVertex3d(-bridge_width, bridge_final_height, river_size - 1.0);
+	glTexCoord2d(0, 0); glVertex3d(-bridge_width, bridge_final_height, -river_size + 1.0);
 
 
 	glEnd();
@@ -91,26 +108,7 @@ void DrawBridge()
 
 	glDisable(GL_TEXTURE_2D);
 
-	DrawBridgePoles(0.25);
-	
 
-	// upper arch
-	glPushMatrix();
-	glTranslated(-bridge_width + 0.2, bridge_final_height, 0);
-	glScaled(1.6, 1.6, 1.6);
-	DrawBridgeArch(0.06);
-
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslated(bridge_width - 0.2, bridge_final_height, 0);
-	glScaled(1.6, 1.6, 1.6);
-	DrawBridgeArch(0.06);
-
-	glPopMatrix();
-
-
-	*/
 }
 
 void DrawBridgePoles(double thinkness)
@@ -133,7 +131,6 @@ void DrawBridgePoles(double thinkness)
 	}
 }
 
-
 void DrawBridgeSinglePole()
 {
 	//glEnable(GL_TEXTURE_2D);
@@ -149,77 +146,28 @@ void DrawBridgeSinglePole()
 
 }
 
-void DrawBridgeArch(double thickness)
+void DrawBridgeCurve()
 {
-	DrawHalfBridgeArch(thickness);
-
-	glPushMatrix();
-
-	glScaled(1, 1, -1);
-	DrawHalfBridgeArch(thickness);
-
-	glPopMatrix();
-
-}
-
-// The bridge arc is symetric, so we draw each half seperatly
-void DrawHalfBridgeArch(double thickness)
-{
-
-	//DrawTexSphere for connection spherres
-	glPushMatrix();
-	glTranslated(0, 1.5, -5.5);
-	glRotated(90, 1, 0, 0);
-	SetRubyMaterial();
-	gluSphere(gluNewQuadric(), thickness * 1.6, 8, 8);
-	SetSilverMaterial();
-	gluCylinder(gluNewQuadric(), thickness, thickness, 1.5, 8, 4);
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslated(0, 2.4, 0.341 - 5.5);
-	glRotated(110, 1, 0, 0);
-	SetRubyMaterial();
-	gluSphere(gluNewQuadric(), thickness * 1.6, 8, 8);
-	SetSilverMaterial();
-	gluCylinder(gluNewQuadric(), thickness, thickness, 1, 8, 4);
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslated(0, 3.1, 0.95 - 5.5);
-	glRotated(130, 1, 0, 0);
-	SetRubyMaterial();
-	gluSphere(gluNewQuadric(), thickness * 1.6, 8, 8);
-	SetSilverMaterial();
-	gluCylinder(gluNewQuadric(), thickness, thickness, 1, 8, 4);
-	glPopMatrix();
+	int curve_width = 25;
+	double step = 0.02;
+	double x;
 
 
-	glPushMatrix();
-	glTranslated(0, 3.7, 2 - 5.5);
-	glRotated(150, 1, 0, 0);
-	SetRubyMaterial();
-	gluSphere(gluNewQuadric(), thickness * 1.6, 8, 8);
-	SetSilverMaterial();
-	gluCylinder(gluNewQuadric(), thickness, thickness, 1.25, 8, 4);
-	glPopMatrix();
+	//f(x) of the bridge curve: f(x) = 0.00001x^{1.7e}
 
+	double beta, gamma = PI / 16;
+	int counter;
 
-	glPushMatrix();
-	glTranslated(0, 3.97, 3.45 - 5.5);
-	glRotated(170, 1, 0, 0);
-	SetRubyMaterial();
-	gluSphere(gluNewQuadric(), thickness * 1.6, 8, 8);
-	SetSilverMaterial();
-	gluCylinder(gluNewQuadric(), thickness, thickness, 1.5, 8, 4);
-	glPopMatrix();
+	for (x = 0.0; x < curve_width; x += step)
+	{
+		double y = pow(10, -5) * pow(x, 1.7 * E);
 
-
-	glPushMatrix();
-	glTranslated(0, 3.985, 0);
-	glRotated(180, 1, 0, 0);
-	SetSilverMaterial();
-	gluCylinder(gluNewQuadric(), thickness, thickness, 2.1, 8, 4);
-	glPopMatrix();
+		glPushMatrix();
+		glTranslated(0, y,x);
+		glRotated(x*3.5, 0, 1, 0);
+		glScaled(1, 1, 1);
+		DrawColorCylinder(vector<double>{1, 1, 1}, 16);
+		glPopMatrix();
+	}
 
 }
