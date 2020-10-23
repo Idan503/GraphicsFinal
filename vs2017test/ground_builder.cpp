@@ -6,7 +6,7 @@
 #include "ground_builder.h"
 
 
-double flat_height = 2;
+double flat_height = 3;
 
 void SetNormal(int i, int j)
 {
@@ -22,12 +22,12 @@ void SetNormal(int i, int j)
 // I should add here another color of between ground and high ground
 void SetHeightMaterial(int h)
 {
-	if (h > 3.5)
+	if (h > 4.5)
 	{
 		SetSnowMaterial();
 		return;
 	}
-	else if (h > 2.65)
+	else if (h > 3)
 	{
 		SetHighGroundMaterial();
 		return;
@@ -122,7 +122,7 @@ void BuildGroundTerrain()
 	BuildFlatMount();
 
 	
-	for (i = 0; i < 120; i++)
+	for (i = 0; i <100; i++)
 	{
 		BuildRandomWalk();
 	}
@@ -134,13 +134,13 @@ void BuildGroundTerrain()
 	
 	BuildRiverPath();
 	
-	//if (ValidateGroundBuild()) {
+	if (ValidateGroundBuild()) {
 	SmoothTerrain();
 	SmoothTerrain();
 	SmoothTerrain();
 
 	PrepareRailRoad();
-	//}
+	}
 }
 
 // This algorithm makes mountain peeks with delta random changes
@@ -244,26 +244,26 @@ void BuildRiverPath()
 // If there are too many low points, build will restart
 bool ValidateGroundBuild()
 {
-	int tooLow = 0;
-	int tooHigh = 0;
+	int too_low = 0;
+	int too_high = 0;
 	int i, j;
 	for (i = 0; i < ground_size - 1; i++) {
 		for (j = 0; j < ground_size; j++)
 		{
 			if (ground[i][j] < 0)
-				tooLow++;
+				too_low++;
 
-			if (ground[i][j] > 5.0 * (ground_size / 100))
-				tooHigh++;
+			if (ground[i][j] > 5.5 * (ground_size / 100))
+				too_high++;
 		}
 	}
 
 	
-	if (tooLow >= 2200 * (ground_size/100)) {
+	if (too_low >= 2200 * (ground_size/100)) {
 		BuildGroundTerrain(); // Too many points under the sea..
 		return false;
 	}
-	else if (tooHigh > 600 * (ground_size / 100) || tooHigh < 15 * (ground_size / 100)) {
+	else if (too_high > 600 * (ground_size / 100) || too_high < 15 * (ground_size / 100)) {
 		BuildGroundTerrain(); // Too many / too few higher points
 		return false;
 	}
@@ -286,6 +286,8 @@ void SmoothTerrain()
 				ground[i][j - 1] + 4 * ground[i][j] + ground[i][j + 1] +
 				0.25 * ground[i + 1][j - 1] + ground[i + 1][j] + 0.25 * ground[i + 1][j + 1]) / 9.0;
 
+
+
 	// copy the new signal
 	for (i = 1; i < ground_size - 1; i++)
 		for (j = 1; j < ground_size - 1; j++)
@@ -295,12 +297,85 @@ void SmoothTerrain()
 
 
 void PrepareRailRoad() {
-	int i;
+	int x,z,i;
 
-	for (i = 0; i < ground_size; i++) {
-		if(ground[i][ground_size/2] > 0)
-			ground[i][ground_size / 2 + 1] = ground[i][ground_size / 2 - 1] = ground[i][ground_size /2];
+	// Flats on x axis (for flat rail)
+	for (x = 0; x < ground_size; x++) {
+		if(ground[x][ground_size/2] > 0)
+			ground[x][ground_size / 2 + 1] = ground[x][ground_size / 2 - 1] = ground[x][ground_size /2];
 	}
+
+
+	const double max_ground_height = GetMaxBridgeGroundHeight();
+
+
+	int offset;
+
+	for (i = 0; i < 40; i++) {
+		for (offset = -1; offset < 2; offset++) {
+			for (z = 1; z < ground_size - 1; z++) {
+				if (z <= ground_size / 2 - river_size + 1 || z >= ground_size / 2 + river_size - 1) {
+					ground[z][ground_size / 2 + offset] = (0.4 * ground[z - 1][ground_size / 2 + offset]) +
+						(0.2 * ground[z][ground_size / 2 + offset]) + (0.4 * ground[z + 1][ground_size / 2 + offset]);
+				}
+			}
+		}
+	}
+
+	/*
+	// smooth train path
+		int j;
+
+		double height_start_sum = 0;
+	double height_end_sum = 0;
+	int start_count = 0, end_count = 0;
+	for (i = 1; i < ground_size - 1; i++)
+		for (j = ground_size / 2 - 2; j <= ground_size / 2 + 2; j++)
+		{
+			if (i <= ground_size / 2 - river_size + 1) {
+				height_start_sum += ground[i][j];
+				start_count++;
+			}
+			else if (i >= ground_size / 2 + river_size - 1)
+			{
+				height_end_sum += ground[i][j];
+				end_count++;
+			}
+		}
+
+	double avg_height_start = fmax(1,height_start_sum/start_count);
+	double avg_height_end = fmax(1,height_end_sum/end_count);
+
+
+
+	for (i = 1; i < ground_size - 1; i++)
+	{
+		for (j = ground_size / 2 - 2; j <= ground_size / 2 + 2; j++)
+		{
+			if (i <= ground_size / 2 - river_size + 1)
+				ground[i][j] = avg_height_start;
+			else if (i >= ground_size / 2 + river_size - 1)
+			{
+				ground[i][j] = avg_height_end;
+			}
+		}
+	}
+
+
+	//Smooth
+	for (i = 1; i < ground_size - 1; i++)
+	{
+		ground[i][ground_size / 2 - 3] = 0.5* ground[i][ground_size / 2 - 2] + 0.5 * ground[i][ground_size / 2 - 4];
+		ground[i][ground_size / 2 + 3] = 0.5 * ground[i][ground_size / 2 + 2] + 0.5 * ground[i][ground_size / 2 + 4];
+	}
+
+	const double max_ground_height =
+		fmax(fmax(ground[ground_size / 2 - river_size + 1][ground_size / 2], ground[ground_size / 2 - river_size][ground_size / 2]),
+			fmax(ground[ground_size / 2 + river_size - 1][ground_size / 2], ground[ground_size / 2 + river_size][ground_size / 2]));
+
+	ground[ground_size / 2 - river_size][ground_size / 2] = max_ground_height;
+	ground[ground_size / 2 + river_size][ground_size / 2] = max_ground_height;
+	*/
 }
 
 
@@ -311,14 +386,11 @@ void DrawRail()
 	glEnable(GL_TEXTURE_2D);
 
 	glBindTexture(GL_TEXTURE_2D, 10);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 
 	int i;
 	const double min_height = 0.1;
-	const double max_ground_height =
-		fmax(fmax(ground[ground_size / 2 - river_size + 1][ground_size / 2], ground[ground_size / 2 - river_size][ground_size / 2]),
-			fmax(ground[ground_size / 2 + river_size - 1][ground_size / 2], ground[ground_size / 2 + river_size][ground_size / 2]));
+	const double max_ground_height = GetMaxBridgeGroundHeight();
 
 	for (i = 0; i < ground_size - 2; i++) {
 		if (rail[i] == NULL) {
@@ -342,7 +414,9 @@ void DrawRail()
 			// init the array, rail height is constant
 			rail[i] = start_height;
 			rail[i + 1] = end_height;
+
 		}
+
 
 
 		glBegin(GL_POLYGON);
@@ -366,4 +440,12 @@ void DrawRail()
 	glDisable(GL_TEXTURE_2D);
 	glDisable(GL_BLEND);
 	
+}
+
+//returns the highest height of ground touching the bridge - to set bridge height
+double GetMaxBridgeGroundHeight()
+{
+
+	return fmax(fmax(ground[ground_size / 2 - river_size + 1][ground_size / 2], ground[ground_size / 2 - river_size][ground_size / 2]),
+		fmax(ground[ground_size / 2 + river_size - 1][ground_size / 2], ground[ground_size / 2 + river_size][ground_size / 2]));
 }

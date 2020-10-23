@@ -13,6 +13,7 @@ void SmoothTerrain();
 void PrepareRailRoad();
 void DrawRail();
 void InitTrain();
+double GetMaxBridgeGroundHeight();
 #endif
 
 

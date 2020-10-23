@@ -43,8 +43,8 @@ void TrainWagon::Draw()
 	// Drawing the train relative to rail's path
 	double beta;
 	glPushMatrix();
-	glTranslated(position[0], position[1] + 1, position[2]);
-	glScaled(0.65, 0.65, 0.65);
+	glTranslated(position[0], position[1] + 0.5, position[2]);
+	glScaled(0.45, 0.45, 0.45);
 	// only when the motion is along X axis
 	beta = -atan(direction[1]); // in rad
 	glRotated(beta * 180 / PI, 1, 0, 0);
@@ -68,21 +68,21 @@ void TrainWagon::DrawWheel() {
 	glPushMatrix();
 	glTranslated(-0.5, 0, 0);
 	glScaled(0.55, 0.35, 0.35);
-	glRotated(current_time * 330, -1, 0, 0);
+	glRotated(current_time * -330, -1, 0, 0);
 	glRotated(90, 0, 0, 1);
 	DrawColorSphere(color_black,16,16);
 	glPopMatrix();
 
 	// inside ring
 	glPushMatrix();
-	glRotated(current_time * 330, -1, 0, 0);
+	glRotated(current_time * -330, -1, 0, 0);
 	glRotated(90, 0, 0, 1);
 	DrawColorCylinder(color_red, 16);
 	glPopMatrix();
 
 	// inside tire 1
 	glPushMatrix();
-	glRotated(current_time * 330, -1, 0, 0);
+	glRotated(current_time * -330, -1, 0, 0);
 	glRotated(90, 0,0, 1);
 	DrawColorTire(12, 0.9,0.35,color_grey, 2);
 	glPopMatrix();
@@ -90,14 +90,14 @@ void TrainWagon::DrawWheel() {
 	// inside tire 2
 	glPushMatrix();
 	glTranslated(-1, 0, 0);
-	glRotated(current_time * 330, -1, 0, 0);
+	glRotated(current_time * -330, -1, 0, 0);
 	glRotated(90, 0, 0, 1);
 	DrawColorTire(12, 0.9, 0.35, color_grey,2);
 	glPopMatrix();
 
 	// outer ring
 	glPushMatrix();
-	glRotated(current_time * 330, -1, 0, 0);
+	glRotated(current_time * -330, -1, 0, 0);
 	glRotated(90, 0, 0, 1);
 	DrawColorCylinder(color_red, 16);
 	glPopMatrix();
@@ -106,7 +106,7 @@ void TrainWagon::DrawWheel() {
 	glPushMatrix();
 	glTranslated(-0.1, 0, 0);
 	glScaled(0.1, 1, 1);
-	glRotated(current_time * 330, -1, 0, 0);
+	glRotated(current_time * -330, -1, 0, 0);
 	glRotated(90, 0, 0, 1);
 	DrawColorSphere(color_white, 16, 16);
 	glPopMatrix();
@@ -116,7 +116,7 @@ void TrainWagon::DrawWheel() {
 	glPushMatrix();
 	glTranslated(-0.9, 0, 0);
 	glScaled(0.1, 1, 1);
-	glRotated(current_time * 330, -1, 0, 0);
+	glRotated(current_time * -330, -1, 0, 0);
 	glRotated(90, 0, 0, 1);
 	DrawColorSphere(color_white, 16, 16);
 	glPopMatrix();

@@ -23,30 +23,31 @@ void InitTrain()  {
 	int i;
 	// define a car
 	// we still have to compute diry
-	/*
+	
 	for (i = 0; i < WAGON_COUNT+ 1; i++)
 	{
 		// First wagon is head, others are regular wagons
-		train[i] = new TrainWagon(1, 0, 0, vector<double> {0, 0, -(double)ground_size / 2 + ((WAGON_COUNT+1-i) * 4)}, vector<double>{0,0,1}, 0,(i==0));
+		train[i] = new TrainWagon(1, 0, 0, vector<double> {0, 0, -(double)ground_size / 2 + ((WAGON_COUNT+1-i) * 2.55)}, vector<double>{0,0,1}, 0,(i==0));
 		train[i]->Move();
 		train[i]->SetSpeed(train_speed);
 
 	}
-	*/
+	
 
 	//TESTING
-	train[0] = new TrainWagon(1, 0, 0, vector<double> {0, 0, 0}, vector<double>{0, 0, 1}, 0, false);
+	//train[0] = new TrainWagon(1, 0, 0, vector<double> {0, 0, 0}, vector<double>{0, 0, 1}, 0, false);
 
 }
 
 
 void DrawTrain() {
 
-	//for (int i = 0; i < WAGON_COUNT + 1; i++)
-	//	train[i]->Draw();
+	for (int i = 0; i < WAGON_COUNT + 1; i++)
+		train[i]->Draw();
 
 	
 	//TESTING
+	/*
 	glPushMatrix();
 
 	glTranslated(0, 25, 0);
@@ -55,13 +56,14 @@ void DrawTrain() {
 	train[0]->Draw();
 
 	glPopMatrix();
+	*/
 	
 	
 }
 
 void MoveTrain() {
-	//for (int i = 0; i < WAGON_COUNT + 1; i++)
-	//	train[i]->Move();
+	for (int i = 0; i < WAGON_COUNT + 1; i++)
+		train[i]->Move();
 
 }
 
@@ -111,15 +113,15 @@ void DrawBridgeArch()
 
 	// main pole x-
 	glPushMatrix();
-	glTranslated(-bridge_width, bridge_final_height,0);
-	glScaled(0.3, (CalcBridgeCurveHeight(bridge_curve_length) * 0.3) - bridge_height + 0.35, 0.5);
+	glTranslated(-bridge_width, 0,0);
+	glScaled(0.3, bridge_final_height + 0.25 + CalcBridgeCurveHeight(bridge_curve_length) * 0.3, 0.5);
 	DrawTexCube(34);
 	glPopMatrix();
 
 	// main pole x+
 	glPushMatrix();
-	glTranslated(bridge_width, bridge_final_height, 0);
-	glScaled(0.3, (CalcBridgeCurveHeight(bridge_curve_length) * 0.3) - bridge_height + 0.35, 0.5);
+	glTranslated(bridge_width, 0, 0);
+	glScaled(0.3, bridge_final_height + 0.25 + CalcBridgeCurveHeight(bridge_curve_length) * 0.3, 0.5);
 	DrawTexCube(34);
 	glPopMatrix();
 
@@ -176,16 +178,18 @@ void DrawBridgePoles(double thinkness)
 	// poles of the bridge
 
 	SetSilverMaterial();
-	double i;
-	for (i = -river_size + pole_row_step; i <= river_size - 1.0; i += pole_row_step) {
-		glPushMatrix();
-		glTranslated(bridge_width - pole_line_margin, bridge_final_height, i);
-		DrawBridgeSinglePole();
-		glPopMatrix();
-		glPushMatrix();
-		glTranslated(-bridge_width + pole_line_margin, bridge_final_height, i);
-		DrawBridgeSinglePole();
-		glPopMatrix();
+	double z;
+	for (z = -river_size + pole_row_step; z <= river_size - 1.0; z += pole_row_step) {
+		if (fabs(z) > 0.25) { //no need for pole in center (there is main pole)
+			glPushMatrix();
+			glTranslated(bridge_width - pole_line_margin, bridge_final_height, z);
+			DrawBridgeSinglePole();
+			glPopMatrix();
+			glPushMatrix();
+			glTranslated(-bridge_width + pole_line_margin, bridge_final_height, z);
+			DrawBridgeSinglePole();
+			glPopMatrix();
+		}
 	}
 }
 
@@ -195,8 +199,9 @@ void DrawBridgeSinglePole()
 	//glBindTexture(GL_TEXTURE_2D, 10);
 
 	glPushMatrix();
-	glRotated(90, 1, 0, 0);
-	gluCylinder(gluNewQuadric(), 0.15, 0.15, 5, 20, 4);
+	glTranslated(0, -bridge_final_height + ground[ground_size/2][ground_size / 2], 0);
+	glScaled(0.15, bridge_final_height - ground[ground_size / 2][ground_size / 2], 0.15);
+	DrawTexCylinder(12, 34, 1);
 
 	glPopMatrix();
 
@@ -245,20 +250,20 @@ void DrawBridgeInnerPoles()
 		for (z_mult = -1,0; z_mult <= 1; z_mult += 2.0)
 		{
 			glPushMatrix();
+			glTranslated(x_mult * bridge_width, bridge_final_height, z_mult * river_size * 0.55);
+			glScaled(inner_pole_size, 1.25, inner_pole_size);
+			DrawTexCylinder(16, 34, 1);
+			glPopMatrix();
+
+			glPushMatrix();
 			glTranslated(x_mult * bridge_width, bridge_final_height, z_mult * river_size * 0.35);
-			glScaled(inner_pole_size, 1, inner_pole_size);
+			glScaled(inner_pole_size, 2.5, inner_pole_size);
 			DrawTexCylinder(16, 34, 1);
 			glPopMatrix();
 
 			glPushMatrix();
-			glTranslated(x_mult * bridge_width, bridge_final_height, z_mult * river_size * 0.225);
-			glScaled(inner_pole_size, 2, inner_pole_size);
-			DrawTexCylinder(16, 34, 1);
-			glPopMatrix();
-
-			glPushMatrix();
-			glTranslated(x_mult * bridge_width, bridge_final_height, z_mult * river_size * 0.125);
-			glScaled(inner_pole_size, 3, inner_pole_size);
+			glTranslated(x_mult * bridge_width, bridge_final_height, z_mult * river_size * 0.2);
+			glScaled(inner_pole_size, 3.85, inner_pole_size);
 			DrawTexCylinder(16, 34, 1);
 			glPopMatrix();
 		}
