@@ -1,6 +1,6 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(467,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (vs2017test.vcxproj).  This can lead to incorrect clean and rebuild behavior.
   entity_builder.cpp
 D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\entity_builder.cpp(23,6): warning C4101: 'i': unreferenced local variable
-D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\entity_builder.cpp(193,6): warning C4101: 'counter': unreferenced local variable
-D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\entity_builder.cpp(192,9): warning C4101: 'beta': unreferenced local variable
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\entity_builder.cpp(217,6): warning C4101: 'counter': unreferenced local variable
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\entity_builder.cpp(216,9): warning C4101: 'beta': unreferenced local variable
   vs2017test.vcxproj -> D:\Documents\Projects\VisualStudio2019\GraphicsFinal\Debug\FinalGraphics211546288.exe

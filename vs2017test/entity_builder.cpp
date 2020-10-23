@@ -110,12 +110,36 @@ void DrawBridgeArch()
 	DrawBridgeCurve();
 	glPopMatrix();
 
-	// main pole
+	// main pole x-
 	glPushMatrix();
 	glTranslated(-bridge_width, bridge_final_height,0);
 	glScaled(0.3, (CalcBridgeCurveHeight(bridge_curve_length) * 0.3) - bridge_height + 0.35, 0.5);
 	DrawTexCube(34);
 	glPopMatrix();
+
+	// main pole x+
+	glPushMatrix();
+	glTranslated(bridge_width, bridge_final_height, 0);
+	glScaled(0.3, (CalcBridgeCurveHeight(bridge_curve_length) * 0.3) - bridge_height + 0.35, 0.5);
+	DrawTexCube(34);
+	glPopMatrix();
+
+	// road handle x+
+	glPushMatrix();
+	glTranslated(bridge_width, bridge_final_height, -river_size);
+	glScaled(0.3, 0.3, river_size * 2.0);
+	glRotated(90, 1, 0, 0);
+	DrawTexCylinder(6,34,1);
+	glPopMatrix();
+
+	// road handle x-
+	glPushMatrix();
+	glTranslated(-bridge_width, bridge_final_height, -river_size);
+	glScaled(0.3, 0.3, river_size * 2.0);
+	glRotated(90, 1, 0, 0);
+	DrawTexCylinder(6, 34, 1);
+	glPopMatrix();
+
 
 }
 
