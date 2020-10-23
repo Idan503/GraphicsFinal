@@ -4,7 +4,7 @@
 #include <math.h>
 
 
-double eyex = -12, eyey = 5, eyez = 0;
+double eyex = -12, eyey = 10, eyez = 0;
 
 double yaw = PI * 0.5, pitch = 25, roll;
 double speed = 0, angularSpeed = 0;

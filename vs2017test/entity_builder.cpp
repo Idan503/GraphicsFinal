@@ -12,6 +12,7 @@ int train_x = ground_size/2;
 double max_ground_height;
 double bridge_width;
 double bridge_final_height;
+double bridge_curve_length;
 
 const int WAGON_COUNT = 1; //excluding head
 
@@ -74,14 +75,48 @@ void DrawBridge()
 
 	DrawBridgePoles(0.25);
 
-	// upper arch
-	glPushMatrix();
-	glScaled(1, 1, 1);
-	DrawBridgeCurve();
-	glPopMatrix();
+	DrawBridgeArch();
+
 
 
 	
+}
+
+void DrawBridgeArch()
+{
+	//curves z-
+	glPushMatrix();
+	glTranslated(bridge_width, bridge_final_height, -river_size + 1.5);
+	glScaled(0.3, 0.3, 0.3);
+	DrawBridgeCurve();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslated(-bridge_width, bridge_final_height, -river_size + 1.5);
+	glScaled(0.3, 0.3, 0.3);
+	DrawBridgeCurve();
+	glPopMatrix();
+
+	//curves z+
+	glPushMatrix();
+	glTranslated(bridge_width, bridge_final_height, river_size - 1.5);
+	glScaled(0.3, 0.3, -0.3);
+	DrawBridgeCurve();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslated(-bridge_width, bridge_final_height, river_size - 1.5);
+	glScaled(0.3, 0.3, -0.3);
+	DrawBridgeCurve();
+	glPopMatrix();
+
+	// main pole
+	glPushMatrix();
+	glTranslated(-bridge_width, bridge_final_height,0);
+	glScaled(0.3, (CalcBridgeCurveHeight(bridge_curve_length) * 0.3) - bridge_height + 0.35, 0.5);
+	DrawTexCube(34);
+	glPopMatrix();
+
 }
 
 void DrawBridgeRoad()
@@ -148,26 +183,33 @@ void DrawBridgeSinglePole()
 
 void DrawBridgeCurve()
 {
-	int curve_width = 25;
-	double step = 0.02;
+	bridge_curve_length = 27.5;
+	double step = 0.1;
 	double x;
 
-
-	//f(x) of the bridge curve: f(x) = 0.00001x^{1.7e}
+	//bridge curve function: f(x) = \frac{1}{20}e^{0.235x^{1.1}}\cdot e^{1.25}
 
 	double beta, gamma = PI / 16;
 	int counter;
 
-	for (x = 0.0; x < curve_width; x += step)
+	for (x = 0.0; x < bridge_curve_length; x += step)
 	{
-		double y = pow(10, -5) * pow(x, 1.7 * E);
+		double y = CalcBridgeCurveHeight(x);
+
 
 		glPushMatrix();
 		glTranslated(0, y,x);
 		glRotated(x*3.5, 0, 1, 0);
-		glScaled(1, 1, 1);
-		DrawColorCylinder(vector<double>{1, 1, 1}, 16);
+		glScaled(0.75, 0.75, 0.75);
+		DrawTexSphere(6,6,34,1,1);
 		glPopMatrix();
 	}
 
+}
+
+//returns the y of the f(x) curve:
+//which is: f(x) = \frac{1}{20}e^{0.235x^{1.1}}\cdot e^{1.25}
+double CalcBridgeCurveHeight(double x)
+{
+	return (1.0 / 20.0)* pow(E, 0.235 * pow(x, 0.9)) * 3.5;
 }
