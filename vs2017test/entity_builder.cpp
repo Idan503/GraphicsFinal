@@ -35,7 +35,7 @@ void InitTrain()  {
 	*/
 
 	//TESTING
-	train[0] = new TrainWagon(1, 0, 0, vector<double> {0, 0, 0}, vector<double>{0, 0, 1}, 0, true);
+	train[0] = new TrainWagon(1, 0, 0, vector<double> {0, 0, 0}, vector<double>{0, 0, 1}, 0, false);
 
 }
 
@@ -77,8 +77,7 @@ void DrawBridge()
 
 	DrawBridgeArch();
 
-
-
+	DrawBridgeInnerPoles();
 	
 }
 
@@ -208,32 +207,63 @@ void DrawBridgeSinglePole()
 void DrawBridgeCurve()
 {
 	bridge_curve_length = 27.5;
-	double step = 0.1;
-	double x;
+	double step = 0.15;
+	double z;
 
 	//bridge curve function: f(x) = \frac{1}{20}e^{0.235x^{1.1}}\cdot e^{1.25}
 
 	double beta, gamma = PI / 16;
 	int counter;
 
-	for (x = 0.0; x < bridge_curve_length; x += step)
+	for (z = 0.0; z < bridge_curve_length; z += step)
 	{
-		double y = CalcBridgeCurveHeight(x);
-
+		double y = CalcBridgeCurveHeight(z);
 
 		glPushMatrix();
-		glTranslated(0, y,x);
-		glRotated(x*3.5, 0, 1, 0);
+		glTranslated(0, y,z);
+		glRotated(z*3.5, 0, 1, 0);
 		glScaled(0.75, 0.75, 0.75);
 		DrawTexSphere(6,6,34,1,1);
 		glPopMatrix();
 	}
-
 }
 
 //returns the y of the f(x) curve:
 //which is: f(x) = \frac{1}{20}e^{0.235x^{1.1}}\cdot e^{1.25}
 double CalcBridgeCurveHeight(double x)
 {
-	return (1.0 / 20.0)* pow(E, 0.235 * pow(x, 0.9)) * 3.5;
+	return pow(E, 0.235 * pow(x, 0.78));
+}
+
+void DrawBridgeInnerPoles()
+{
+	const double inner_pole_size = 0.13;
+	double x_mult, z_mult;
+
+	for (x_mult = -1,0; x_mult <= 1; x_mult += 2.0)
+	{
+		for (z_mult = -1,0; z_mult <= 1; z_mult += 2.0)
+		{
+			glPushMatrix();
+			glTranslated(x_mult * bridge_width, bridge_final_height, z_mult * river_size * 0.35);
+			glScaled(inner_pole_size, 1, inner_pole_size);
+			DrawTexCylinder(16, 34, 1);
+			glPopMatrix();
+
+			glPushMatrix();
+			glTranslated(x_mult * bridge_width, bridge_final_height, z_mult * river_size * 0.225);
+			glScaled(inner_pole_size, 2, inner_pole_size);
+			DrawTexCylinder(16, 34, 1);
+			glPopMatrix();
+
+			glPushMatrix();
+			glTranslated(x_mult * bridge_width, bridge_final_height, z_mult * river_size * 0.125);
+			glScaled(inner_pole_size, 3, inner_pole_size);
+			DrawTexCylinder(16, 34, 1);
+			glPopMatrix();
+		}
+	}
+
+
+
 }

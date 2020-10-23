@@ -7,6 +7,7 @@ void DrawBridgeRoad();
 void DrawBridgeArch();
 double CalcBridgeCurveHeight(double x);
 void DrawBridgeCurve();
+void DrawBridgeInnerPoles();
 void DrawBridgeSinglePole();
 void MoveTrain();
 void DrawBridgePoles(double);

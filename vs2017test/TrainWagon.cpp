@@ -285,20 +285,20 @@ void TrainWagon::DrawHeadBase()
 
 	//back wheels x+
 	glPushMatrix();
-	glTranslated(1.15, -0.45, -0.9);
+	glTranslated(1.25, -0.45, -0.9);
 	glScaled(0.475, 0.475, 0.475);
 	DrawWheel();
 	glPopMatrix();
 	
 	glPushMatrix();
-	glTranslated(1.15, -0.45, 0.2);
+	glTranslated(1.25, -0.45, 0.2);
 	glScaled(0.475, 0.475, 0.475);
 	DrawWheel();
 	glPopMatrix();
 
 	//front wheel x+
 	glPushMatrix();
-	glTranslated(1.15, -0.55, 2.1);
+	glTranslated(1.25, -0.55, 2.1);
 	glScaled(0.35, 0.35, 0.35);
 	DrawWheel();
 	glPopMatrix();
@@ -307,20 +307,20 @@ void TrainWagon::DrawHeadBase()
 
 	//back wheels x-
 	glPushMatrix();
-	glTranslated(-1.15, -0.45, -0.9);
+	glTranslated(-0.75, -0.45, -0.9);
 	glScaled(0.475, 0.475, 0.475);
 	DrawWheel();
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslated(-1.15, -0.45, 0.2);
+	glTranslated(-0.75, -0.45, 0.2);
 	glScaled(0.475, 0.475, 0.475);
 	DrawWheel();
 	glPopMatrix();
 
 	//front wheel x-
 	glPushMatrix();
-	glTranslated(-1.15, -0.55, 2.1);
+	glTranslated(-0.75, -0.55, 2.1);
 	glScaled(0.35, 0.35, 0.35);
 	DrawWheel();
 	glPopMatrix();
@@ -489,26 +489,11 @@ void TrainWagon::DrawRegularBase()
 
 	//lower flat 
 	glPushMatrix();
-	glTranslated(0, -0.2, 0.5);
-	glScaled(1, 0.1, 2);
+	glTranslated(0, -0.2, 0.25);
+	glScaled(1, 0.1, 2.25);
 	DrawColorCube(color_grey);
 	glPopMatrix();
 
-
-	//back wheel holder
-	glPushMatrix();
-	glTranslated(0, -0.4, -0.95);
-	glScaled(1, 0.1, 0.55);
-	DrawColorCube(color_grey);
-	glPopMatrix();
-
-
-	//front wheel grey holder
-	glPushMatrix();
-	glTranslated(0, -0.4, 1.95);
-	glScaled(1, 0.1, 0.55);
-	DrawColorCube(color_grey);
-	glPopMatrix();
 
 
 	//lower red flat
@@ -562,6 +547,34 @@ void TrainWagon::DrawRegularBase()
 
 
 	
+
+	//back wheels x+
+	glPushMatrix();
+	glTranslated(1.25, -0.45, -0.9);
+	glScaled(0.475, 0.475, 0.475);
+	DrawWheel();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslated(1.25, -0.45, 1.5);
+	glScaled(0.475, 0.475, 0.475);
+	DrawWheel();
+	glPopMatrix();
+
+
+
+	//wheels x-
+	glPushMatrix();
+	glTranslated(-0.75, -0.45, -0.9);
+	glScaled(0.475, 0.475, 0.475);
+	DrawWheel();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslated(-0.75, -0.45, 1.5);
+	glScaled(0.475, 0.475, 0.475);
+	DrawWheel();
+	glPopMatrix();
 
 
 

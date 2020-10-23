@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include "texture_manager.h"
 #include "glut.h"
 #include "globals.h"
