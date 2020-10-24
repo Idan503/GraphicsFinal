@@ -7,11 +7,12 @@ void SetSilverMaterial();
 void SetRedPlasticMaterial();
 void SetGroundMaterial();
 void SetHighGroundMaterial();
-void SetLowGroundMaterial();
+void SetGrassandMaterial();
 void SetUnderGroundMaterial();
 void SetSnowMaterial();
 void SetSandMaterial();
 void SetRubyMaterial();
+void SetLowGroundMaterial();
 
 #endif
 

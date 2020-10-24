@@ -45,12 +45,18 @@ float under_ground_diffuse[4] = { 0.3038f, 0.17048f, 0.0828f, 1.0f };
 float under_ground_specular[4] = { 0.256777f, 0.137622f, 0.086014f, 1.0f };
 float under_ground_shine = 1.8f;
 
-
 // Low Ground
-float low_ground_ambient[4] = { 0.06125f, 0.0535f, 0.0325f, 1.0f };
-float low_ground_diffuse[4] = { 0.04038f, 0.15048f, 0.0828f, 1.0f };
-float low_ground_specular[4] = { 0.056777f, 0.037622f, 0.006014f, 1.0f };
-float low_ground_shine = 0.2f;
+float low_ground_ambient[4] = { 0.06125f, 0.04135f, 0.0525f, 1.0f };
+float low_ground_diffuse[4] = { 0.07038f, 0.3048f, 0.0888f, 1.0f };
+float low_ground_specular[4] = { 0.026777f, 0.037622f, 0.006014f, 1.0f };
+float low_ground_shine = 1.0f;
+
+
+// Half grass half sand
+float grassand_ambient[4] = { 0.33725f, 0.4295f, 0.1745f, 1.0f };
+float grassand_diffuse[4] = { 0.37164f, 0.32048f, 0.13648f, 1.0f };
+float grassand_specular[4] = { 0.4728281f, 0.555802f, 0.426065f, 1.0f };
+float grassand_shine = 30.0f;
 
 // Ground
 float ground_ambient[4] = { 0.09125f, 0.0935f, 0.0325f, 1.0f };
@@ -65,9 +71,9 @@ float sand_specular[4] = { 0.628281f, 0.685802f, 0.466065f, 1.0f };
 float sand_shine = 80.2f;
 
 // High Ground
-float high_ground_ambient[4] = { 0.2f,0.25f,0.2f, 1.0f };
-float high_ground_diffuse[4] = { 0.05f,0.25f,0.05f, 1.0f };
-float high_ground_specular[4] = { 0.05f,0.25f,0.05f, 1.0f };
+float high_ground_ambient[4] = { 0.3f,0.35f,0.3f, 1.0f };
+float high_ground_diffuse[4] = { 0.15f,0.35f,0.15f, 1.0f };
+float high_ground_specular[4] = { 0.15f,0.35f,0.15f, 1.0f };
 float high_ground_shine = 12.8f;
 
 
@@ -128,6 +134,14 @@ void SetLowGroundMaterial()
 	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, low_ground_diffuse);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, low_ground_specular);
 	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, low_ground_shine);
+}
+
+void SetGrassandMaterial()
+{
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, grassand_ambient);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, grassand_diffuse);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, grassand_specular);
+	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, grassand_shine);
 }
 
 void SetGroundMaterial()

@@ -42,9 +42,9 @@ void display()
 	DrawGround();
 
 	DrawTrain();
-	//DrawFence();
 
 	DrawTrain();
+	DrawTrees();
 
 	glutSwapBuffers(); // show all
 }

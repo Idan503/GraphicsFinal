@@ -11,6 +11,7 @@ void DrawBridgeInnerPoles();
 void DrawBridgeSinglePole();
 void MoveTrain();
 void DrawBridgePoles(double);
+void DrawTrees();
 
 #endif
 

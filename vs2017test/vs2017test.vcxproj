@@ -121,6 +121,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="bridge.cpp" />
     <ClCompile Include="globals.cpp" />
     <ClCompile Include="material_manager.cpp" />
     <ClCompile Include="main.cpp" />
@@ -130,8 +131,10 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="texture_manager.cpp" />
     <ClCompile Include="TrainWagon.cpp" />
+    <ClCompile Include="tree.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="bridge.h" />
     <ClInclude Include="globals.h" />
     <ClInclude Include="glut.h" />
     <ClInclude Include="camera.h" />
@@ -141,6 +144,7 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="texture_manager.h" />
     <ClInclude Include="TrainWagon.h" />
+    <ClInclude Include="tree.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

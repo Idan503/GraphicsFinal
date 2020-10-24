@@ -30,17 +30,17 @@ void SetHeightMaterial(int h)
 		SetSnowMaterial();
 		return;
 	}
-	else if (h > 3)
+	else if (h > 3.5)
 	{
 		SetHighGroundMaterial();
 		return;
 	}
-	else if (h > 0.12)
+	else if (h > 1)
 	{
 		SetGroundMaterial();
 		return;
 	}
-	else if (h > 0.06)
+	else if (h > 0.05)
 	{
 		SetLowGroundMaterial();
 		return;
@@ -52,6 +52,7 @@ void SetHeightMaterial(int h)
 	}
 	else
 	{
+		// h is in [-0.05,0.05]
 		SetSandMaterial();
 		return;
 	}
@@ -72,7 +73,7 @@ void DrawGround()
 
 	// Using lines texutre that is added to materialed ground
 
-	for (i = 0; i <= ground_size-2; i++) 
+	for (i = 0; i <= ground_size-2; i++)
 		for (j = 0; j <= ground_size-2; j++)
 		{
 			glBegin(GL_POLYGON);
@@ -129,7 +130,6 @@ void BuildGroundTerrain()
 	int i;
 	BuildFlatGround();
 
-	
 	for (i = 0; i <100; i++)
 	{
 		BuildRandomWalk();
@@ -305,7 +305,6 @@ void SmoothTerrain()
 				0.25 * ground[i + 1][j - 1] + ground[i + 1][j] + 0.25 * ground[i + 1][j + 1]) / 9.0;
 
 
-
 	// copy the new signal
 	for (i = 1; i < ground_size - 1; i++)
 		for (j = 1; j < ground_size - 1; j++)
@@ -348,10 +347,6 @@ void PrepareRailRoad() {
 		}
 	}
 
-
-
-
-	
 
 }
 
