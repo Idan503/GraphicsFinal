@@ -390,13 +390,49 @@ void TrainWagon::DrawHeadBody() {
 	DrawTexCube(33);
 	glPopMatrix();
 
-	//tank
+	//tank lower
 	glPushMatrix();
-	glTranslated(0, 1.5, -1.6);
-	glScaled(1, 1.25, 0.85);
+	glTranslated(0, 1.05, -1.6);
+	glScaled(1, 0.75, 0.85);
 	glRotated(90, 1, 0, 0);
-	DrawColorCube(color_red);
+	DrawColorCube(color_grey);
 	glPopMatrix();
+
+	//tank upper
+	glPushMatrix();
+	glTranslated(0, 2.75, -1.6);
+	glScaled(1, 0.15, 0.85);
+	glRotated(90, 1, 0, 0);
+	DrawColorCube(color_grey);
+	glPopMatrix();
+
+	//window wall back
+	glPushMatrix();
+	glTranslated(0, 2.2, -2.3);
+	glScaled(1, 0.4, 0.15);
+	glRotated(90, 1, 0, 0);
+	DrawColorCube(color_grey);
+	glPopMatrix();
+
+	//window wall front
+	glPushMatrix();
+	glTranslated(0, 2.2, -0.9);
+	glScaled(1, 0.4, 0.15);
+	glRotated(90, 1, 0, 0);
+	DrawColorCube(color_grey);
+	glPopMatrix();
+
+	int x;
+	for (x = -1; x <= 1; x += 2) {
+		glPushMatrix();
+		glTranslated(x * 1.001, 2.2, -1.6);
+		glScaled(1, 0.405, 0.555);
+		DrawWindow();
+
+		glPopMatrix();
+
+
+	}
 
 	//chimney
 	glPushMatrix();
@@ -585,15 +621,98 @@ void TrainWagon::DrawRegularBase()
 
 void TrainWagon::DrawRegularBody() {
 
-	//tank
+	//tank lower
 	glPushMatrix();
-	glTranslated(0, 1.45, 0);
-	glScaled(1, 1.15, 2.5);
+	glTranslated(0, 0.8, 0);
+	glScaled(1, 0.5, 2.5);
 	glRotated(90, 1, 0, 0);
 	DrawColorCube(color_red);
 	glPopMatrix();
 
-	//sing
+	//tank upper
+	glPushMatrix();
+	glTranslated(0, 2.35, 0);
+	glScaled(1, 0.15, 2.5);
+	glRotated(90, 1, 0, 0);
+	DrawColorCube(color_red);
+	glPopMatrix();
+
+	//tank roof
+	glPushMatrix();
+	glTranslated(0, 2.5, 0);
+	glScaled(1.1, 0.005, 2.6);
+	glRotated(90, 1, 0, 0);
+	DrawColorCube(color_red);
+	glPopMatrix();
+	
+	//front wall
+	glPushMatrix();
+	glTranslated(0, 1.75, 2.2);
+	glScaled(1, 0.45, 0.3);
+	glRotated(90, 1, 0, 0);
+	DrawColorCube(color_red);
+	glPopMatrix();
+
+	//back wall
+	glPushMatrix();
+	glTranslated(0, 1.75, -2.2);
+	glScaled(1, 0.45, 0.3);
+	glRotated(90, 1, 0, 0);
+	DrawColorCube(color_red);
+	glPopMatrix();
+
+
+	int x;
+	for (x = -1; x <= 1; x += 2) {
+		//window_seperator 
+		glPushMatrix();
+		glTranslated(x*1, 1.75, -1);
+		glScaled(0.05, 0.45, 0.1);
+		glRotated(90, 1, 0, 0);
+		DrawColorCube(color_red);
+		glPopMatrix();
+
+		glPushMatrix();
+		glTranslated(x*1, 1.75, 0);
+		glScaled(0.05, 0.45, 0.1);
+		glRotated(90, 1, 0, 0);
+		DrawColorCube(color_red);
+		glPopMatrix();
+
+		glPushMatrix();
+		glTranslated(x*1, 1.75, 1);
+		glScaled(0.05, 0.45, 0.1);
+		glRotated(90, 1, 0, 0);
+		DrawColorCube(color_red);
+		glPopMatrix();
+
+
+		//windows
+		glPushMatrix();
+		glTranslated(x*1.001, 1.75, -0.5);
+		glScaled(0.35, 0.47, 0.42);
+		DrawWindow();
+		glPopMatrix();
+
+		glPushMatrix();
+		glTranslated(x*1.001, 1.75, 0.5);
+		glScaled(0.35, 0.47, 0.42);
+		DrawWindow();
+		glPopMatrix();
+
+		glPushMatrix();
+		glTranslated(x*1.001, 1.75, -1.5);
+		glScaled(0.35, 0.47, 0.42);
+		DrawWindow();
+		glPopMatrix();
+
+		glPushMatrix();
+		glTranslated(x*1.001, 1.75, 1.5);
+		glScaled(0.35, 0.47, 0.42);
+		DrawWindow();
+		glPopMatrix();
+	}
+	//sign
 	glPushMatrix();
 	glTranslated(0, 0.85, 0);
 	glScaled(1.05, 0.225, 1.4);
@@ -603,6 +722,21 @@ void TrainWagon::DrawRegularBody() {
 
 }
 
+void TrainWagon::DrawWindow()
+{
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glColor4d(0.15, 0.15, 0.25, 0.7); //Setting semi-transparent color
+	glBegin(GL_POLYGON);
+
+	glVertex3d(0, -1, 1);
+	glVertex3d(0, 1, 1);
+	glVertex3d(0, 1, -1);
+	glVertex3d(0, -1, -1);
+
+	glEnd();
+	glDisable(GL_BLEND);
+}
 
 void TrainWagon::DrawHeadWagon()
 {
@@ -638,7 +772,7 @@ void TrainWagon::Move()
 			}
 			
 
-			if (rail[rail_index] > 0) {
+			if (rail[rail_index] > 0 && rail_index + 1 < ground_size) {
 				direction[1] = rail[rail_index + 1] - rail[rail_index];
 			}
 			else {

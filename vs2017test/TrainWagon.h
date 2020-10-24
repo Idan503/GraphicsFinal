@@ -24,6 +24,7 @@ public:
 	void DrawHeadBody();
 	void DrawRegularBase();
 	void DrawRegularBody();
+	void DrawWindow();
 	void DrawRegularWagon();
 	vector<double> GetPosition();
 	vector<double> GetDirection();

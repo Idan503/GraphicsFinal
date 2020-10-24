@@ -10,6 +10,9 @@ double flat_height = 3;
 
 void SetNormal(int i, int j)
 {
+	if (i >= ground_size-1 || j >= ground_size - 1)
+		return; // out of array
+
 	double n[3];
 
 	n[0] = ground[i][j] - ground[i][j + 1];
@@ -32,14 +35,19 @@ void SetHeightMaterial(int h)
 		SetHighGroundMaterial();
 		return;
 	}
-	else if (h < -0.1)
+	else if (h > 0.12)
+	{
+		SetGroundMaterial();
+		return;
+	}
+	else if (h > 0.06)
 	{
 		SetLowGroundMaterial();
 		return;
 	}
-	else if (h > 0.08)
+	else if (h < -0.05)
 	{
-		SetGroundMaterial();
+		SetUnderGroundMaterial();
 		return;
 	}
 	else
@@ -47,7 +55,6 @@ void SetHeightMaterial(int h)
 		SetSandMaterial();
 		return;
 	}
-
 
 }
 
@@ -65,8 +72,8 @@ void DrawGround()
 
 	// Using lines texutre that is added to materialed ground
 
-	for (i = 0; i < ground_size-2; i++) 
-		for (j = 0; j < ground_size-2; j++)
+	for (i = 0; i <= ground_size-2; i++) 
+		for (j = 0; j <= ground_size-2; j++)
 		{
 			glBegin(GL_POLYGON);
 				SetNormal(i, j);
@@ -90,6 +97,7 @@ void DrawGround()
 
 
 		}
+
 
 	glDisable(GL_TEXTURE_2D);
 	glDisable(GL_LIGHTING);
@@ -119,7 +127,7 @@ void DrawWater()
 void BuildGroundTerrain()
 {
 	int i;
-	BuildFlatMount();
+	BuildFlatGround();
 
 	
 	for (i = 0; i <100; i++)
@@ -135,16 +143,16 @@ void BuildGroundTerrain()
 	BuildRiverPath();
 	
 	if (ValidateGroundBuild()) {
-	SmoothTerrain();
-	SmoothTerrain();
-	SmoothTerrain();
+		SmoothTerrain();
+		SmoothTerrain();
+		SmoothTerrain();
 
-	PrepareRailRoad();
+		PrepareRailRoad();
 	}
 }
 
 // This algorithm makes mountain peeks with delta random changes
-void BuildFlatMount()
+void BuildFlatGround()
 {
 	int i, j;
 
@@ -153,6 +161,7 @@ void BuildFlatMount()
 		{
 			ground[i][j] = flat_height;
 		}
+
 
 
 }
@@ -244,6 +253,15 @@ void BuildRiverPath()
 // If there are too many low points, build will restart
 bool ValidateGroundBuild()
 {
+
+	double max_height = GetMaxBridgeGroundHeight();
+	if (max_height < 0.15 || max_height > 4.5)
+	{
+		BuildGroundTerrain(); // Bridge will be too low/to high
+		return false;
+	}
+
+
 	int too_low = 0;
 	int too_high = 0;
 	int i, j;
@@ -258,7 +276,7 @@ bool ValidateGroundBuild()
 		}
 	}
 
-	
+
 	if (too_low >= 2200 * (ground_size/100)) {
 		BuildGroundTerrain(); // Too many points under the sea..
 		return false;
@@ -308,74 +326,33 @@ void PrepareRailRoad() {
 
 	const double max_ground_height = GetMaxBridgeGroundHeight();
 
+	int offset_x, offset_z;
 
-	int offset;
+
+	for (offset_z = -2; offset_z < 5; offset_z++) {
+		for (offset_x = -1; offset_x < 2; offset_x++) {
+			ground[ground_size / 2 + river_size + offset_z][ground_size / 2 + offset_x] = max_ground_height;
+			ground[ground_size / 2 - river_size - offset_z][ground_size / 2 + offset_x] = max_ground_height;
+		}
+	}
+
 
 	for (i = 0; i < 40; i++) {
-		for (offset = -1; offset < 2; offset++) {
+		for (offset_x = -1; offset_x < 2; offset_x++) {
 			for (z = 1; z < ground_size - 1; z++) {
-				if (z <= ground_size / 2 - river_size + 1 || z >= ground_size / 2 + river_size - 1) {
-					ground[z][ground_size / 2 + offset] = (0.4 * ground[z - 1][ground_size / 2 + offset]) +
-						(0.2 * ground[z][ground_size / 2 + offset]) + (0.4 * ground[z + 1][ground_size / 2 + offset]);
+				if (z <= ground_size / 2 - river_size - 1 || z >= ground_size / 2 + river_size + 1) {
+					ground[z][ground_size / 2 + offset_x] = (0.4 * ground[z - 1][ground_size / 2 + offset_x]) +
+						(0.2 * ground[z][ground_size / 2 + offset_x]) + (0.4 * ground[z + 1][ground_size / 2 + offset_x]);
 				}
 			}
 		}
 	}
 
-	/*
-	// smooth train path
-		int j;
-
-		double height_start_sum = 0;
-	double height_end_sum = 0;
-	int start_count = 0, end_count = 0;
-	for (i = 1; i < ground_size - 1; i++)
-		for (j = ground_size / 2 - 2; j <= ground_size / 2 + 2; j++)
-		{
-			if (i <= ground_size / 2 - river_size + 1) {
-				height_start_sum += ground[i][j];
-				start_count++;
-			}
-			else if (i >= ground_size / 2 + river_size - 1)
-			{
-				height_end_sum += ground[i][j];
-				end_count++;
-			}
-		}
-
-	double avg_height_start = fmax(1,height_start_sum/start_count);
-	double avg_height_end = fmax(1,height_end_sum/end_count);
 
 
 
-	for (i = 1; i < ground_size - 1; i++)
-	{
-		for (j = ground_size / 2 - 2; j <= ground_size / 2 + 2; j++)
-		{
-			if (i <= ground_size / 2 - river_size + 1)
-				ground[i][j] = avg_height_start;
-			else if (i >= ground_size / 2 + river_size - 1)
-			{
-				ground[i][j] = avg_height_end;
-			}
-		}
-	}
+	
 
-
-	//Smooth
-	for (i = 1; i < ground_size - 1; i++)
-	{
-		ground[i][ground_size / 2 - 3] = 0.5* ground[i][ground_size / 2 - 2] + 0.5 * ground[i][ground_size / 2 - 4];
-		ground[i][ground_size / 2 + 3] = 0.5 * ground[i][ground_size / 2 + 2] + 0.5 * ground[i][ground_size / 2 + 4];
-	}
-
-	const double max_ground_height =
-		fmax(fmax(ground[ground_size / 2 - river_size + 1][ground_size / 2], ground[ground_size / 2 - river_size][ground_size / 2]),
-			fmax(ground[ground_size / 2 + river_size - 1][ground_size / 2], ground[ground_size / 2 + river_size][ground_size / 2]));
-
-	ground[ground_size / 2 - river_size][ground_size / 2] = max_ground_height;
-	ground[ground_size / 2 + river_size][ground_size / 2] = max_ground_height;
-	*/
 }
 
 
@@ -392,7 +369,7 @@ void DrawRail()
 	const double min_height = 0.1;
 	const double max_ground_height = GetMaxBridgeGroundHeight();
 
-	for (i = 0; i < ground_size - 2; i++) {
+	for (i = 0; i < ground_size - 1; i++) {
 		if (rail[i] == NULL) {
 			double start_height = 0, end_height = 0;
 
@@ -410,12 +387,13 @@ void DrawRail()
 			start_height += min_height;
 			end_height += min_height;
 
-
 			// init the array, rail height is constant
 			rail[i] = start_height;
 			rail[i + 1] = end_height;
 
 		}
+
+		
 
 
 

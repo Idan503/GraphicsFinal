@@ -24,6 +24,7 @@ void InitTrain()  {
 	// define a car
 	// we still have to compute diry
 	
+	
 	for (i = 0; i < WAGON_COUNT+ 1; i++)
 	{
 		// First wagon is head, others are regular wagons
@@ -33,9 +34,9 @@ void InitTrain()  {
 
 	}
 	
-
+	
 	//TESTING
-	//train[0] = new TrainWagon(1, 0, 0, vector<double> {0, 0, 0}, vector<double>{0, 0, 1}, 0, false);
+	//train[0] = new TrainWagon(1, 0, 0, vector<double> {0, 0, 0}, vector<double>{0, 0, 1}, 0, true);
 
 }
 
@@ -62,9 +63,9 @@ void DrawTrain() {
 }
 
 void MoveTrain() {
+	//Disable for testing
 	for (int i = 0; i < WAGON_COUNT + 1; i++)
 		train[i]->Move();
-
 }
 
 
@@ -133,6 +134,20 @@ void DrawBridgeArch()
 	DrawTexCylinder(6,34,1);
 	glPopMatrix();
 
+	glPushMatrix();
+	glTranslated(-bridge_width, bridge_final_height, -river_size);
+	glScaled(0.3,0.3,0.3);
+	glRotated(90, 1, 0, 0);
+	DrawTexSphere(16,16, 34, 1,1);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslated(-bridge_width, bridge_final_height, river_size);
+	glScaled(0.3, 0.3, 0.3);
+	glRotated(90, 1, 0, 0);
+	DrawTexSphere(16, 16, 34, 1, 1);
+	glPopMatrix();
+
 	// road handle x-
 	glPushMatrix();
 	glTranslated(-bridge_width, bridge_final_height, -river_size);
@@ -140,6 +155,22 @@ void DrawBridgeArch()
 	glRotated(90, 1, 0, 0);
 	DrawTexCylinder(6, 34, 1);
 	glPopMatrix();
+
+	glPushMatrix();
+	glTranslated(bridge_width, bridge_final_height, -river_size);
+	glScaled(0.3, 0.3, 0.3);
+	glRotated(90, 1, 0, 0);
+	DrawTexSphere(16, 16, 34, 1, 1);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslated(bridge_width, bridge_final_height, river_size);
+	glScaled(0.3, 0.3, 0.3);
+	glRotated(90, 1, 0, 0);
+	DrawTexSphere(16, 16, 34, 1, 1);
+	glPopMatrix();
+
+
 
 
 }
@@ -195,17 +226,12 @@ void DrawBridgePoles(double thinkness)
 
 void DrawBridgeSinglePole()
 {
-	//glEnable(GL_TEXTURE_2D);
-	//glBindTexture(GL_TEXTURE_2D, 10);
-
 	glPushMatrix();
 	glTranslated(0, -bridge_final_height + ground[ground_size/2][ground_size / 2], 0);
 	glScaled(0.15, bridge_final_height - ground[ground_size / 2][ground_size / 2], 0.15);
 	DrawTexCylinder(12, 34, 1);
 
 	glPopMatrix();
-
-	//glDisable(GL_TEXTURE_2D);
 
 }
 

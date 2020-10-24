@@ -39,11 +39,18 @@ float ruby_diffuse[4] = { 0.41424f, 0.03136f, 0.01136f, 0.55f };
 float ruby_specular[4] = { 0.627811f, 0.426959f, 0.426959f, 0.55f };
 float ruby_shine = 89.8f;
 
+// Under Ground (Under the water)
+float under_ground_ambient[4] = { 0.29125f, 0.3735f, 0.0225f, 1.0f };
+float under_ground_diffuse[4] = { 0.3038f, 0.17048f, 0.0828f, 1.0f };
+float under_ground_specular[4] = { 0.256777f, 0.137622f, 0.086014f, 1.0f };
+float under_ground_shine = 1.8f;
+
+
 // Low Ground
-float low_ground_ambient[4] = { 0.29125f, 0.3735f, 0.0225f, 1.0f };
-float low_ground_diffuse[4] = { 0.3038f, 0.17048f, 0.0828f, 1.0f };
-float low_ground_specular[4] = { 0.256777f, 0.137622f, 0.086014f, 1.0f };
-float low_ground_shine = 1.8f;
+float low_ground_ambient[4] = { 0.06125f, 0.0535f, 0.0325f, 1.0f };
+float low_ground_diffuse[4] = { 0.04038f, 0.15048f, 0.0828f, 1.0f };
+float low_ground_specular[4] = { 0.056777f, 0.037622f, 0.006014f, 1.0f };
+float low_ground_shine = 0.2f;
 
 // Ground
 float ground_ambient[4] = { 0.09125f, 0.0935f, 0.0325f, 1.0f };
@@ -58,9 +65,9 @@ float sand_specular[4] = { 0.628281f, 0.685802f, 0.466065f, 1.0f };
 float sand_shine = 80.2f;
 
 // High Ground
-float high_ground_ambient[4] = { 0.16125f, 0.1535f, 0.1525f, 1.0f };
-float high_ground_diffuse[4] = { 0.1338f, 0.46048f, 0.228f, 1.0f };
-float high_ground_specular[4] = { 0.156777f, 0.137622f, 0.056014f, 1.0f };
+float high_ground_ambient[4] = { 0.2f,0.25f,0.2f, 1.0f };
+float high_ground_diffuse[4] = { 0.05f,0.25f,0.05f, 1.0f };
+float high_ground_specular[4] = { 0.05f,0.25f,0.05f, 1.0f };
 float high_ground_shine = 12.8f;
 
 
@@ -105,6 +112,14 @@ void SetRedPlasticMaterial()
 	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, red_plastic_diffuse);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, red_plastic_specular);
 	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, red_plastic_shine);
+}
+
+void SetUnderGroundMaterial()
+{
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, under_ground_ambient);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, under_ground_diffuse);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, under_ground_specular);
+	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, under_ground_shine);
 }
 
 void SetLowGroundMaterial()

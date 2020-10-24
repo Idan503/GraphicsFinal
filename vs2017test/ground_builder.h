@@ -7,7 +7,7 @@ void DrawWater();
 void BuildRiverPath();
 void BuildSeismologic();
 void BuildRandomWalk();
-void BuildFlatMount();
+void BuildFlatGround();
 bool ValidateGroundBuild();
 void SmoothTerrain();
 void PrepareRailRoad();
