@@ -8,6 +8,7 @@ void DrawTree();
 void DrawBranches();
 void DrawRoots();
 void DrawSignleBranch(double y, int level = 5);
+void DrawLeaves();
 
 
 #endif 

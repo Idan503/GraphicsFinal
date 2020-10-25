@@ -364,7 +364,6 @@ void PrepareRailRoad() {
 void DrawRail()
 {
 	
-	glEnable(GL_BLEND);
 	glEnable(GL_TEXTURE_2D);
 
 	glBindTexture(GL_TEXTURE_2D, 10);
@@ -400,8 +399,6 @@ void DrawRail()
 
 		
 
-
-
 		glBegin(GL_POLYGON);
 		glTexCoord2d(0, 0);
 		glVertex3d(-rail_width, rail[i], i - ground_size / 2.0);
@@ -421,7 +418,6 @@ void DrawRail()
 
 
 	glDisable(GL_TEXTURE_2D);
-	glDisable(GL_BLEND);
 	
 }
 

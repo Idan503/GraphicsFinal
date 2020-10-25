@@ -12,8 +12,9 @@ void InitTrainNoseTexture();
 void InitMetalAccentTexture();
 void InitBridgeRoadTexture();
 void InitMetalBrightTexture();
+void InitTreeLeavesTexture();
 
-void ReadBitmap(char* fname);
+void ReadBitmap(const char* fname, bool alpha = false);
 void BindTexture(Texture* texture, GLvoid* pixels);
 #endif
 

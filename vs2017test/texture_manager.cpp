@@ -36,6 +36,13 @@ unsigned char metal_accent_data[512][256][3];
 Texture* metal_bright_tex = new Texture(34, 512, 512);
 unsigned char metal_bright_data[512][512][3];
 
+//Tree 50-59
+Texture* tree_log_tex = new Texture(50, 512, 512);
+unsigned char tree_log_data[512][512][3];
+
+Texture* tree_leaves_tex = new Texture(51, 1024, 1024,true);
+unsigned char tree_leaves_data[1024][1024][4];
+
 
 unsigned char* bmp;
 
@@ -49,12 +56,13 @@ void InitAllTextures()
 	InitTrainNoseTexture();
 	InitMetalAccentTexture();
 	InitMetalBrightTexture();
+	InitTreeLeavesTexture();
 
 	//Texture properties
 }
 
 // support rgb bitmaps only 
-void ReadBitmap(const char* fname)
+void ReadBitmap(const char* fname, bool alpha)
 {
 	FILE* fp;
 	fp = fopen(fname,"rb");
@@ -67,8 +75,12 @@ void ReadBitmap(const char* fname)
 	fread(&bf, sizeof(BITMAPFILEHEADER), 1, fp);
 	fread(&bi, sizeof(BITMAPINFOHEADER), 1, fp);
 
+	int size;
+		if(alpha)
+			size = bi.biHeight * bi.biWidth * 4; //rgba
+		else
+			size = bi.biHeight * bi.biWidth * 3; //rgb
 
-	int size = bi.biHeight * bi.biWidth * 3;
 	bmp = (unsigned char*)malloc(size);
 	fread(bmp, 1, size, fp);
 	
@@ -256,6 +268,26 @@ void InitMetalBrightTexture()
 
 	free(bmp);
 }
+
+void InitTreeLeavesTexture()
+{
+	ReadBitmap("leaves.bmp", true);
+
+	int i, j, k;
+	for (i = 0, k = 0; i < tree_leaves_tex->GetWidth(); i++)
+		for (j = 0; j < tree_leaves_tex->GetHeight(); j++, k += 4)
+		{
+			tree_leaves_data[i][j][0] = bmp[k + 2];
+			tree_leaves_data[i][j][1] = bmp[k + 1];
+			tree_leaves_data[i][j][2] = bmp[k];
+			tree_leaves_data[i][j][3] = bmp[k + 3]; //in the file(bmp): bgrabgrabgra...
+		}
+
+	BindTexture(tree_leaves_tex, tree_leaves_data);
+
+	free(bmp);
+}
+
 
 void BindTexture(Texture* texture, GLvoid* pixels)
 {

@@ -14,6 +14,7 @@ void DrawTree() {
 	DrawLog();
 	DrawBranches();
 	DrawRoots();
+	DrawLeaves();
 }
 
 
@@ -22,9 +23,40 @@ void DrawLog()
 	glPushMatrix();
 	
 	glScaled(0.3, tree_height, 0.3);
-	DrawColorCylinder(brown, 16, 0.2, 0.4);
+	DrawColorCylinder(brown, 16, 0.5, 0.8);
 
 	glPopMatrix();
+}
+
+void DrawLeaves()
+{
+	glEnable(GL_BLEND);
+	glPushMatrix();
+	
+
+	glTranslated(0, 2, 0);
+	glScaled(0.8, 1.35, 0.8);
+	//Inner leaves
+	glPushMatrix();
+	glRotated(75, 1, 1, 1);
+	glScaled(0.8, 0.8, 0.8);
+	DrawTexSphere(32, 32, 51, 4, 4);
+	glPopMatrix();
+
+	//Outer leavves
+	glPushMatrix();
+	DrawTexSphere(32, 32, 51, 4, 4);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslated(0, -0.5, 0);
+	glScaled(1.45, 0.5, 1.45);
+	DrawTexSphere(32, 32, 51, 6, 2);
+	glPopMatrix();
+
+	glPopMatrix();
+
+	glDisable(GL_BLEND);
 }
 
 void DrawRoots()
@@ -57,8 +89,7 @@ void DrawBranches()
 	double y;
 	double branch_step = 0.075 * tree_height;
 
-	y = tree_height * 0.35;
-	for (y = tree_height * 0.35; y <= tree_height - 2 * branch_step; y += branch_step) {
+	for (y = tree_height * 0.45; y <= tree_height - 2 * branch_step; y += branch_step) {
 
 		glPushMatrix();
 		glTranslated(0, y, 0);

@@ -308,6 +308,7 @@ void DrawTexCylinder2(int n, int tnum, int num_repeat, double tr, double br, dou
 	double part = num_repeat / (double)n;
 	int counter;
 
+	glEnable(GL_BLEND);
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, tnum); // wall with window texture
 	if(replace)
@@ -330,5 +331,5 @@ void DrawTexCylinder2(int n, int tnum, int num_repeat, double tr, double br, dou
 	}
 
 	glDisable(GL_TEXTURE_2D);
-
+	glDisable(GL_BLEND);
 }
