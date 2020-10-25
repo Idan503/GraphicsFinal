@@ -8,6 +8,13 @@
 
 double flat_height = 3;
 
+//Grounds materials min heights
+double snow_height = 4.5;
+double high_ground_height = 3.5;
+double ground_height = 1;
+double low_ground_height = 0.05;
+double under_ground_height = -0.05;
+
 void SetNormal(int i, int j)
 {
 	if (i >= ground_size-1 || j >= ground_size - 1)
@@ -23,36 +30,41 @@ void SetNormal(int i, int j)
 }
 
 // I should add here another color of between ground and high ground
-void SetHeightMaterial(int h)
+void SetHeightMaterial(int h, int i, int j)
 {
-	if (h > 4.5)
+	if (h > snow_height)
 	{
 		SetSnowMaterial();
 		return;
 	}
-	else if (h > 3.5)
+	else if (h > high_ground_height)
 	{
-		SetHighGroundMaterial();
+		if (IsNearSnow(i, j)) {
+			SetHighGroundMaterial();
+		}
+		else
+			SetGroundMaterial();
+
 		return;
 	}
-	else if (h > 1)
+	else if (h > ground_height)
 	{
 		SetGroundMaterial();
 		return;
 	}
-	else if (h > 0.05)
+	else if (h > low_ground_height)
 	{
 		SetLowGroundMaterial();
 		return;
 	}
-	else if (h < -0.05)
+	else if (h < under_ground_height)
 	{
 		SetUnderGroundMaterial();
 		return;
 	}
 	else
 	{
-		// h is in [-0.05,0.05]
+		// h is in [under_ground_height,low_ground_height]
 		SetSandMaterial();
 		return;
 	}
@@ -79,19 +91,19 @@ void DrawGround()
 			glBegin(GL_POLYGON);
 				SetNormal(i, j);
 				glTexCoord2d(0, 0);
-				SetHeightMaterial(ground[i][j]);
+				SetHeightMaterial(ground[i][j], i, j);
 				glVertex3d(j - (ground_size / 2.0), ground[i][j], i - (ground_size) / 2.0);
 				SetNormal(i, j+1);
 				glTexCoord2d(0, 1);
-				SetHeightMaterial(ground[i][j+1]);
+				SetHeightMaterial(ground[i][j+1], i, j+1);
 				glVertex3d(j+1.0 - (ground_size / 2.0), ground[i][j+1], i - (ground_size) / 2.0);
 				SetNormal(i+1, j+1);
 				glTexCoord2d(1, 1);
-				SetHeightMaterial(ground[i+1][j+1]);
+				SetHeightMaterial(ground[i+1][j+1], i+1, j+1);
 				glVertex3d(j + 1.0 - (ground_size / 2.0), ground[i+1][j + 1], i+1.0 - (ground_size) / 2.0);
 				SetNormal(i+1, j);
 				glTexCoord2d(1, 0);
-				SetHeightMaterial(ground[i+1][j]);
+				SetHeightMaterial(ground[i+1][j], i+1, j);
 				glVertex3d(j - (ground_size / 2.0), ground[i + 1][j], i + 1.0 - (ground_size) / 2.0);
 
 			glEnd();
@@ -142,13 +154,13 @@ void BuildGroundTerrain()
 	
 	BuildRiverPath();
 	
-	if (ValidateGroundBuild()) {
+	//if (ValidateGroundBuild()) {
 		SmoothTerrain();
 		SmoothTerrain();
 		SmoothTerrain();
 
 		PrepareRailRoad();
-	}
+	//}
 }
 
 // This algorithm makes mountain peeks with delta random changes
@@ -253,7 +265,6 @@ void BuildRiverPath()
 // If there are too many low points, build will restart
 bool ValidateGroundBuild()
 {
-
 	double max_height = GetMaxBridgeGroundHeight();
 	if (max_height < 0.15 || max_height > 4.5)
 	{
@@ -285,7 +296,6 @@ bool ValidateGroundBuild()
 		BuildGroundTerrain(); // Too many / too few higher points
 		return false;
 	}
-		
 
 	return true;
 	// This way we prevent a terrian which is too low or too high
@@ -421,4 +431,32 @@ double GetMaxBridgeGroundHeight()
 
 	return fmax(fmax(ground[ground_size / 2 - river_size + 1][ground_size / 2], ground[ground_size / 2 - river_size][ground_size / 2]),
 		fmax(ground[ground_size / 2 + river_size - 1][ground_size / 2], ground[ground_size / 2 + river_size][ground_size / 2]));
+}
+
+bool IsNearSnow(int i, int j)
+{
+	if (i >= ground_size - 1 || i <= 0 || j >= ground_size - 1 || j <= 0)
+		return false; //edge
+
+	double top_left = ground[i-1][j + 1];
+	double top_center = ground[i][j + 1];
+	double top_right = ground[i+1][j + 1];
+	double center_right = ground[i + 1][j];
+	double right_bottom = ground[i + 1][j-1];
+	double center_bottom = ground[i][j - 1];
+	double left_bottom = ground[i-1][j - 1];
+	double left_center = ground[i - 1][j];
+	
+	double near_snow_height = 0.5 + snow_height;
+
+	if (top_left >= near_snow_height || top_center >= near_snow_height || top_right >= near_snow_height
+		|| center_right >= near_snow_height || right_bottom >= near_snow_height || center_bottom >= near_snow_height
+		|| left_bottom >= near_snow_height || left_center >= near_snow_height) {
+		return true;
+
+	}
+
+	return false;
+
+
 }

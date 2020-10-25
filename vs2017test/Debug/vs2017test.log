@@ -1,11 +1,3 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(467,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (vs2017test.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  material_manager.cpp
-D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\material_manager.cpp(9,44): warning C4305: 'initializing': truncation from 'double' to 'float'
-D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\material_manager.cpp(10,44): warning C4305: 'initializing': truncation from 'double' to 'float'
-D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\material_manager.cpp(14,44): warning C4305: 'initializing': truncation from 'double' to 'float'
-D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\material_manager.cpp(15,44): warning C4305: 'initializing': truncation from 'double' to 'float'
-D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\material_manager.cpp(16,45): warning C4305: 'initializing': truncation from 'double' to 'float'
-D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\material_manager.cpp(31,48): warning C4305: 'initializing': truncation from 'double' to 'float'
-D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\material_manager.cpp(32,48): warning C4305: 'initializing': truncation from 'double' to 'float'
-D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\material_manager.cpp(33,49): warning C4305: 'initializing': truncation from 'double' to 'float'
+  tree.cpp
   vs2017test.vcxproj -> D:\Documents\Projects\VisualStudio2019\GraphicsFinal\Debug\FinalGraphics211546288.exe

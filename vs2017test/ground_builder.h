@@ -11,6 +11,7 @@ void BuildFlatGround();
 bool ValidateGroundBuild();
 void SmoothTerrain();
 void SetHeightMaterial(int h, int i, int j);
+bool IsNearSnow(int i, int j);
 void PrepareRailRoad();
 void DrawRail();
 void InitTrain();
