@@ -6,14 +6,24 @@
 
 const double PI = 3.1415;
 const double E = 2.71828;
+
 const int ground_size = 100;
 double current_time = 0;
+
 const int river_size = 10;
 const double rail_width = 0.75;
 const double bridge_height = 0.01;
-const double train_speed = 0.03;
+
+const double train_speed = 0.06;
+vector<double> train_head_position = {0,0,0};
+vector<double> train_window_position = { 0,0,0 };
+const vector<double> train_window_color = { 0.15, 0.15, 0.25, 0.7 };
+
 vector<vector<double> > ground(ground_size,vector<double>(ground_size,0));
 vector<double> rail(ground_size);
+
+int selected_view = 0;
+// 0 = regular view, 1 = side view, 2 = train driver view, 3 = window view
 
 
 void DrawColorCube(vector<double> color)

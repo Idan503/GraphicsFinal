@@ -12,7 +12,7 @@ const int W = 600;
 const int H = 600;
 
 
-void init()
+void Init()
 {
 	srand(time(0)); // seed or init random numbers generator
 	
@@ -29,8 +29,7 @@ void init()
 
 }
 
-
-void display()
+void Display()
 {
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT); // clean frame buffer and depth buffer
 
@@ -46,10 +45,13 @@ void display()
 	DrawTrain();
 	DrawTrees();
 
+	if (selected_view == 3) // window view
+		DrawWindowFilter();
+
 	glutSwapBuffers(); // show all
 }
 
-void idle()
+void Idle()
 {
 
 	current_time += 0.01;
@@ -61,6 +63,13 @@ void idle()
 
 
 
+
+void Menu(int choise)
+{
+	selected_view = choise;
+	// 0 = regular view, 1 = side view, 2 = train driver view, 3 = window view
+}
+
 void main(int argc, char* argv[])
 {
 	glutInit(&argc, argv);
@@ -70,12 +79,21 @@ void main(int argc, char* argv[])
 	glutInitWindowPosition(2050, 100);
 	glutCreateWindow("Final Graphics Project ID 211546288");
 
-	glutDisplayFunc(display); // refresh window function
-	glutIdleFunc(idle); // kind of timer function
+	glutDisplayFunc(Display); // refresh window function
+	glutIdleFunc(Idle); // kind of timer function
 
 	glutSpecialFunc(SpecialKey);
+	
+	//menu
+	glutCreateMenu(Menu);
+	glutAddMenuEntry("Free View",0);
+	glutAddMenuEntry("Side View", 1);
+	glutAddMenuEntry("Driver View", 2);
+	glutAddMenuEntry("Window View", 3);
 
-	init();
+	glutAttachMenu(GLUT_RIGHT_BUTTON);
+
+	Init();
 
 	glutMainLoop();
 }

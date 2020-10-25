@@ -4,5 +4,6 @@
 void CameraDisplay();
 void CameraIdle();
 void SpecialKey(int key, int x, int y);
+void SetLookAt(int view_choise);
 
 #endif

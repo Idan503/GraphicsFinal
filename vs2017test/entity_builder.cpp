@@ -8,7 +8,7 @@
 #include "TrainWagon.h"
 #include <math.h>
 
-const int WAGON_COUNT = 1; //excluding head
+const int WAGON_COUNT = 6; //excluding head
 
 TrainWagon* train[WAGON_COUNT+1];
 
@@ -84,4 +84,26 @@ void DrawTrees()
 	DrawTree();
 
 	glPopMatrix();
+}
+
+
+// A cam- filter for window - only used when viewing from window
+// Creating the illusion that the viewer is inside the train
+void DrawWindowFilter()
+{
+	glEnable(GL_BLEND);
+	glPushMatrix();
+	glTranslated(1.0225, 0, 0);
+	glScaled(1, 50, ground_size * 2); // straching to all view
+	glBegin(GL_POLYGON);
+
+	glColor4d(train_window_color[0], train_window_color[1], train_window_color[2], train_window_color[3] - 0.125);
+	glVertex3d(0, -1, -1);
+	glVertex3d(0, -1, 1);
+	glVertex3d(0, 1, 1);
+	glVertex3d(0, 1, -1);
+
+	glEnd();
+	glPopMatrix();
+	glDisable(GL_BLEND);
 }

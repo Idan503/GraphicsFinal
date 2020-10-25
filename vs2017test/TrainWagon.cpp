@@ -52,7 +52,12 @@ void TrainWagon::Draw()
 	if (head)
 		DrawHeadWagon();
 	else
-		DrawRegularWagon();
+	{
+		// Drwaing the wagon iff head is not too far (respawned)
+		if(fabs(train_head_position[2] - position[2]) < 0.75 * ground_size)
+			DrawRegularWagon();
+	}
+		
 
 	glPopMatrix();
 }
@@ -726,7 +731,7 @@ void TrainWagon::DrawWindow()
 {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glColor4d(0.15, 0.15, 0.25, 0.7); //Setting semi-transparent color
+	glColor4d(train_window_color[0], train_window_color[1], train_window_color[2], train_window_color[3]); //Setting semi-transparent color
 	glBegin(GL_POLYGON);
 
 	glVertex3d(0, -1, 1);
@@ -821,8 +826,12 @@ void TrainWagon::Move()
 		}
 
 
-		//printf("Dir: %lf %lf %lf\n", direction[0], direction[1], direction[2]);
-
+		if (head)
+		{
+			train_head_position[0] = position[0];
+			train_head_position[1] = position[1];
+			train_head_position[2] = position[2];
+		}
 	}
 
 

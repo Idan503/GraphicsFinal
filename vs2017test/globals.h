@@ -9,6 +9,9 @@ extern const double E;
 
 extern double current_time;
 
+extern int selected_view;
+// 0 = regular view, 1 = side view, 2 = train driver view, 3 = window view
+
 extern const int river_size;
 extern const double bridge_height;
 
@@ -16,6 +19,9 @@ extern vector<vector<double>> ground;
 extern const int ground_size;
 
 extern const double train_speed;
+extern vector<double> train_head_position;
+extern vector<double> train_window_position;
+extern const vector<double> train_window_color;
 
 extern vector<double> rail;
 extern const double rail_width;
