@@ -133,7 +133,7 @@ void DrawTexTire(int sides, double outer, double inner, int texture_id, bool rep
 	}
 }
 
-void DrawTexCube(int texture_id, bool replace) {
+void DrawTexCube(int texture_id, int num_rep, bool replace) {
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, texture_id); // wall with window texture
 	if (replace)
@@ -144,50 +144,50 @@ void DrawTexCube(int texture_id, bool replace) {
 
 	// top side
 	glBegin(GL_POLYGON);
-	glTexCoord2d(1, 1); glVertex3d(1, 1, 1);
-	glTexCoord2d(1, 0); glVertex3d(1, 1, -1);
+	glTexCoord2d(num_rep, num_rep); glVertex3d(1, 1, 1);
+	glTexCoord2d(num_rep, 0); glVertex3d(1, 1, -1);
 	glTexCoord2d(0, 0); glVertex3d(-1, 1, -1);
-	glTexCoord2d(0, 1); glVertex3d(-1, 1, 1);
+	glTexCoord2d(0, num_rep); glVertex3d(-1, 1, 1);
 	glEnd();
 
 	// bottom side
 	glBegin(GL_POLYGON);
-	glTexCoord2d(1, 1); glVertex3d(1, -1, 1);
-	glTexCoord2d(1, 0); glVertex3d(1, -1, -1);
+	glTexCoord2d(num_rep, num_rep); glVertex3d(1, -1, 1);
+	glTexCoord2d(num_rep, 0); glVertex3d(1, -1, -1);
 	glTexCoord2d(0, 0); glVertex3d(-1, -1, -1);
-	glTexCoord2d(1, 0); glVertex3d(-1, -1, 1);
+	glTexCoord2d(0, num_rep); glVertex3d(-1, -1, 1);
 	glEnd();
 
 	// front side
 	glBegin(GL_POLYGON);
-	glTexCoord2d(1, 1); glVertex3d(1, 1, 1);
-	glTexCoord2d(1, 0); glVertex3d(-1, 1, 1);
-	glTexCoord2d(0,0); glVertex3d(-1, -1, 1);
-	glTexCoord2d(1, 0); glVertex3d(1, -1, 1);
+	glTexCoord2d(num_rep, num_rep); glVertex3d(1, 1, 1);
+	glTexCoord2d(0, num_rep); glVertex3d(-1, 1, 1);
+	glTexCoord2d(0, 0); glVertex3d(-1, -1, 1);
+	glTexCoord2d(num_rep, 0); glVertex3d(1, -1, 1);
 	glEnd();
 
 	// rear side
 	glBegin(GL_POLYGON);
-	glTexCoord2d(1, 1); glVertex3d(1, 1, -1);
-	glTexCoord2d(1, 0); glVertex3d(-1, 1, -1);
-	glTexCoord2d(0,0); glVertex3d(-1, -1, -1);
-	glTexCoord2d(1, 0); glVertex3d(1, -1, -1);
+	glTexCoord2d(num_rep, num_rep); glVertex3d(1, 1, -1);
+	glTexCoord2d(0, num_rep); glVertex3d(-1, 1, -1);
+	glTexCoord2d(0, 0); glVertex3d(-1, -1, -1);
+	glTexCoord2d(num_rep, 0); glVertex3d(1, -1, -1);
 	glEnd();
 
 	// left side
 	glBegin(GL_POLYGON);
-	glTexCoord2d(1, 1); glVertex3d(-1, 1, 1);
-	glTexCoord2d(1, 0); glVertex3d(-1, 1, -1);
-	glTexCoord2d(0,0); glVertex3d(-1, -1, -1);
-	glTexCoord2d(1, 0); glVertex3d(-1, -1, 1);
+	glTexCoord2d(num_rep, num_rep); glVertex3d(-1, 1, 1);
+	glTexCoord2d(num_rep, 0); glVertex3d(-1, 1, -1);
+	glTexCoord2d(0, 0); glVertex3d(-1, -1, -1);
+	glTexCoord2d(0, num_rep); glVertex3d(-1, -1, 1);
 	glEnd();
 
 	// right side
 	glBegin(GL_POLYGON);
-	glTexCoord2d(1, 1); glVertex3d(1, 1, 1);
-	glTexCoord2d(1, 0); glVertex3d(1, 1, -1);
+	glTexCoord2d(num_rep, num_rep); glVertex3d(1, 1, 1);
+	glTexCoord2d(num_rep, 0); glVertex3d(1, 1, -1);
 	glTexCoord2d(0, 0); glVertex3d(1, -1, -1);
-	glTexCoord2d(1, 0); glVertex3d(1, -1, 1);
+	glTexCoord2d(0, num_rep); glVertex3d(1, -1, 1);
 	glEnd();
 
 	glDisable(GL_TEXTURE_2D);

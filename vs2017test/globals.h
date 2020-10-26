@@ -30,7 +30,7 @@ extern void DrawColorTire(int sides, double outer, double inner, vector<double> 
 extern void DrawTexTire(int sides, double outer, double inner, int texture_id, bool replace, int step);
 
 extern void DrawColorCube(vector<double> color);
-extern void DrawTexCube(int texture_id, bool replace=true);
+extern void DrawTexCube(int texture_id, int num_rep, bool replace = true);
 
 extern void DrawColorCylinder(vector<double> color, int sides);
 extern void DrawColorCylinder(vector<double> color, int sides, double tr, double br);

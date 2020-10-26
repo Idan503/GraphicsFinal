@@ -37,6 +37,11 @@ void DrawLeaves()
 	glTranslated(0, 3, 0);
 	glScaled(0.8, 1.35, 0.8);
 
+	//Inner leavves
+	glPushMatrix();
+	glScaled(0.4, 1, 0.4);
+	DrawTexSphere(16, 16, 51, 4, 4);
+	glPopMatrix();
 
 	//Outer leavves
 	glPushMatrix();
@@ -46,7 +51,7 @@ void DrawLeaves()
 	glPushMatrix();
 	glTranslated(0, -0.5, 0);
 	glScaled(1.45, 0.5, 1.45);
-	DrawTexSphere(16, 16, 51, 6, 2);
+	DrawTexSphere(16, 16, 51, 6, 3);
 	glPopMatrix();
 
 	glPopMatrix();

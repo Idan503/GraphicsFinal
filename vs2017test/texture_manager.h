@@ -11,9 +11,15 @@ void InitTrainTubeLinesTexture();
 void InitTrainNoseTexture();
 void InitMetalAccentTexture();
 void InitBridgeRoadTexture();
-void InitMetalBrightTexture();
+void InitMetalGreyTexture();
 void InitTreeLeavesTexture();
 void InitTreeLogTexture();
+void InitRedMetalTexture();
+void InitYellowMetalTexture();
+void InitMetalDarkGreyTexture();
+void InitTrainHalfTubeTexture();
+void InitTrainPatchTubeFrontTexture();
+void InitTrainPatchTubeBackTexture();
 
 void ReadBitmap(const char* fname, bool alpha = false);
 void BindTexture(Texture* texture, GLvoid* pixels);

@@ -10,7 +10,7 @@
 #include <math.h>
 
 const int WAGON_COUNT = 6; //excluding head
-const float tree_rate = 0.005; // % rate of a tree in a ground cell
+const float tree_rate = 0.0045; // % rate of a tree in a ground cell
 
 TrainWagon* train[WAGON_COUNT+1];
 
@@ -21,7 +21,7 @@ void InitTrain()  {
 	// define a car
 	// we still have to compute diry
 	
-	
+	/*
 	for (i = 0; i < WAGON_COUNT+ 1; i++)
 	{
 		// First wagon is head, others are regular wagons
@@ -29,9 +29,10 @@ void InitTrain()  {
 		train[i]->Move();
 		train[i]->SetSpeed(train_speed);
 	}
+	*/
 	
 	//TESTING
-	//train[0] = new TrainWagon(1, 0, 0, vector<double> {0, 0, 0}, vector<double>{0, 0, 1}, 0, true);
+	train[0] = new TrainWagon(1, 0, 0, vector<double> {0, 0, 0}, vector<double>{0, 0, 1}, 0, false);
 }
 
 void InitTrees()
@@ -57,14 +58,15 @@ void InitTrees()
 }
 
 
+
 void DrawTrain() {
 
-	for (int i = 0; i < WAGON_COUNT + 1; i++)
-		train[i]->Draw();
+	//for (int i = 0; i < WAGON_COUNT + 1; i++)
+	//	train[i]->Draw();
 
 	
 	//TESTING
-	/*
+	
 	glPushMatrix();
 
 	glTranslated(0, 25, 0);
@@ -73,15 +75,15 @@ void DrawTrain() {
 	train[0]->Draw();
 
 	glPopMatrix();
-	*/
+	
 	
 	
 }
 
 void MoveTrain() {
 	//Disable for testing
-	for (int i = 0; i < WAGON_COUNT + 1; i++)
-		train[i]->Move();
+	//for (int i = 0; i < WAGON_COUNT + 1; i++)
+	//	train[i]->Move();
 }
 
 

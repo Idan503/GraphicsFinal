@@ -33,8 +33,26 @@ unsigned char train_nose_data[256][256][3];
 Texture* metal_accent_tex= new Texture(33, 512, 256);
 unsigned char metal_accent_data[512][256][3];
 
-Texture* metal_bright_tex = new Texture(34, 512, 512);
-unsigned char metal_bright_data[512][512][3];
+Texture* metal_grey_tex = new Texture(34, 512, 512);
+unsigned char metal_grey_data[512][512][3];
+
+Texture* metal_dark_grey_tex = new Texture(37, 512, 512);
+unsigned char metal_dark_grey_data[512][512][3];
+
+Texture* metal_red_tex = new Texture(35, 512, 512);
+unsigned char metal_red_data[512][512][3];
+
+Texture* metal_yellow_tex = new Texture(36, 512, 512);
+unsigned char metal_yellow_data[512][512][3];
+
+Texture* train_half_tube_tex = new Texture(38, 512, 512);
+unsigned char train_half_tube_data[512][512][3];
+
+Texture* train_patch_tube_front_tex = new Texture(39, 512, 248);
+unsigned char train_patch_tube_front_data[512][248][3];
+
+Texture* train_patch_tube_back_tex = new Texture(40, 512, 248);
+unsigned char train_patch_tube_back_data[512][248][3];
 
 //Tree 50-59
 Texture* tree_log_tex = new Texture(50, 512, 512);
@@ -55,10 +73,15 @@ void InitAllTextures()
 	InitTrainTubeLinesTexture();
 	InitTrainNoseTexture();
 	InitMetalAccentTexture();
-	InitMetalBrightTexture();
+	InitMetalGreyTexture();
 	InitTreeLeavesTexture();
 	InitTreeLogTexture();
-
+	InitRedMetalTexture();
+	InitMetalDarkGreyTexture();
+	InitYellowMetalTexture();
+	InitTrainHalfTubeTexture();
+	InitTrainPatchTubeFrontTexture();
+	InitTrainPatchTubeBackTexture();
 	//Texture properties
 }
 
@@ -198,6 +221,66 @@ void InitTrainTubeTexture()
 }
 
 
+void InitTrainHalfTubeTexture()
+{
+	ReadBitmap("half_tube.bmp");
+
+	int i, j, k;
+	for (i = 0, k = 0; i < train_half_tube_tex->GetWidth(); i++)
+		for (j = 0; j < train_half_tube_tex->GetHeight(); j++, k += 3)
+		{
+			train_half_tube_data[i][j][0] = bmp[k + 2];
+			train_half_tube_data[i][j][1] = bmp[k + 1];
+			train_half_tube_data[i][j][2] = bmp[k]; //in the file(bmp): bgrbgrbgr...
+		}
+
+	BindTexture(train_half_tube_tex, train_half_tube_data);
+
+	free(bmp);
+}
+
+
+void InitTrainPatchTubeFrontTexture()
+{
+	ReadBitmap("patch_tube_front.bmp");
+
+	int i, j, k;
+	for (i = 0, k = 0; i < train_patch_tube_front_tex->GetWidth(); i++)
+		for (j = 0; j < train_patch_tube_front_tex->GetHeight(); j++, k += 3)
+		{
+			train_patch_tube_front_data[i][j][0] = bmp[k + 2];
+			train_patch_tube_front_data[i][j][1] = bmp[k + 1];
+			train_patch_tube_front_data[i][j][2] = bmp[k]; //in the file(bmp): bgrbgrbgr...
+		}
+
+	BindTexture(train_patch_tube_front_tex, train_patch_tube_front_data);
+
+	free(bmp);
+}
+
+
+void InitTrainPatchTubeBackTexture()
+{
+	ReadBitmap("patch_tube_back.bmp");
+
+	int i, j, k;
+	for (i = 0, k = 0; i < train_patch_tube_back_tex->GetWidth(); i++)
+		for (j = 0; j < train_patch_tube_back_tex->GetHeight(); j++, k += 3)
+		{
+			train_patch_tube_back_data[i][j][0] = bmp[k + 2];
+			train_patch_tube_back_data[i][j][1] = bmp[k + 1];
+			train_patch_tube_back_data[i][j][2] = bmp[k]; //in the file(bmp): bgrbgrbgr...
+		}
+
+	BindTexture(train_patch_tube_back_tex, train_patch_tube_back_data);
+
+	free(bmp);
+}
+
+
+
+
+
 void InitTrainTubeLinesTexture()
 {
 	ReadBitmap("train_tube_lines.bmp");
@@ -215,6 +298,8 @@ void InitTrainTubeLinesTexture()
 
 	free(bmp);
 }
+
+
 
 void InitTrainNoseTexture()
 {
@@ -234,6 +319,8 @@ void InitTrainNoseTexture()
 	free(bmp);
 }
 
+
+
 void InitMetalAccentTexture()
 {
 	ReadBitmap("metal_accent.bmp");
@@ -252,20 +339,75 @@ void InitMetalAccentTexture()
 	free(bmp);
 }
 
-void InitMetalBrightTexture()
+void InitRedMetalTexture()
 {
-	ReadBitmap("metal_bright.bmp");
+	ReadBitmap("metal_red.bmp");
 
 	int i, j, k;
-	for (i = 0, k = 0; i < metal_bright_tex->GetWidth(); i++)
-		for (j = 0; j < metal_bright_tex->GetHeight(); j++, k += 3)
+	for (i = 0, k = 0; i < metal_red_tex->GetWidth(); i++)
+		for (j = 0; j < metal_red_tex->GetHeight(); j++, k += 3)
 		{
-			metal_bright_data[i][j][0] = bmp[k + 2];
-			metal_bright_data[i][j][1] = bmp[k + 1];
-			metal_bright_data[i][j][2] = bmp[k]; //in the file(bmp): bgrbgrbgr...
+			metal_red_data[i][j][0] = bmp[k + 2];
+			metal_red_data[i][j][1] = bmp[k + 1];
+			metal_red_data[i][j][2] = bmp[k]; //in the file(bmp): bgrbgrbgr...
 		}
 
-	BindTexture(metal_bright_tex, metal_bright_data);
+	BindTexture(metal_red_tex, metal_red_data);
+
+	free(bmp);
+}
+
+void InitYellowMetalTexture()
+{
+	ReadBitmap("metal_yellow.bmp");
+
+	int i, j, k;
+	for (i = 0, k = 0; i < metal_yellow_tex->GetWidth(); i++)
+		for (j = 0; j < metal_yellow_tex->GetHeight(); j++, k += 3)
+		{
+			metal_yellow_data[i][j][0] = bmp[k + 2];
+			metal_yellow_data[i][j][1] = bmp[k + 1];
+			metal_yellow_data[i][j][2] = bmp[k]; //in the file(bmp): bgrbgrbgr...
+		}
+
+	BindTexture(metal_yellow_tex, metal_yellow_data);
+
+	free(bmp);
+}
+
+
+void InitMetalGreyTexture()
+{
+	ReadBitmap("metal_grey.bmp");
+
+	int i, j, k;
+	for (i = 0, k = 0; i < metal_grey_tex->GetWidth(); i++)
+		for (j = 0; j < metal_grey_tex->GetHeight(); j++, k += 3)
+		{
+			metal_grey_data[i][j][0] = bmp[k + 2];
+			metal_grey_data[i][j][1] = bmp[k + 1];
+			metal_grey_data[i][j][2] = bmp[k]; //in the file(bmp): bgrbgrbgr...
+		}
+
+	BindTexture(metal_grey_tex, metal_grey_data);
+
+	free(bmp);
+}
+
+void InitMetalDarkGreyTexture()
+{
+	ReadBitmap("metal_dark_grey.bmp");
+
+	int i, j, k;
+	for (i = 0, k = 0; i < metal_dark_grey_tex->GetWidth(); i++)
+		for (j = 0; j < metal_dark_grey_tex->GetHeight(); j++, k += 3)
+		{
+			metal_dark_grey_data[i][j][0] = bmp[k + 2];
+			metal_dark_grey_data[i][j][1] = bmp[k + 1];
+			metal_dark_grey_data[i][j][2] = bmp[k]; //in the file(bmp): bgrbgrbgr...
+		}
+
+	BindTexture(metal_dark_grey_tex, metal_dark_grey_data);
 
 	free(bmp);
 }

@@ -154,13 +154,13 @@ void BuildGroundTerrain()
 	
 	BuildRiverPath();
 	
-	//if (ValidateGroundBuild()) {
+	if (ValidateGroundBuild()) {
 		SmoothTerrain();
 		SmoothTerrain();
 		SmoothTerrain();
 
 		PrepareRailRoad();
-	//}
+	}
 }
 
 // This algorithm makes mountain peeks with delta random changes
