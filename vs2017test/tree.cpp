@@ -5,7 +5,7 @@
 #include "globals.h"
 
 
-float tree_height = 3;
+float tree_height = 4;
 
 vector<double> brown = { 0.25,0.25,0.2 };
 vector<double> green = { 0.25,0.8,0.2 };
@@ -13,8 +13,8 @@ vector<double> green = { 0.25,0.8,0.2 };
 void DrawTree() {
 	DrawLog();
 	DrawBranches();
-	DrawRoots();
-	DrawLeaves();
+	//DrawRoots();
+	//DrawLeaves();
 }
 
 
@@ -34,7 +34,7 @@ void DrawLeaves()
 	glPushMatrix();
 	
 
-	glTranslated(0, 2, 0);
+	glTranslated(0, 3, 0);
 	glScaled(0.8, 1.35, 0.8);
 	//Inner leaves
 	glPushMatrix();
@@ -61,6 +61,9 @@ void DrawLeaves()
 
 void DrawRoots()
 {
+	glPushMatrix();
+	glTranslated(0, -0.05, 0);
+
 	int i;
 	for (i = 0; i <= 3; i++) {
 		glPushMatrix();
@@ -81,6 +84,8 @@ void DrawRoots()
 		glPopMatrix();
 
 	}
+
+	glPopMatrix();
 }
 
 
@@ -108,14 +113,14 @@ void DrawSignleBranch(double y, int level)
 
 	glPushMatrix();
 
-	if (level != 5)
+	if (level != 3)
 	{
 		//sub-branch
 		glTranslated(0, (1 - (y/tree_height)) * 0.1, 0);
-		glTranslated(0, 0, (1 - (y/tree_height)) *(fabs(level - 4.0)/5.0) + 0.5);
-		glRotated(-35 * (2.0 - level), 0, 1, 0);
-		glRotated(55 * (3.0-level + (y / tree_height)), 1, 0, 0);
-		glScaled((double) level / 6.0 , (double)level / 6.0, (double)level /6.0);
+		glTranslated(0, 0, (1 - (y/tree_height)) *(fabs(level - 1.0)/5.0) + 0.5);
+		glRotated(-35 * (0.5 - level), 0, 1, 0);
+		glRotated(55 * (1.0-level + (y / tree_height)), 1, 0, 0);
+		glScaled((double) level / 4.0 , (double)level / 4.0, (double)level /4.0);
 	}
 
 

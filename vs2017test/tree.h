@@ -7,7 +7,7 @@ void DrawLog();
 void DrawTree();
 void DrawBranches();
 void DrawRoots();
-void DrawSignleBranch(double y, int level = 5);
+void DrawSignleBranch(double y, int level = 3);
 void DrawLeaves();
 
 

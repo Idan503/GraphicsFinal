@@ -23,6 +23,7 @@ void Init()
 
 	InitAllTextures();
 	InitTrain();
+	InitTrees();
 
 	glEnable(GL_NORMALIZE);
 

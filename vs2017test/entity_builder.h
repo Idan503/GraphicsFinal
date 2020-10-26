@@ -12,7 +12,10 @@ void DrawBridgeSinglePole();
 void MoveTrain();
 void DrawBridgePoles(double);
 void DrawTrees();
+void InitTrain();
+void InitTrees();
 void DrawWindowFilter();
+
 
 #endif
 
