@@ -13,6 +13,7 @@ void InitMetalAccentTexture();
 void InitBridgeRoadTexture();
 void InitMetalBrightTexture();
 void InitTreeLeavesTexture();
+void InitTreeLogTexture();
 
 void ReadBitmap(const char* fname, bool alpha = false);
 void BindTexture(Texture* texture, GLvoid* pixels);

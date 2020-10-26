@@ -40,8 +40,8 @@ unsigned char metal_bright_data[512][512][3];
 Texture* tree_log_tex = new Texture(50, 512, 512);
 unsigned char tree_log_data[512][512][3];
 
-Texture* tree_leaves_tex = new Texture(51, 1024, 1024,true);
-unsigned char tree_leaves_data[1024][1024][4];
+Texture* tree_leaves_tex = new Texture(51, 512, 512,true);
+unsigned char tree_leaves_data[512][512][4];
 
 
 unsigned char* bmp;
@@ -57,6 +57,7 @@ void InitAllTextures()
 	InitMetalAccentTexture();
 	InitMetalBrightTexture();
 	InitTreeLeavesTexture();
+	InitTreeLogTexture();
 
 	//Texture properties
 }
@@ -284,6 +285,24 @@ void InitTreeLeavesTexture()
 		}
 
 	BindTexture(tree_leaves_tex, tree_leaves_data);
+
+	free(bmp);
+}
+
+void InitTreeLogTexture()
+{
+	ReadBitmap("wood.bmp", true);
+
+	int i, j, k;
+	for (i = 0, k = 0; i < tree_log_tex->GetWidth(); i++)
+		for (j = 0; j < tree_log_tex->GetHeight(); j++, k += 3)
+		{
+			tree_log_data[i][j][0] = bmp[k + 2];
+			tree_log_data[i][j][1] = bmp[k + 1];
+			tree_log_data[i][j][2] = bmp[k];
+		}
+
+	BindTexture(tree_log_tex, tree_log_data);
 
 	free(bmp);
 }
