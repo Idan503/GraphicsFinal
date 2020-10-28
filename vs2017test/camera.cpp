@@ -4,7 +4,7 @@
 #include <math.h>
 
 
-double eyex = ground_size/2, eyey =15, eyez = 0;
+// position is defined in globals.h
 
 double yaw = -PI * 0.5, pitch = -0.2, roll;
 double speed = 0, angularSpeed = 0;

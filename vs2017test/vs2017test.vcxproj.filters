@@ -13,6 +13,8 @@
     <ClCompile Include="entity_builder.cpp" />
     <ClCompile Include="tree.cpp" />
     <ClCompile Include="SmokeParticle.cpp" />
+    <ClCompile Include="rock.cpp" />
+    <ClCompile Include="sound_manager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glut.h">
@@ -49,6 +51,12 @@
       <Filter>headers</Filter>
     </ClInclude>
     <ClInclude Include="SmokeParticle.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="rock.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="sound_manager.h">
       <Filter>headers</Filter>
     </ClInclude>
   </ItemGroup>

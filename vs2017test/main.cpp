@@ -28,7 +28,6 @@ void Init()
 
 	glEnable(GL_NORMALIZE);
 
-
 }
 
 void Display()

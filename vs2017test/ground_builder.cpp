@@ -9,7 +9,6 @@
 double flat_height = 3.5;
 
 //Grounds materials min heights
-double snow_height = 4.5;
 double high_ground_height = 3.5;
 double ground_height = 1;
 double low_ground_height = 0.05;

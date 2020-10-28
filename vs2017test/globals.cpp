@@ -19,6 +19,10 @@ vector<double> train_head_position = {0,0,0};
 vector<double> train_window_position = { 0,0,0 };
 const vector<double> train_window_color = { 0.15, 0.15, 0.25, 0.7 };
 
+const double snow_height = 4.5;
+
+double eyex = ground_size / 2, eyey = 15, eyez = 0; // camera starting position
+
 vector<vector<double> > ground(ground_size,vector<double>(ground_size,0));
 vector<double> rail(ground_size);
 

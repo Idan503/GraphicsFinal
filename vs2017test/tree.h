@@ -3,12 +3,12 @@
 #define TREE
 
 
-void DrawLog();
-void DrawTree();
-void DrawBranches();
-void DrawRoots();
+void DrawLog(int type);
+void DrawTree(int type);
+void DrawBranches(int type);
+void DrawRoots(int type);
 void DrawSignleBranch(double y, int level = 3);
-void DrawLeaves();
+void DrawLeaves(int type);
 
 
 #endif 

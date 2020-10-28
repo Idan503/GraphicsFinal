@@ -20,7 +20,10 @@ void DrawSmoke();
 void DrawWindowFilter();
 void DrawSky();
 void EmitSingleSmoke(int emit_index);
+int GenerateTreeType(int i, int j);
 void InitSmokeEmitTimer(int i);
+bool IsCameraCloseToTrain();
+void CheckAndPlayTrainSound(int i);
 
 #endif
 

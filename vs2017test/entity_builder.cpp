@@ -9,6 +9,8 @@
 #include "TrainWagon.h"
 #include <math.h>
 #include "SmokeParticle.h"
+#include "sound_manager.h"
+
 
 const int WAGON_COUNT = 6; //excluding head
 const int SMOKE_PARTICLES_COUNT = 10;
@@ -19,6 +21,7 @@ TrainWagon* train[WAGON_COUNT+1];
 SmokeParticle* smoke[SMOKE_PARTICLES_COUNT];
 double smoke_random_strength = 4.5;
 int next_to_emit = 0;
+double TRAIN_SOUND_CAMERA_MAX_RANGE = 27.5; // The max range from train center that would trigger sound of train
 
 vector < vector < float >> tree_chance;
 
@@ -26,7 +29,6 @@ void InitTrain()  {
 	int i;
 	// define a car
 	// we still have to compute diry
-	
 	
 	for (i = 0; i < WAGON_COUNT+ 1; i++)
 	{
@@ -93,6 +95,13 @@ void InitSmokeEmitTimer(int i)
 	glutTimerFunc(final_time, InitSmokeEmitTimer, 0); //infinite smoke
 }
 
+bool IsCameraCloseToTrain()
+{
+	vector<double> train_center = train[WAGON_COUNT / 2]->GetPosition();
+
+	double distance = pow((pow(eyex - train_center[0], 2)) + (pow(eyey - train_center[1], 2)) + (pow(eyez - train_center[2], 2)), 0.5);
+	return distance < TRAIN_SOUND_CAMERA_MAX_RANGE;
+}
 
 
 void InitTrees()
@@ -140,10 +149,26 @@ void DrawTrain() {
 	
 }
 
+void CheckAndPlayTrainSound(int i)
+{
+	bool should_play = IsCameraCloseToTrain();
+	if (should_play) {
+		if (!train_sound_playing)
+			PlayTrainSound(0);
+	}
+	else {
+		StopSound(0);
+	}
+	
+}
+
 void MoveTrain() {
 	//Disable for testing
 	for (int i = 0; i < WAGON_COUNT + 1; i++)
 		train[i]->Move();
+
+
+	CheckAndPlayTrainSound(0);
 }
 
 
@@ -180,12 +205,25 @@ void DrawBridge()
 	DrawBridgeInnerPoles();
 }
 
+// creating type id base on terrain cordinates
+int GenerateTreeType(int i, int j)
+{
+	int type;
+	type = (int)(1.0 / tree_chance[i][j]) % 4;
+	if (ground[i][j] > snow_height && (type == 2 || type==1))
+		type = 3; // more non-leaves trees on snow, no large trees on snow
+	else
+		if (type == 3)
+			type = 2; // regular trees instead of non-leaves on regular terrain (no snow)
+	return type;
+}
+
 void DrawTrees()
 {
 	
 	double x, z;
-	for(z=-ground_size/2;z<ground_size/2;z++)
-		for (x = -ground_size / 2; x < ground_size / 2; x++)
+	for(z=-ground_size/2 + 1.0;z<ground_size/2 -1.0;z++)
+		for (x = -ground_size / 2 + 1.0; x < ground_size / 2 -1.0 ; x++)
 		{
 			int j = x + ground_size / 2;
 			int i = z + ground_size / 2;
@@ -198,7 +236,10 @@ void DrawTrees()
 				glPushMatrix();
 				glTranslated(x, ground[i][j] - 0.2, z);
 				glRotated((int)(360* (float)(tree_chance[i][j]) / tree_rate), 0, 1,0);
-				DrawTree();
+
+				int type = GenerateTreeType(i, j);
+
+				DrawTree(type);
 				glPopMatrix();
 			}
 

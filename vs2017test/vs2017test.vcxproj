@@ -128,7 +128,9 @@
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="ground_builder.cpp" />
     <ClCompile Include="entity_builder.cpp" />
+    <ClCompile Include="rock.cpp" />
     <ClCompile Include="SmokeParticle.cpp" />
+    <ClCompile Include="sound_manager.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="texture_manager.cpp" />
     <ClCompile Include="TrainWagon.cpp" />
@@ -142,7 +144,9 @@
     <ClInclude Include="material_manager.h" />
     <ClInclude Include="ground_builder.h" />
     <ClInclude Include="entity_builder.h" />
+    <ClInclude Include="rock.h" />
     <ClInclude Include="SmokeParticle.h" />
+    <ClInclude Include="sound_manager.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="texture_manager.h" />
     <ClInclude Include="TrainWagon.h" />

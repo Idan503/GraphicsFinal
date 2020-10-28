@@ -15,6 +15,10 @@ extern int selected_view;
 extern const int river_size;
 extern const double bridge_height;
 
+extern const double snow_height;
+
+extern double eyex, eyey, eyez; //camera position
+
 extern vector<vector<double>> ground;
 extern const int ground_size;
 
