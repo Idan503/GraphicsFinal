@@ -26,8 +26,8 @@ void SmokeParticle::Draw()
 	if (!active)
 		return;
 
-	double current_alpha = (double)(life_remaining*0.95) / life_total; //linear alpha change
-	color[3] = current_alpha;
+	double current_alpha = (double)life_remaining /life_total; //linear alpha change
+	color[3] = (double)fmax(0,current_alpha - 0.35);
 
 
 	double current_size = start_size + ((end_size - start_size) * (1.0 -(double)life_remaining/life_total));
@@ -79,7 +79,6 @@ void SmokeParticle::RandomizeAttrs(double strength)
 
 	this->direction[0] *= GetRandNum(strength);
 	this->direction[1] *= GetRandNum(strength);
-	//this->direction[2] *= GetRandNum(strength);
 }
 
 

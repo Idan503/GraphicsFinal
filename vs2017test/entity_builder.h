@@ -19,6 +19,8 @@ void MoveSmoke();
 void DrawSmoke();
 void DrawWindowFilter();
 void DrawSky();
+void EmitSingleSmoke(int emit_index);
+void InitSmokeEmitTimer(int i);
 
 #endif
 

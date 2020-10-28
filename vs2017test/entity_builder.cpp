@@ -17,6 +17,7 @@ const float tree_rate = 0.0045; // % rate of a tree in a ground cell
 TrainWagon* train[WAGON_COUNT+1];
 
 SmokeParticle* smoke[SMOKE_PARTICLES_COUNT];
+double smoke_random_strength = 4.5;
 int next_to_emit = 0;
 
 vector < vector < float >> tree_chance;
@@ -42,11 +43,22 @@ void InitTrain()  {
 
 void EmitSingleSmoke(int emit_index)
 {
+
 	vector<double> head_pos = train[0]->GetPosition();
-	vector<double> origin = { head_pos[0],head_pos[1] + 2, head_pos[2] + 0.7 };
+	vector<double> head_dir = train[0]->GetDirection();
+	vector<double> origin = { head_pos[0],head_pos[1] + 2 + 0.5*sin(head_dir[1]), head_pos[2] + 0.735 - 2* 0.735 *sin(head_dir[1])};
 	// Origin is the top of train head's chimney
-	smoke[emit_index]->RandomizeAttrs(4.5);
+	if(smoke_random_strength!=0){
+		// not all smoke particles are randomized
+		smoke[emit_index]->RandomizeAttrs(smoke_random_strength);
+	}
+	
 	smoke[emit_index]->Emit(origin);
+
+	if (emit_index == SMOKE_PARTICLES_COUNT - 1) {
+		smoke_random_strength = 0; // all have been randomized
+	}
+
 }
 
 void InitSmoke()
@@ -57,13 +69,28 @@ void InitSmoke()
 		smoke[i] = new SmokeParticle(vector<double>{0, 1, 0.55},0.03,0.005,0.2,0.45,225);
 	}
 
-	for (i = 0; i < 1000; i++) {
-		glutTimerFunc(i*750 + (rand()%2500), EmitSingleSmoke, next_to_emit);
+	InitSmokeEmitTimer(0);
+
+}
+
+void InitSmokeEmitTimer(int i)
+{
+	int final_time;
+	for (i = 0; i < 1500; i++) {
+
+		int delay = i * 500 + (rand() % 2000);
+		glutTimerFunc(delay, EmitSingleSmoke, next_to_emit);
+
+		if (i == 1499)
+			final_time = delay; // last iteration
 
 		next_to_emit++;
-		if (next_to_emit == SMOKE_PARTICLES_COUNT)
+		if (next_to_emit == SMOKE_PARTICLES_COUNT) {
 			next_to_emit = 0;
+		}
 	}
+
+	glutTimerFunc(final_time, InitSmokeEmitTimer, 0); //infinite smoke
 }
 
 
