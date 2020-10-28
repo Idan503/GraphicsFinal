@@ -13,9 +13,12 @@ void MoveTrain();
 void DrawBridgePoles(double);
 void DrawTrees();
 void InitTrain();
+void InitSmoke();
 void InitTrees();
+void MoveSmoke();
+void DrawSmoke();
 void DrawWindowFilter();
-
+void DrawSky();
 
 #endif
 

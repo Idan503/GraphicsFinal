@@ -20,6 +20,7 @@ void InitMetalDarkGreyTexture();
 void InitTrainHalfTubeTexture();
 void InitTrainPatchTubeFrontTexture();
 void InitTrainPatchTubeBackTexture();
+void InitSkyTexture();
 
 void ReadBitmap(const char* fname, bool alpha = false);
 void BindTexture(Texture* texture, GLvoid* pixels);

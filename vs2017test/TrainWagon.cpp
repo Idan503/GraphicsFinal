@@ -4,11 +4,8 @@
 #include "globals.h"
 #include <math.h>
 
-TrainWagon::TrainWagon(double r, double g, double b, vector<double> pos, vector<double> dir, double speed, bool head)
+TrainWagon::TrainWagon(vector<double> pos, vector<double> dir, double speed, bool head)
 {
-	red = r;
-	green = g;
-	blue = b;
 	this->position = pos;
 	this->direction = dir;
 	this->speed = speed;
@@ -73,7 +70,7 @@ void TrainWagon::DrawWheel() {
 	glPushMatrix();
 	glTranslated(-0.5, 0, 0);
 	glScaled(0.55, 0.35, 0.35);
-	glRotated(current_time * -330, -1, 0, 0);
+	glRotated(current_time * -630, -1, 0, 0);
 	glRotated(90, 0, 0, 1);
 	DrawTexSphere(12,12,31,1,1);
 	glPopMatrix();
@@ -81,14 +78,14 @@ void TrainWagon::DrawWheel() {
 
 	// red ring around
 	glPushMatrix();
-	glRotated(current_time * -330, -1, 0, 0);
+	glRotated(current_time * -630, -1, 0, 0);
 	glRotated(90, 0, 0, 1);
 	DrawTexCylinder(16, 35, 1);
 	glPopMatrix();
 
 	// inside tire 1
 	glPushMatrix();
-	glRotated(current_time * -330, -1, 0, 0);
+	glRotated(current_time * -630, -1, 0, 0);
 	glRotated(90, 0,0, 1);
 	DrawTexTire(16, 0.9, 0.35, 33, true, 2);
 	glPopMatrix();
@@ -96,14 +93,14 @@ void TrainWagon::DrawWheel() {
 	// inside tire 2
 	glPushMatrix();
 	glTranslated(-1, 0, 0);
-	glRotated(current_time * -330, -1, 0, 0);
+	glRotated(current_time * -630, -1, 0, 0);
 	glRotated(90, 0, 0, 1);
 	DrawTexTire(16, 0.9, 0.35, 33, true, 2);
 	glPopMatrix();
 
 	// outer ring
 	glPushMatrix();
-	glRotated(current_time * -330, -1, 0, 0);
+	glRotated(current_time * -630, -1, 0, 0);
 	glRotated(90, 0, 0, 1);
 	DrawTexCylinder(16,36,1);
 	glPopMatrix();
@@ -115,7 +112,7 @@ void TrainWagon::DrawWheel() {
 	glPushMatrix();
 	glTranslated(-0.5, 0, 0);
 	glScaled(0.1, 1, 1);
-	glRotated(current_time * -330, -1, 0, 0);
+	glRotated(current_time * -630, -1, 0, 0);
 	glRotated(90, 0, 0, 1);
 	DrawTexSphere(16, 16, 37, 1, 1);
 	glPopMatrix();
@@ -125,7 +122,7 @@ void TrainWagon::DrawWheel() {
 	glPushMatrix();
 	glTranslated(-0.1, 0, 0);
 	glScaled(0.1, 1, 1);
-	glRotated(current_time * -330, -1, 0, 0);
+	glRotated(current_time * -630, -1, 0, 0);
 	glRotated(90, 0, 0, 1);
 	DrawTexSphere(16, 16,37,1,1);
 	glPopMatrix();
@@ -135,12 +132,11 @@ void TrainWagon::DrawWheel() {
 	glPushMatrix();
 	glTranslated(-0.9, 0, 0);
 	glScaled(0.1, 1, 1);
-	glRotated(current_time * -330, -1, 0, 0);
+	glRotated(current_time * -630, -1, 0, 0);
 	glRotated(90, 0, 0, 1);
 	DrawTexSphere(16, 16, 37, 1, 1);
 	glPopMatrix();
 
-	
 
 }
 
@@ -561,7 +557,7 @@ void TrainWagon::DrawRegularBase()
 	glPushMatrix();
 	glTranslated(0, 0.2, 0);
 	glScaled(1, 0.1, 2.75);
-	DrawTexCube(35, 1);
+	DrawTexCube(34, 1);
 	glPopMatrix();
 
 	//tail holder x+
@@ -583,13 +579,13 @@ void TrainWagon::DrawRegularBase()
 	glTranslated(0.75, -0.25, -3);
 	glScaled(0.1, 0.1, 0.65);
 	glRotated(90, 1, 0, 0);
-	DrawTexCylinder(16, 30, 1);
+	DrawTexCylinder(8, 30, 1);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslated(0.75, -0.25, -2.9);
 	glScaled(0.15, 0.15, 0.15);
-	DrawTexSphere(12, 12, 30, 1, 1);
+	DrawTexSphere(8, 8, 30, 1, 1);
 	glPopMatrix();
 
 	// tail x-
@@ -597,13 +593,13 @@ void TrainWagon::DrawRegularBase()
 	glTranslated(-0.75, -0.25, -3);
 	glScaled(0.1, 0.1, 0.65);
 	glRotated(90, 1, 0, 0);
-	DrawTexCylinder(16, 30, 1);
+	DrawTexCylinder(8, 30, 1);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslated(-0.75, -0.25, -2.9);
 	glScaled(0.15, 0.15, 0.15);
-	DrawTexSphere(12, 12, 30, 1, 1);
+	DrawTexSphere(8, 8, 30, 1, 1);
 	glPopMatrix();
 
 
@@ -614,7 +610,7 @@ void TrainWagon::DrawRegularBase()
 	glTranslated(0.75, -0.2, 2.35);
 	glScaled(0.1, 0.1, 0.45);
 	glRotated(90, 1, 0, 0);
-	DrawTexCylinder(16, 30, 1);
+	DrawTexCylinder(8, 30, 1);
 	glPopMatrix();
 
 	// front connector x-
@@ -622,7 +618,7 @@ void TrainWagon::DrawRegularBase()
 	glTranslated(-0.75, -0.2, 2.35);
 	glScaled(0.1, 0.1, 0.45);
 	glRotated(90, 1, 0, 0);
-	DrawTexCylinder(16, 30, 1);
+	DrawTexCylinder(8, 30, 1);
 	glPopMatrix();
 
 
@@ -678,7 +674,7 @@ void TrainWagon::DrawRegularBody() {
 	glTranslated(0, 2.35, 0);
 	glScaled(1, 0.15, 2.5);
 	glRotated(90, 1, 0, 0);
-	DrawTexCube(38, 1, true);
+	DrawTexCube(37, 1, true);
 	glPopMatrix();
 
 	//tank roof
@@ -772,11 +768,23 @@ void TrainWagon::DrawRegularBody() {
 	}
 	//sign
 	glPushMatrix();
+
 	glTranslated(0, 0.85, 0);
 	glScaled(1.075, 0.2, 1.375);
 	glRotated(90, 1, 0, 0);
-	DrawTexCube(37, 1);
+
+	DrawTexCube(34, 1);
 	glPopMatrix();
+
+	double z;
+	for (z = -1.25; z < 1.25; z += 0.03)
+	{
+		glPushMatrix();
+		glTranslated(0, 0.825+ sin(z*6)/8, z);
+		glScaled(1.08, 0.05, 0.025);
+		DrawTexCube(31,1);
+		glPopMatrix();
+	}
 
 }
 

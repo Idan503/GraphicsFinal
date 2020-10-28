@@ -6,7 +6,7 @@
 #include "ground_builder.h"
 
 
-double flat_height = 3;
+double flat_height = 3.5;
 
 //Grounds materials min heights
 double snow_height = 4.5;
@@ -285,6 +285,12 @@ bool ValidateGroundBuild()
 			if (ground[i][j] > 5.5 * (ground_size / 100))
 				too_high++;
 		}
+		if ((i<ground_size/2 - river_size - 1 || i > ground_size / 2 + river_size + 1)
+			&& ground[i][ground_size / 2] < 0) {
+			BuildGroundTerrain();
+			return false; // rail under water
+
+		}
 	}
 
 
@@ -308,16 +314,23 @@ void SmoothTerrain()
 	int i, j;
 
 	// compute smoothing signal
-	for (i = 1; i < ground_size - 1; i++)
-		for (j = 1; j < ground_size - 1; j++)
-			tmp[i][j] = (0.25 * ground[i - 1][j - 1] + ground[i - 1][j] + 0.25 * ground[i - 1][j + 1] +
-				ground[i][j - 1] + 4 * ground[i][j] + ground[i][j + 1] +
-				0.25 * ground[i + 1][j - 1] + ground[i + 1][j] + 0.25 * ground[i + 1][j + 1]) / 9.0;
+	for (i = 0; i < ground_size; i++)
+		for (j = 0; j < ground_size; j++) {
+			if (i == 0 || j == 0 || i == ground_size - 1 || j == ground_size - 1)
+			{
+				tmp[i][j] = 0;
+			}
+			else {
+				tmp[i][j] = (0.25 * ground[i - 1][j - 1] + ground[i - 1][j] + 0.25 * ground[i - 1][j + 1] +
+					ground[i][j - 1] + 4 * ground[i][j] + ground[i][j + 1] +
+					0.25 * ground[i + 1][j - 1] + ground[i + 1][j] + 0.25 * ground[i + 1][j + 1]) / 9.0;
+			}
+		}
 
 
 	// copy the new signal
-	for (i = 1; i < ground_size - 1; i++)
-		for (j = 1; j < ground_size - 1; j++)
+	for (i = 0; i < ground_size; i++)
+		for (j = 0; j < ground_size; j++)
 			ground[i][j] = tmp[i][j];
 
 }

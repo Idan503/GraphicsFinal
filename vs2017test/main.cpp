@@ -24,6 +24,7 @@ void Init()
 	InitAllTextures();
 	InitTrain();
 	InitTrees();
+	InitSmoke();
 
 	glEnable(GL_NORMALIZE);
 
@@ -37,14 +38,14 @@ void Display()
 	CameraDisplay();
 
 	InitLight();
+	DrawSky();
 	
 	DrawBridge();
 	DrawGround();
 
 	DrawTrain();
-
-	DrawTrain();
 	DrawTrees();
+	DrawSmoke();
 
 	if (selected_view == 3) // window view
 		DrawWindowFilter();
@@ -58,6 +59,7 @@ void Idle()
 	current_time += 0.01;
 	CameraIdle();
 	MoveTrain();
+	MoveSmoke();
 
 	glutPostRedisplay(); // posts message (with request to show the frame ) to main window
 }

@@ -12,6 +12,7 @@
     <ClCompile Include="bridge.cpp" />
     <ClCompile Include="entity_builder.cpp" />
     <ClCompile Include="tree.cpp" />
+    <ClCompile Include="SmokeParticle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glut.h">
@@ -45,6 +46,9 @@
       <Filter>headers</Filter>
     </ClInclude>
     <ClInclude Include="tree.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="SmokeParticle.h">
       <Filter>headers</Filter>
     </ClInclude>
   </ItemGroup>

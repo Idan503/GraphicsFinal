@@ -6,14 +6,13 @@ using namespace std;
 class TrainWagon
 {
 private:
-	double red, green, blue;
 	vector<double> position; // center in world coordinates
 	vector<double> direction;
 	double speed;
 	bool head; // is this the head of the train
 
 public:
-	TrainWagon(double r, double g, double b, vector<double> position, vector<double> dir, double speed, bool head);
+	TrainWagon(vector<double> position, vector<double> dir, double speed, bool head);
 	void Draw();
 	void Move();
 	void SetSpeed(double s);

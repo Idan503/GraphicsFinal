@@ -61,6 +61,9 @@ unsigned char tree_log_data[512][512][3];
 Texture* tree_leaves_tex = new Texture(51, 512, 512,true);
 unsigned char tree_leaves_data[512][512][4];
 
+//Ambient 60-69
+Texture* sky_tex = new Texture(60, 2048, 1024, false);
+unsigned char sky_data[2048][1024][3];
 
 unsigned char* bmp;
 
@@ -82,6 +85,7 @@ void InitAllTextures()
 	InitTrainHalfTubeTexture();
 	InitTrainPatchTubeFrontTexture();
 	InitTrainPatchTubeBackTexture();
+	InitSkyTexture();
 	//Texture properties
 }
 
@@ -433,7 +437,7 @@ void InitTreeLeavesTexture()
 
 void InitTreeLogTexture()
 {
-	ReadBitmap("wood.bmp", true);
+	ReadBitmap("wood.bmp");
 
 	int i, j, k;
 	for (i = 0, k = 0; i < tree_log_tex->GetWidth(); i++)
@@ -448,6 +452,26 @@ void InitTreeLogTexture()
 
 	free(bmp);
 }
+
+
+void InitSkyTexture()
+{
+	ReadBitmap("sky.bmp");
+
+	int i, j, k;
+	for (i = 0, k = 0; i < sky_tex->GetWidth(); i++)
+		for (j = 0; j < sky_tex->GetHeight(); j++, k += 3)
+		{
+			sky_data[i][j][0] = bmp[k + 2];
+			sky_data[i][j][1] = bmp[k + 1];
+			sky_data[i][j][2] = bmp[k];
+		}
+
+	BindTexture(sky_tex, sky_data);
+
+	free(bmp);
+}
+
 
 
 void BindTexture(Texture* texture, GLvoid* pixels)

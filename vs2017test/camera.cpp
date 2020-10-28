@@ -4,9 +4,9 @@
 #include <math.h>
 
 
-double eyex = -6, eyey = 26, eyez = 0;
+double eyex = ground_size/2, eyey =15, eyez = 0;
 
-double yaw = PI * 0.5, pitch = 25, roll;
+double yaw = -PI * 0.5, pitch = -0.2, roll;
 double speed = 0, angularSpeed = 0;
 double dir[3] = { sin(yaw),sin(pitch),cos(yaw) };
 
@@ -71,6 +71,52 @@ void CameraIdle() {
 		eyex += speed * dir[0];
 		eyey += speed * dir[1];
 		eyez += speed * dir[2];
+
+		ValidateCameraPosition();
+
+
+	}
+}
+
+//Prevent free camera to go out of scene
+void ValidateCameraPosition()
+{
+	if (eyex > ground_size/2)
+	{
+		eyex = ground_size/2;
+		speed = 0;
+	}
+
+	if (eyex < -ground_size/2)
+	{
+		eyex = -ground_size/2;
+		speed = 0;
+	}
+
+
+	if (eyey > ground_size / 2)
+	{
+		eyey = ground_size / 2;
+		speed = 0;
+	}
+
+	if (eyey < -10)
+	{
+		eyey = -10;
+		speed = 0;
+	}
+
+
+	if (eyez > ground_size / 2)
+	{
+		eyez = ground_size / 2;
+		speed = 0;
+	}
+
+	if (eyez < -ground_size / 2)
+	{
+		eyez = -ground_size / 2;
+		speed = 0;
 	}
 }
 
