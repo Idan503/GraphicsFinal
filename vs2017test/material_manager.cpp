@@ -14,7 +14,9 @@ float light_0_position[4] = { 0,30,0,1 }; // Last parameter is type (0=direction
 float light_1_ambient[4] = { 0.2,0.2,0.2,0 };
 float light_1_diffuse[4] = { 0.8,0.8,0.8,0 };
 float light_1_specular[4] = { 0.7,0.7,0.7,0 };
-float light_1_position[4] = { 1,1,1,0 }; // directional
+float light_1_position[4] = { 0,1,0,0 }; // directional
+
+
 
 //endregion
 
@@ -76,12 +78,23 @@ float high_ground_diffuse[4] = { 0.15f,0.35f,0.15f, 1.0f };
 float high_ground_specular[4] = { 0.15f,0.35f,0.15f, 1.0f };
 float high_ground_shine = 12.8f;
 
-
 // Snow
 float snow_ambient[4] = { 0.7125f, 0.6735f, 0.9225f, 1.0f };
 float snow_diffuse[4] = { 0.6038f, 0.67048f, 0.6828f, 1.0f };
 float snow_specular[4] = { 0.956777f, 0.937622f, 0.66014f, 1.0f };
 float snow_shine = 68.8f;
+
+// Bridge
+float bridge_ambient[4] = { 0.8125f, 0.7735f, 0.85225f, 1.0f };
+float bridge_diffuse[4] = { 0.6538f, 0.66048f, 0.8828f, 1.0f };
+float bridge_specular[4] = { 0.956777f, 0.937622f, 0.76014f, 1.0f };
+float bridge_shine = 120.8f;
+
+// Bridge accent
+float bridge_accent_ambient[4] = { 0.9125f, 0.8735f, 0.85225f, 1.0f };
+float bridge_accent_diffuse[4] = { 0.8538f, 0.86048f, 0.8828f, 1.0f };
+float bridge_accent_specular[4] = { 0.956777f, 0.937622f, 0.76014f, 1.0f };
+float bridge_accent_shine = 220.8f;
 
 //endregion
 
@@ -135,6 +148,26 @@ void SetLowGroundMaterial()
 	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, low_ground_specular);
 	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, low_ground_shine);
 }
+
+
+
+void SetBridgeMaterial()
+{
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, bridge_ambient);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, bridge_diffuse);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, bridge_specular);
+	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, bridge_shine);
+}
+
+void SetBridgeAccentMaterial()
+{
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, bridge_accent_ambient);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, bridge_accent_diffuse);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, bridge_accent_specular);
+	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, bridge_accent_shine);
+}
+
+
 
 void SetGrassandMaterial()
 {

@@ -12,6 +12,9 @@
 Texture* terrain_tex = new Texture(0, 256, 256);
 unsigned char terrain_data[256][256][3]; // 3 stands for rgb
 
+Texture* rock_tex = new Texture(1, 512, 512);
+unsigned char rock_data[512][512][3];
+
 //Rail 10-19
 Texture* rail_tex = new Texture(10, 256, 256, true);
 unsigned char rail_data[256][256][4]; // 4 stands for rgba
@@ -19,6 +22,12 @@ unsigned char rail_data[256][256][4]; // 4 stands for rgba
 //Bridge 20-29
 Texture* bridge_road_tex = new Texture(20, 1024, 512);
 unsigned char bridge_road_data[1024][512][3];
+
+Texture* metal_white_tex = new Texture(21, 512, 512);
+unsigned char metal_white_data[512][512][3];
+
+Texture* metal_white_dark_tex = new Texture(22, 512, 512);
+unsigned char metal_white_dark_data[512][512][3];
 
 //Train 30-49
 Texture* train_tube_tex = new Texture(30, 1024, 512);
@@ -35,6 +44,7 @@ unsigned char metal_accent_data[512][256][3];
 
 Texture* metal_grey_tex = new Texture(34, 512, 512);
 unsigned char metal_grey_data[512][512][3];
+
 
 Texture* metal_dark_grey_tex = new Texture(37, 512, 512);
 unsigned char metal_dark_grey_data[512][512][3];
@@ -86,6 +96,9 @@ void InitAllTextures()
 	InitTrainPatchTubeFrontTexture();
 	InitTrainPatchTubeBackTexture();
 	InitSkyTexture();
+	InitMetalWhiteTexture();
+	InitMetalWhiteDarkTexture();
+	InitRockTexture();
 	//Texture properties
 }
 
@@ -154,6 +167,26 @@ void InitRailTexture()
 	
 	BindTexture(rail_tex, rail_data);
 	
+}
+
+
+void InitRockTexture()
+{
+	ReadBitmap("rock.bmp",false);
+
+	int i, j, k;
+	for (i = 0, k = 0; i < rock_tex->GetWidth(); i++)
+		for (j = 0; j < rock_tex->GetHeight(); j++, k += 3)
+		{
+			rock_data[i][j][0] = bmp[k + 2];
+			rock_data[i][j][1] = bmp[k + 1];
+			rock_data[i][j][2] = bmp[k]; //in the file(bmp): bgrbgrbgr...
+		}
+
+	BindTexture(rock_tex, rock_data);
+
+	free(bmp);
+
 }
 
 
@@ -397,6 +430,43 @@ void InitMetalGreyTexture()
 
 	free(bmp);
 }
+
+
+
+void InitMetalWhiteTexture()
+{
+	ReadBitmap("metal_white.bmp");
+
+	int i, j, k;
+	for (i = 0, k = 0; i < metal_white_tex->GetWidth(); i++)
+		for (j = 0; j < metal_white_tex->GetHeight(); j++, k += 3)
+		{
+			metal_white_data[i][j][0] = bmp[k + 2];
+			metal_white_data[i][j][1] = bmp[k + 1];
+			metal_white_data[i][j][2] = bmp[k]; //in the file(bmp): bgrbgrbgr...
+		}
+
+	BindTexture(metal_white_tex, metal_white_data);
+
+	free(bmp);
+}
+
+void InitMetalWhiteDarkTexture()
+{
+	ReadBitmap("metal_white_dark.bmp");
+
+	int i, j, k;
+	for (i = 0, k = 0; i < metal_white_dark_tex->GetWidth(); i++)
+		for (j = 0; j < metal_white_dark_tex->GetHeight(); j++, k += 3)
+		{
+			metal_white_dark_data[i][j][0] = bmp[k + 2];
+			metal_white_dark_data[i][j][1] = bmp[k + 1];
+			metal_white_dark_data[i][j][2] = bmp[k]; //in the file(bmp): bgrbgrbgr...
+		}
+
+	BindTexture(metal_white_dark_tex, metal_white_dark_data);
+}
+
 
 void InitMetalDarkGreyTexture()
 {

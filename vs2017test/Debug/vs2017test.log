@@ -1,6 +1,5 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(467,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (vs2017test.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  entity_builder.cpp
-D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\entity_builder.cpp(17,31): warning C4305: 'initializing': truncation from 'double' to 'float'
-D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\entity_builder.cpp(228,10): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\entity_builder.cpp(229,10): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+  bridge.cpp
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\bridge.cpp(235,6): warning C4101: 'counter': unreferenced local variable
+D:\Documents\Projects\VisualStudio2019\GraphicsFinal\vs2017test\bridge.cpp(234,9): warning C4101: 'beta': unreferenced local variable
   vs2017test.vcxproj -> D:\Documents\Projects\VisualStudio2019\GraphicsFinal\Debug\FinalGraphics211546288.exe

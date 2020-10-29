@@ -8,8 +8,8 @@
 #include "ground_builder.h"
 #include "entity_builder.h"
 
-const int W = 600;
-const int H = 600;
+const int W = 900;
+const int H = 900;
 
 
 void Init()
@@ -25,7 +25,7 @@ void Init()
 	InitTrain();
 	InitTrees();
 	InitSmoke();
-
+	
 	glEnable(GL_NORMALIZE);
 
 }
@@ -42,8 +42,9 @@ void Display()
 	DrawBridge();
 	DrawGround();
 
-	DrawTrain();
+	DrawRocks();
 	DrawTrees();
+	DrawTrain();
 	DrawSmoke();
 
 	if (selected_view == 3) // window view
@@ -78,7 +79,7 @@ void main(int argc, char* argv[])
 	// defines BUFFERS: Color buffer (frame buffer) and Depth buffer
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH); 
 	glutInitWindowSize(W, H);
-	glutInitWindowPosition(2050, 100);
+	glutInitWindowPosition(350, 150);
 	glutCreateWindow("Final Graphics Project ID 211546288");
 
 	glutDisplayFunc(Display); // refresh window function

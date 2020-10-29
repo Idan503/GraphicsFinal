@@ -1,4 +1,5 @@
 #include "globals.h"
+#include <stdio.h>
 #include "glut.h"
 
 
@@ -113,8 +114,10 @@ void DrawTexTire(int sides, double outer, double inner, int texture_id, bool rep
 	glBindTexture(GL_TEXTURE_2D, texture_id); // wall with window texture
 	if (replace)
 		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-	else
+	else {
+		glEnable(GL_LIGHTING);
 		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	}
 
 	double alpha, teta = 2 * PI / sides;
 	double x, z;
@@ -135,6 +138,9 @@ void DrawTexTire(int sides, double outer, double inner, int texture_id, bool rep
 		glTexCoord2d(0, 1); glVertex3d(x, 0, z); // 4
 		glEnd();
 	}
+
+	if(!replace)
+		glDisable(GL_LIGHTING);
 }
 
 void DrawTexCube(int texture_id, int num_rep, bool replace) {
@@ -142,8 +148,10 @@ void DrawTexCube(int texture_id, int num_rep, bool replace) {
 	glBindTexture(GL_TEXTURE_2D, texture_id); // wall with window texture
 	if (replace)
 		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-	else
+	else {
+		glEnable(GL_LIGHTING);
 		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	}
 
 
 	// top side
@@ -195,6 +203,9 @@ void DrawTexCube(int texture_id, int num_rep, bool replace) {
 	glEnd();
 
 	glDisable(GL_TEXTURE_2D);
+
+	if(!replace)
+		glDisable(GL_LIGHTING);
 }
 
 void DrawColorCylinder(vector<double> color, int sides)
@@ -258,6 +269,7 @@ void DrawColor4dCylinder(vector<double> color, int sides, double tr, double br)
 // overloading - radius as 1
 void DrawTexCylinder(int sides, int texture_id, int num_rep, bool replace)
 {
+
 	DrawTexCylinder(sides, texture_id, num_rep, 1, 1, replace);
 
 }
@@ -270,12 +282,15 @@ void DrawTexCylinder(int sides, int texture_id, int num_rep, double tr, double b
 	double part = num_rep / (double)sides;
 	int counter;
 
+
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, texture_id); // wall with window texture
 	if(replace)
 		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-	else
+	else {
 		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+		glEnable(GL_LIGHTING);
+	}
 
 
 	for (alpha = 0, counter = 0; alpha <= 2 * PI; alpha += teta, counter++)
@@ -290,6 +305,9 @@ void DrawTexCylinder(int sides, int texture_id, int num_rep, double tr, double b
 	}
 
 	glDisable(GL_TEXTURE_2D);
+
+	if (!replace)
+		glDisable(GL_LIGHTING);
 
 }
 
@@ -352,9 +370,10 @@ void DrawTexCylinder2(int n, int tnum, int num_repeat, double tr, double br, dou
 	glBindTexture(GL_TEXTURE_2D, tnum); // wall with window texture
 	if(replace)
 		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-	else
+	else {
 		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-
+		glEnable(GL_LIGHTING);
+	}
 
 	for (alpha = 0, counter = 0; alpha <= 2 * PI; alpha += teta, counter++)
 	{
@@ -369,4 +388,8 @@ void DrawTexCylinder2(int n, int tnum, int num_repeat, double tr, double br, dou
 	}
 
 	glDisable(GL_TEXTURE_2D);
+	
+	if(!replace)
+		glDisable(GL_LIGHTING);
+
 }

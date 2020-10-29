@@ -194,6 +194,92 @@ void DrawSky()
 	glPopMatrix();
 }
 
+void DrawSingleRock()
+{
+
+
+	glPushMatrix();
+	glTranslated(0, -0.2, 0);
+	glScaled(1.25, 0.5, 0.7);
+	DrawTexSphere(16, 16, 1, 1, 1);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslated(0, -0.15, 0);
+	glScaled(1.35, 0.6, 0.85);
+	DrawTexSphere(16, 16, 1, 1, 1);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslated(-0.7, -0.71, 1);
+	glScaled(1.4, 0.7, 0.6);
+	DrawTexSphere(16, 16, 1, 1, 1);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslated(0.4, -0.95, -1.4);
+	glScaled(1, 0.25, 0.33);
+	DrawTexSphere(16, 16, 1, 1, 1);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslated(1.2, -0.5, -0.9);
+	glScaled(0.2, 0.3, 0.33);
+	DrawTexSphere(16, 16, 1, 1, 1);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslated(-2.2, -1.25, 0.2);
+	glScaled(0.55, 0.3, 0.4);
+	DrawTexSphere(16, 16, 1, 1, 1);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslated(-1.2, -0.81, 1.2);
+	glScaled(0.3, 0.005, 0.305);
+	DrawTexSphere(8, 8, 1, 1, 1);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslated(1.3, -0.91, 0.8);
+	glScaled(0.3, 0.015, 0.4);
+	DrawTexSphere(8, 12, 1, 1, 1);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslated(0.7, -0.41, +1.1);
+	glScaled(0.2, 0.5, 0.65);
+	DrawTexSphere(8, 12, 1, 1, 1);
+	glPopMatrix();
+}
+
+void DrawRocks()
+{
+
+	double x, z;
+	for (z = -ground_size / 2 + 1.0; z < ground_size / 2 - 1.0; z++)
+		for (x = -ground_size / 2 + 1.0; x < ground_size / 2 - 1.0; x++)
+		{
+			int j = x + ground_size / 2;
+			int i = z + ground_size / 2;
+
+
+			bool draw_here = tree_chance[i][j] > tree_rate && tree_chance[i][j] < tree_rate * 1.25;
+			//less rocks then trees, not in the same place
+
+			if (ground[i][j] > 0 && draw_here && fabs(x) > 3 && fabs(z) > river_size + 3.0) {
+				// we should draw a rock here, it is not under the sea and not close to rail/river
+				glPushMatrix();
+				glTranslated(x, ground[i][j], z);
+				glRotated((int)(360 * (float)(tree_chance[i][j]) / tree_rate), 0, 1, 0);
+
+				DrawSingleRock();
+				glPopMatrix();
+			}
+
+		}
+}
+
 void DrawBridge()
 {
 	DrawBridgeRoad();
@@ -245,20 +331,6 @@ void DrawTrees()
 
 		}
 
-
-
-
-	//Testing
-	/*
-	glPushMatrix();
-
-	glTranslated(0, 25, 0);
-	glRotated(current_time * 140, 0, 1, 0);
-
-	DrawTree();
-
-	glPopMatrix();
-	*/
 }
 
 

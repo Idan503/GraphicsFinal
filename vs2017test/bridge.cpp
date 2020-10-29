@@ -15,6 +15,8 @@ double bridge_curve_length;
 
 void DrawBridgeArch()
 {
+
+	SetBridgeMaterial();
 	//curves z-
 	glPushMatrix();
 	glTranslated(bridge_width, bridge_final_height, -river_size + 1.5);
@@ -41,40 +43,97 @@ void DrawBridgeArch()
 	DrawBridgeCurve();
 	glPopMatrix();
 
+	SetBridgeAccentMaterial();
 	// main pole x-
 	glPushMatrix();
 	glTranslated(-bridge_width, 0, 0);
 	glScaled(0.3, bridge_final_height + 0.25 + CalcBridgeCurveHeight(bridge_curve_length) * 0.3, 0.5);
-	DrawTexCube(34,1);
+	DrawTexCube(21,6,false);
 	glPopMatrix();
+
+	glPushMatrix();
+	glTranslated(-bridge_width, bridge_final_height + CalcBridgeCurveHeight(bridge_curve_length) * 0.3 - 0.4, 0);
+	glScaled(0.4, 0.5, 0.4);
+	DrawTexSphere(16, 16, 22, 1, 1, true);
+	glPopMatrix();
+
+
+	//pole lines x-
+	glPushMatrix();
+	glTranslated(-bridge_width, -2, 0.25);
+	glScaled(-0.35, bridge_final_height + 0.25 + CalcBridgeCurveHeight(bridge_curve_length) * 0.3, 0.02);
+	DrawTexCube(22, 8, true);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslated(-bridge_width, -2, -0.25);
+	glScaled(-0.35, bridge_final_height + 0.25 + CalcBridgeCurveHeight(bridge_curve_length) * 0.3, 0.02);
+	DrawTexCube(22, 8, true);
+	glPopMatrix();
+
+
+	glPushMatrix();
+	glTranslated(-bridge_width, -1.75, 0);
+	glScaled(-0.35, bridge_final_height + 0.25 + CalcBridgeCurveHeight(bridge_curve_length) * 0.3, 0.05);
+	DrawTexCube(22, 8, true);
+	glPopMatrix();
+
 
 	// main pole x+
 	glPushMatrix();
 	glTranslated(bridge_width, 0, 0);
 	glScaled(0.3, bridge_final_height + 0.25 + CalcBridgeCurveHeight(bridge_curve_length) * 0.3, 0.5);
-	DrawTexCube(34,1);
+	DrawTexCube(21,6,false);
 	glPopMatrix();
 
+	glPushMatrix();
+	glTranslated(bridge_width, bridge_final_height + CalcBridgeCurveHeight(bridge_curve_length) * 0.3 - 0.4, 0);
+	glScaled(0.4, 0.5, 0.4);
+	DrawTexSphere(16, 16, 22, 1, 1,true);
+	glPopMatrix();
+
+
+	//pole lines x+
+	glPushMatrix();
+	glTranslated(bridge_width, -2, 0.25);
+	glScaled(0.35, bridge_final_height + 0.25 + CalcBridgeCurveHeight(bridge_curve_length) * 0.3, 0.02);
+	DrawTexCube(22, 8, true);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslated(bridge_width, -2, -0.25);
+	glScaled(0.35, bridge_final_height + 0.25 + CalcBridgeCurveHeight(bridge_curve_length) * 0.3, 0.02);
+	DrawTexCube(22, 8, true);
+	glPopMatrix();
+
+
+	glPushMatrix();
+	glTranslated(bridge_width, -1.75, 0);
+	glScaled(0.35, bridge_final_height + 0.25 + CalcBridgeCurveHeight(bridge_curve_length) * 0.3, 0.05);
+	DrawTexCube(22,8,true);
+	glPopMatrix();
+
+	SetBridgeMaterial();
 	// road handle x+
 	glPushMatrix();
 	glTranslated(bridge_width, bridge_final_height, -river_size);
 	glScaled(0.3, 0.3, river_size * 2.0);
 	glRotated(90, 1, 0, 0);
-	DrawTexCylinder(6, 34, 1);
+	DrawTexCylinder(6, 21,5, true);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslated(-bridge_width, bridge_final_height, -river_size);
 	glScaled(0.3, 0.3, 0.3);
 	glRotated(90, 1, 0, 0);
-	DrawTexSphere(16, 16, 34, 1, 1);
+	DrawTexSphere(16, 16, 21, 1,1, true);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslated(-bridge_width, bridge_final_height, river_size);
 	glScaled(0.3, 0.3, 0.3);
 	glRotated(90, 1, 0, 0);
-	DrawTexSphere(16, 16, 34, 1, 1);
+	DrawTexSphere(16, 16, 21, 1, 1, true);
 	glPopMatrix();
 
 	// road handle x-
@@ -82,24 +141,22 @@ void DrawBridgeArch()
 	glTranslated(-bridge_width, bridge_final_height, -river_size);
 	glScaled(0.3, 0.3, river_size * 2.0);
 	glRotated(90, 1, 0, 0);
-	DrawTexCylinder(6, 34, 1);
+	DrawTexCylinder(6, 21, 5,true);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslated(bridge_width, bridge_final_height, -river_size);
 	glScaled(0.3, 0.3, 0.3);
 	glRotated(90, 1, 0, 0);
-	DrawTexSphere(16, 16, 34, 1, 1);
+	DrawTexSphere(16, 16, 21, 1, 1, true);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslated(bridge_width, bridge_final_height, river_size);
 	glScaled(0.3, 0.3, 0.3);
 	glRotated(90, 1, 0, 0);
-	DrawTexSphere(16, 16, 34, 1, 1);
+	DrawTexSphere(16, 16, 21, 1, 1, true);
 	glPopMatrix();
-
-
 
 
 }
@@ -160,7 +217,7 @@ void DrawBridgeSinglePole()
 	glPushMatrix();
 	glTranslated(0, -bridge_final_height + ground[ground_size / 2][ground_size / 2], 0);
 	glScaled(0.15, bridge_final_height - ground[ground_size / 2][ground_size / 2], 0.15);
-	DrawTexCylinder(12, 34, 1);
+	DrawTexCylinder(12, 21, 1);
 
 	glPopMatrix();
 
@@ -185,7 +242,7 @@ void DrawBridgeCurve()
 		glTranslated(0, y, z);
 		glRotated(z * 3.5, 0, 1, 0);
 		glScaled(0.75, 0.75, 0.75);
-		DrawTexSphere(6, 6, 34, 1, 1);
+		DrawTexSphere(6, 6, 21, 1, 1,true);
 		glPopMatrix();
 	}
 }
@@ -209,19 +266,19 @@ void DrawBridgeInnerPoles()
 			glPushMatrix();
 			glTranslated(x_mult * bridge_width, bridge_final_height, z_mult * river_size * 0.55);
 			glScaled(inner_pole_size, 1.25, inner_pole_size);
-			DrawTexCylinder(16, 34, 1);
+			DrawTexCylinder(16, 21, 1);
 			glPopMatrix();
 
 			glPushMatrix();
 			glTranslated(x_mult * bridge_width, bridge_final_height, z_mult * river_size * 0.35);
 			glScaled(inner_pole_size, 2.5, inner_pole_size);
-			DrawTexCylinder(16, 34, 1);
+			DrawTexCylinder(16, 21, 1);
 			glPopMatrix();
 
 			glPushMatrix();
 			glTranslated(x_mult * bridge_width, bridge_final_height, z_mult * river_size * 0.2);
 			glScaled(inner_pole_size, 3.85, inner_pole_size);
-			DrawTexCylinder(16, 34, 1);
+			DrawTexCylinder(16, 21, 1);
 			glPopMatrix();
 		}
 	}

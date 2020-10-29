@@ -13,6 +13,8 @@ void SetSnowMaterial();
 void SetSandMaterial();
 void SetRubyMaterial();
 void SetLowGroundMaterial();
+void SetBridgeMaterial();
+void SetBridgeAccentMaterial();
 
 #endif
 

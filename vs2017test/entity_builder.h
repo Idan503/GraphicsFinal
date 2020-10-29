@@ -24,6 +24,7 @@ int GenerateTreeType(int i, int j);
 void InitSmokeEmitTimer(int i);
 bool IsCameraCloseToTrain();
 void CheckAndPlayTrainSound(int i);
+void DrawRocks();
 
 #endif
 
