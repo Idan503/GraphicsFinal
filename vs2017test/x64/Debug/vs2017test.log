@@ -1,9 +1,28 @@
-﻿  texture_manager.cpp
-D:\Documents\Visual Studio\GraphicsFinal\vs2017test\texture_manager.cpp(94,42): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
-D:\Documents\Visual Studio\GraphicsFinal\vs2017test\texture_manager.cpp(95,42): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
-D:\Documents\Visual Studio\GraphicsFinal\vs2017test\texture_manager.cpp(96,42): warning C4244: '=': conversion from 'double' to 'unsigned char', possible loss of data
-  TrainWagon.cpp
+﻿  bridge.cpp
+D:\Documents\Visual Studio\GraphicsFinal\vs2017test\bridge.cpp(235,6): warning C4101: 'counter': unreferenced local variable
+D:\Documents\Visual Studio\GraphicsFinal\vs2017test\bridge.cpp(234,9): warning C4101: 'beta': unreferenced local variable
+  rock.cpp
+  SmokeParticle.cpp
+  sound_manager.cpp
+  tree.cpp
   Generating Code...
+entity_builder.obj : error LNK2005: "double __cdecl CalcBridgeCurveHeight(double)" (?CalcBridgeCurveHeight@@YANN@Z) already defined in bridge.obj
+entity_builder.obj : error LNK2005: "void __cdecl DrawBridgeArch(void)" (?DrawBridgeArch@@YAXXZ) already defined in bridge.obj
+entity_builder.obj : error LNK2005: "void __cdecl DrawBridgeCurve(void)" (?DrawBridgeCurve@@YAXXZ) already defined in bridge.obj
+entity_builder.obj : error LNK2005: "void __cdecl DrawBridgePoles(double)" (?DrawBridgePoles@@YAXN@Z) already defined in bridge.obj
+entity_builder.obj : error LNK2005: "void __cdecl DrawBridgeRoad(void)" (?DrawBridgeRoad@@YAXXZ) already defined in bridge.obj
+entity_builder.obj : error LNK2005: "void __cdecl DrawBridgeSinglePole(void)" (?DrawBridgeSinglePole@@YAXXZ) already defined in bridge.obj
+entity_builder.obj : error LNK2005: "double max_ground_height" (?max_ground_height@@3NA) already defined in bridge.obj
+entity_builder.obj : error LNK2005: "double bridge_width" (?bridge_width@@3NA) already defined in bridge.obj
+entity_builder.obj : error LNK2005: "double bridge_final_height" (?bridge_final_height@@3NA) already defined in bridge.obj
+entity_builder.obj : error LNK2005: "double bridge_curve_length" (?bridge_curve_length@@3NA) already defined in bridge.obj
+entity_builder.obj : error LNK2005: "int train_z" (?train_z@@3HA) already defined in bridge.obj
+entity_builder.obj : error LNK2005: "int train_x" (?train_x@@3HA) already defined in bridge.obj
+bridge.obj : error LNK2019: unresolved external symbol "void __cdecl SetBridgeMaterial(void)" (?SetBridgeMaterial@@YAXXZ) referenced in function "void __cdecl DrawBridgeArch(void)" (?DrawBridgeArch@@YAXXZ)
+bridge.obj : error LNK2019: unresolved external symbol "void __cdecl SetBridgeAccentMaterial(void)" (?SetBridgeAccentMaterial@@YAXXZ) referenced in function "void __cdecl DrawBridgeArch(void)" (?DrawBridgeArch@@YAXXZ)
+bridge.obj : error LNK2019: unresolved external symbol "void __cdecl DrawTexCube(int,int,bool)" (?DrawTexCube@@YAXHH_N@Z) referenced in function "void __cdecl DrawBridgeArch(void)" (?DrawBridgeArch@@YAXXZ)
+    Hint on symbols that are defined and could potentially match:
+      "void __cdecl DrawTexCube(int,bool)" (?DrawTexCube@@YAXH_N@Z)
 main.obj : error LNK2019: unresolved external symbol __imp_glutInitWindowPosition referenced in function main
 main.obj : error LNK2019: unresolved external symbol __imp_glutInitWindowSize referenced in function main
 main.obj : error LNK2019: unresolved external symbol __imp_glutInitDisplayMode referenced in function main
@@ -15,5 +34,7 @@ main.obj : error LNK2019: unresolved external symbol __imp_glutSpecialFunc refer
 main.obj : error LNK2019: unresolved external symbol __imp_glutDisplayFunc referenced in function main
 main.obj : error LNK2019: unresolved external symbol __imp___glutInitWithExit referenced in function glutInit_ATEXIT_HACK
 main.obj : error LNK2019: unresolved external symbol __imp___glutCreateWindowWithExit referenced in function glutCreateWindow_ATEXIT_HACK
+SmokeParticle.obj : error LNK2019: unresolved external symbol "void __cdecl DrawColor4dSphere(class std::vector<double,class std::allocator<double> >,int,int)" (?DrawColor4dSphere@@YAXV?$vector@NV?$allocator@N@std@@@std@@HH@Z) referenced in function "public: void __cdecl SmokeParticle::Draw(void)" (?Draw@SmokeParticle@@QEAAXXZ)
+sound_manager.obj : error LNK2019: unresolved external symbol __imp_glutTimerFunc referenced in function "void __cdecl PlayTrainSound(int)" (?PlayTrainSound@@YAXH@Z)
 freeglut.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
-D:\Documents\Visual Studio\GraphicsFinal\x64\Debug\FinalGraphics211546288.exe : fatal error LNK1120: 11 unresolved externals
+D:\Documents\Visual Studio\GraphicsFinal\x64\Debug\FinalGraphics211546288.exe : fatal error LNK1120: 16 unresolved externals

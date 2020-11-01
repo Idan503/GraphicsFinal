@@ -8,8 +8,8 @@
 #include "ground_builder.h"
 #include "entity_builder.h"
 
-const int W = 900;
-const int H = 900;
+const int W = 600;
+const int H = 600;
 
 
 void Init()
@@ -50,6 +50,7 @@ void Display()
 	if (selected_view == 3) // window view
 		DrawWindowFilter();
 
+
 	glutSwapBuffers(); // show all
 }
 
@@ -79,7 +80,7 @@ void main(int argc, char* argv[])
 	// defines BUFFERS: Color buffer (frame buffer) and Depth buffer
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH); 
 	glutInitWindowSize(W, H);
-	glutInitWindowPosition(350, 150);
+	glutInitWindowPosition(250, 50);
 	glutCreateWindow("Final Graphics Project ID 211546288");
 
 	glutDisplayFunc(Display); // refresh window function
