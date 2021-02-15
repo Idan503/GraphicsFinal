@@ -12,5 +12,5 @@ The curvature of the bridge is based on a combination of math trigonometric func
 
 ### Screenshot
 <p float="left" align="middle" padding="10">
-  <img src="/Screenshot.png?raw=true" width="425" />
+  <img src="/Screenshot.png?raw=true" width="625" />
 </p>
